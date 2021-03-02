@@ -1,0 +1,38 @@
+\providecommand \autonum@processReference [2]{}
+\begingroup \small 
+\contentsline {section}{\numberline {1}Introduction}{7}{section.1}%
+\contentsline {section}{\numberline {2}Preliminary concepts}{9}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Convex sets}{9}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Projectors onto convex sets}{14}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Separation theorems}{16}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Convex functions}{19}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}Nonexpansive operators}{24}{subsection.2.5}%
+\contentsline {subsection}{\numberline {2.6}Fixed-point non-expansive algorithm convergence}{27}{subsection.2.6}%
+\contentsline {subsection}{\numberline {2.7}Fejér monotonicity}{30}{subsection.2.7}%
+\contentsline {subsection}{\numberline {2.8}Non-differentiability of convex functions: directional derivatives, subgradients and subdifferential}{32}{subsection.2.8}%
+\contentsline {subsection}{\numberline {2.9}Best approximation mappings}{39}{subsection.2.9}%
+\contentsline {subsection}{\numberline {2.10}Linear convergence}{47}{subsection.2.10}%
+\contentsline {subsection}{\numberline {2.11}Circumcenters}{47}{subsection.2.11}%
+\contentsline {section}{\numberline {3}Review of projection methods for the convex feasibility problem}{49}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Pierra's product space reformulation}{49}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Method of Alternating Projections - MAP}{50}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Douglas-Rachford Method - DRM}{53}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Circumcentered Reflection Method - CRM}{56}{subsection.3.4}%
+\contentsline {subsubsection}{\numberline {3.4.1}CRM for the best approximation problem in affine subspaces}{56}{subsubsection.3.4.1}%
+\contentsline {subsubsection}{\numberline {3.4.2}Block-wise CRM for the affine best approximation problem}{58}{subsubsection.3.4.2}%
+\contentsline {subsubsection}{\numberline {3.4.3}CRM for the convex feasibility problem}{60}{subsubsection.3.4.3}%
+\contentsline {section}{\numberline {4}Approximate projections}{63}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Outer-approximate projections}{63}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Alternative definitions of approximate projections}{64}{subsection.4.2}%
+\contentsline {section}{\numberline {5}Circumcentered Approximate Projection Method - CARM}{67}{section.5}%
+\contentsline {subsection}{\numberline {5.1}CARM for general convex intersection}{71}{subsection.5.1}%
+\contentsline {section}{\numberline {6}Approximate Method of Alternating Projections - AMAP}{73}{section.6}%
+\contentsline {section}{\numberline {7}Comparing CARM and AMAP}{76}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Myopic comparison}{76}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}CARM and AMAP under error bound}{78}{subsection.7.2}%
+\contentsline {section}{\numberline {8}Numerical experiments}{84}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Computing outer-approximate projections}{84}{subsection.8.1}%
+\contentsline {subsubsection}{\numberline {8.1.1}Toy example with explicit calculations}{85}{subsubsection.8.1.1}%
+\contentsline {subsection}{\numberline {8.2}CARM for the CFP given by the norm of the epigraph of a quadratic function and an affine subspace}{87}{subsection.8.2}%
+\contentsline {section}{\numberline {9}Final remarks}{88}{section.9}%
+\contentsline {section}{\numberline {10}References}{89}{section.10}%

@@ -1,0 +1,79 @@
+\documentclass{standalone} % or another class
+% \usepackage{xcolor} % before tikz or tkz-euclide if necessary
+\usepackage{tkz-euclide,tkz-fct} %
+\usepackage{mathtools}
+
+
+
+\begin{document}
+\begin{tikzpicture}[scale=1.3]
+\tkzInit[xmin=-1,xmax=9.2,ymax=5,ymin=-4.5] \tkzClip%[space=.7]
+% \tkzAxeXY
+% \tkzGrid
+\tkzDefPoint(0,0){O}
+\tkzDefPoint(5,0){B}
+\tkzDefPoint(-1,4){C}
+\tkzDefPoint(-1,-2){D}
+\tkzDrawCircle[fill=gray!20](C,D)
+\tkzInterLC(O,B)(C,D) \tkzGetPoints{s}{s2}
+
+\tkzDefPoint(8,0){z}
+\tkzDefPoint(4.482869291721543, 1.5631692036793141){PKz}
+% \tkzDefPoint(7,0){z}
+% \tkzDefPoint(4.366563145999495,1.3167184270002523){PKz}
+% \tkzDefPoint(6,0){z}
+% \tkzDefPoint(4.209458852746756, 1.023166369858997){PKz}
+\tkzDefPointWith[orthogonal](PKz,z) \tkzGetPoint{Hz}
+\tkzInterLL(s,z)(PKz,Hz) \tkzGetPoint{Cz}
+
+\tkzDefPointBy[reflection=over PKz--Hz](z) \tkzGetPoint{RKz}
+\tkzDefPointBy[reflection=over s--z](RKz) \tkzGetPoint{RURKz}
+\tkzDefPointBy[projection=onto s--z](PKz) \tkzGetPoint{PUPKz}
+\tkzDefMidPoint(z,RURKz) \tkzGetPoint{zDRM}
+\tkzDefPointBy[projection=onto z--RURKz](Cz) \tkzGetPoint{Med1}
+\tkzInterLL(s,z)(RKz,RURKz) \tkzGetPoint{Med2}
+
+
+% \tkzDrawTriangle[pythagore](B,A) \tkzGetPoint{C}
+% \tkzDefLine[bisector](B,C,A) \tkzGetPoint{c}
+% \tkzInterLL(C,c)(A,B) \tkzGetPoint{D}
+% \tkzDrawCircle(D,A)
+% \tkzDefPointBy[projection=onto B--C](D) \tkzGetPoint{G}
+% \tkzInterLC(C,D)(D,A) \tkzGetPoints{E}{F}
+% \tkzDrawPoints(A,C,F) \tkzLabelPoints(A,C,F)
+\tkzMarkRightAngle[fill=gray!20,size=.15](z,PKz,Cz)
+\tkzMarkRightAngle[fill=gray!20,size=.15](PKz,PUPKz,z)
+\tkzMarkRightAngle[fill=gray!20,size=.15](Cz,zDRM,z)
+\tkzMarkRightAngle[fill=gray!20,size=.15](s,Med2,RURKz)
+
+
+\tkzDrawLine[add=.30 and 1](O,B)
+\tkzDrawLine[add=.30 and 0, line width = 2.5](O,s)
+
+% \tkzDrawLine[add=.25 and 1, blue, thick](O,B)
+
+\tkzDrawLine[add=2 and .25,blue, densely dashed](PKz,Hz)
+\tkzDrawLine[add=4 and 4, blue, densely dashed](Cz,Med1)
+\tkzDrawSegments[loosely dashed](PKz,z PKz,RKz RKz,RURKz z,RURKz PKz,PUPKz)
+\tkzDrawPoints[size=3](s,z,PKz,RKz,RURKz,PUPKz,zDRM)
+\tkzDrawPoint[color=red](Cz)
+\tkzLabelPoints[below right](z)
+\tkzLabelPoints[above left](s)
+\tkzLabelPoint[above right](PKz){$P_K(z)$}
+\tkzLabelPoint[above left](RKz){$R_K(z)$}
+\tkzLabelPoint[below right,color=red](Cz){$C(z)$}
+\tkzLabelPoint[below right](PUPKz){$P_UP_K(z)=z_{\text{MAP}}$}
+\tkzLabelPoint[below left](RURKz){$R_UR_K(z)$}
+\tkzLabelPoint[below right](zDRM){$z_{\text{DRM}}$}
+\tkzDrawCircle[loosely dashed](Cz,z)
+\tkzText[above,color=blue](5.5,4.2){$H_z$}
+\tkzText[above](8.6,0){$U$}
+\tkzText[above](4,3){$K$}
+\tkzText[above ](2,0){$K\cap U$}
+
+
+\end{tikzpicture}
+
+
+
+\end{document}

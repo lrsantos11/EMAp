@@ -1,0 +1,36 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}% 1
+\BOOKMARK [1][-]{section.2}{Preliminary concepts}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Convex sets}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Projectors onto convex sets}{section.2}% 4
+\BOOKMARK [2][-]{subsection.2.3}{Separation theorems}{section.2}% 5
+\BOOKMARK [2][-]{subsection.2.4}{Convex functions}{section.2}% 6
+\BOOKMARK [2][-]{subsection.2.5}{Nonexpansive operators}{section.2}% 7
+\BOOKMARK [2][-]{subsection.2.6}{Fixed-point non-expansive algorithm convergence}{section.2}% 8
+\BOOKMARK [2][-]{subsection.2.7}{Fej\351r monotonicity}{section.2}% 9
+\BOOKMARK [2][-]{subsection.2.8}{Non-differentiability of convex functions: directional derivatives, subgradients and subdifferential}{section.2}% 10
+\BOOKMARK [2][-]{subsection.2.9}{Best approximation mappings}{section.2}% 11
+\BOOKMARK [2][-]{subsection.2.10}{Linear convergence}{section.2}% 12
+\BOOKMARK [2][-]{subsection.2.11}{Circumcenters}{section.2}% 13
+\BOOKMARK [1][-]{section.3}{Review of projection methods for the convex feasibility problem}{}% 14
+\BOOKMARK [2][-]{subsection.3.1}{Pierra's product space reformulation}{section.3}% 15
+\BOOKMARK [2][-]{subsection.3.2}{Method of Alternating Projections - MAP}{section.3}% 16
+\BOOKMARK [2][-]{subsection.3.3}{Douglas-Rachford Method - DRM}{section.3}% 17
+\BOOKMARK [2][-]{subsection.3.4}{Circumcentered Reflection Method - CRM}{section.3}% 18
+\BOOKMARK [3][-]{subsubsection.3.4.1}{CRM for the best approximation problem in affine subspaces}{subsection.3.4}% 19
+\BOOKMARK [3][-]{subsubsection.3.4.2}{Block-wise CRM for the affine best approximation problem}{subsection.3.4}% 20
+\BOOKMARK [3][-]{subsubsection.3.4.3}{CRM for the convex feasibility problem}{subsection.3.4}% 21
+\BOOKMARK [1][-]{section.4}{Approximate projections}{}% 22
+\BOOKMARK [2][-]{subsection.4.1}{Outer-approximate projections}{section.4}% 23
+\BOOKMARK [2][-]{subsection.4.2}{Alternative definitions of approximate projections}{section.4}% 24
+\BOOKMARK [1][-]{section.5}{Circumcentered Approximate Projection Method - CARM}{}% 25
+\BOOKMARK [2][-]{subsection.5.1}{CARM for general convex intersection}{section.5}% 26
+\BOOKMARK [1][-]{section.6}{Approximate Method of Alternating Projections - AMAP}{}% 27
+\BOOKMARK [1][-]{section.7}{Comparing CARM and AMAP}{}% 28
+\BOOKMARK [2][-]{subsection.7.1}{Myopic comparison}{section.7}% 29
+\BOOKMARK [2][-]{subsection.7.2}{CARM and AMAP under error bound}{section.7}% 30
+\BOOKMARK [1][-]{section.8}{Numerical experiments}{}% 31
+\BOOKMARK [2][-]{subsection.8.1}{Computing outer-approximate projections}{section.8}% 32
+\BOOKMARK [3][-]{subsubsection.8.1.1}{Toy example with explicit calculations}{subsection.8.1}% 33
+\BOOKMARK [2][-]{subsection.8.2}{CARM for the CFP given by the norm of the epigraph of a quadratic function and an affine subspace}{section.8}% 34
+\BOOKMARK [1][-]{section.9}{Final remarks}{}% 35
+\BOOKMARK [1][-]{section.10}{References}{}% 36
