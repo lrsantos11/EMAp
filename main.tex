@@ -6,13 +6,10 @@
 %\documentclass[smallcondensed]{svjour3}     % onecolumn (ditto)
 \documentclass[smallextended,numbook,nospthms]{svjour3}
 %\documentclass[smallextended,envcountsect,envcountsame,numbook]{svjour3}
-
 \usepackage[12pt]{extsizes}
 \setcounter{tocdepth}{4}
 \setcounter{secnumdepth}{4}
 \smartqed 
-
-
 
 \makeatletter
 \def\cl@chapter{}
@@ -46,6 +43,9 @@
 
 \usepackage{tkz-euclide,tkz-fct}
 
+\usepackage{graphicx}
+\graphicspath{{./figures}}
+\usepackage{subfig}
 
 \oddsidemargin=0pt
 \evensidemargin=0pt
@@ -66,6 +66,8 @@
 \newtheorem{definition}[theorem]{Definition}
 \Crefname{fact}{Fact}{Facts}
 %\newtheorem*{pf}{Proof}
+
+\Crefname{figure}{Figure}{Figures}
 
 %\newcommand{\NN}{\ensuremath{\mathds N}}
 \def\RR{\mathds R}
@@ -2302,7 +2304,7 @@ The $\varepsilon$-projection has some interesting properties. Not only does the 
 	\]
 \end{proof}
 
-Finally, we discuss \emph{relaxed} projections, which are the averages of a point and its projection.
+Finally, we discuss \emph{relaxed projections}, which are the averages of a point and its projection.
 
 \begin{definition}[Relaxed projection]\label{def:relax proj}
 	Let $A$ be a nonempty closed subset of $\RR^n$, $x \in \RR^n$ and $\lambda \in (0,1)$. $\hat{P}_{A}(x; \lambda)$ is a $\lambda$-relaxed projection of $x$ on $A$ if 
@@ -2310,7 +2312,8 @@ Finally, we discuss \emph{relaxed} projections, which are the averages of a poin
 	\hat{P}_{A}(x; \lambda)=(1-\lambda)x+\lambda P_{A}(x).
 	$$
 \end{definition}
-In some works, the definition has $\lambda \in [0,1]$, in which case we would have that $\hat{P}_{A}(x;1)=P_{A}(x)$ and $\hat{P}_{A}(x;0)=x$.
+One could also present a similar definition with $\lambda \in [0,1]$, in which case we would have that $\hat{P}_{A}(x;1)=P_{A}(x)$ and $\hat{P}_{A}(x;0)=x$.
+The notion of relaxed projection can also be expanded to accept $\lambda \in (1,2)$, in which case the relaxed projections are averages of the projection and its associated reflection. In this extended definition, relaxed projections with $\lambda \in (0,1)$ are called \emph{underrelaxed projections}, while those associated with $\lambda \in (1,2)$ are called \emph{overrelaxed projections}. With this in mind, unless stated otherwise, by relaxed projections we mean underrelaxed projections (as defined in \cref{def:relax proj}).
 
 Unlike the outer-approximate and $\varepsilon$-projections, which can replace exact projections when they are unavailable, relaxed projections rely on the existence of exact projections to be determined, thus being unfit for this role. Their main utility comes when replacing exact projections in situations where convergence may be faster or larger regions of convergence can be obtained from not taking a full projection step, such as in the Method of Alternating Relaxed Projections (MARP) \cite{Bauschke:2013}, which employs a scheme similar to MAP's, though replacing the exact projections with relaxed ones.
 
@@ -2438,7 +2441,7 @@ We now derive the firm quasinonexpansiveness property (\cref{def:nonexp}(iv)) of
 	
 	Clearly, $K \subseteq \tilde{H}_{z}^{+}$, thus $K \cap U \subseteq \tilde{H}_{z}^{+} \cap U$. If $z \in \tilde{H}_{z}$, then $z \in K \cap U$ and, by  \cref{lem:CARM fix}, $\tilde{C}(z)=z$, from which the result easily follows.
 	
-	Let $z \notin \tilde{H}_{z}$. Since $\tilde{R}_{K}(z)=R_{\tilde{H}_{z}}(z)$,  $\tilde{C}(z)=\circum\left\{z, R_{\tilde{H}_{z}}(z), R_{U}R_{\tilde{H}_{z}}(z)\right\}$. From  \cref{lem:1 CRM hyp aff conv}, we have that $\tilde{C}(z)=P_{\tilde{H}_{z}\cap U}(z) \in U$. Note that $z \not\in \tilde{H}_{z}$ implies that $z \not\in K$. It also easily follows that $z \notin \tilde{H}_{z}^{+}$, which combined with the fact that $\tilde{H}_{z}$ is the boundary of $\tilde{H}_{z}^{+}$ yield that $P_{\tilde{H}_{z} \cap U}(z)=P_{\tilde{H}_{z}^{+} \cap U}(z)$.
+	Let $z \notin \tilde{H}_{z}$. Since $\tilde{R}_{K}(z)=R_{\tilde{H}_{z}}(z)$,  $\tilde{C}(z)=\circum\left\{z, R_{\tilde{H}_{z}}(z), R_{U}R_{\tilde{H}_{z}}(z)\right\}$. From  \cref{fact:CRM 1 step conv hp aff}, we have that $\tilde{C}(z)=P_{\tilde{H}_{z}\cap U}(z) \in U$. Note that $z \not\in \tilde{H}_{z}$ implies that $z \not\in K$. It also easily follows that $z \notin \tilde{H}_{z}^{+}$, which combined with the fact that $\tilde{H}_{z}$ is the boundary of $\tilde{H}_{z}^{+}$ yield that $P_{\tilde{H}_{z} \cap U}(z)=P_{\tilde{H}_{z}^{+} \cap U}(z)$.
 	
 	Considering that for any $s \in K \cap U, P_{\tilde{H}_{z}^{+} \cap U}(s)=s$, we have
 	\begin{align}
@@ -2457,7 +2460,7 @@ We now derive the firm quasinonexpansiveness property (\cref{def:nonexp}(iv)) of
 	Then, $\tilde{C}$ is firmly nonexpansive.
 \end{proof}
 
-We can now establish the central theorem of our paper, stating convergence of CARM. Although the proof follows some lines of \cite[Theorem 1]{Behling:2020}, one has to be careful when dealing with the fixed points of the outer-approximate reflection operator $\tilde{R}_{K}$. In this regard, \cref{lem:CARM fix} plays a special role.
+We can now establish the central theorem of this work, stating convergence of CARM. Although the proof follows some lines of \cite[Theorem 1]{Behling:2020}, one has to be careful when dealing with the fixed points of the outer-approximate reflection operator $\tilde{R}_{K}$. In this regard, \cref{lem:CARM fix} plays a special role.
 
 \begin{theorem}[Convergence of CARM]\label{thm:CARM conv}
 	Assume $K, U \subset R^{n}$ as in Lemma 2 and let $z \in U$ be given. Then, the CARM sequence $\left(\tilde{C}^{k}(z)\right)_{k \in \NN}$ is well-defined, contained in $U$ and converges to a point in $K \cap U$.
@@ -2648,9 +2651,11 @@ In this section, we compare CARM and AMAP for finding a point in the intersectio
 We look at CARM and AMAP acting on an arbitrary point $z$ in the affine set $U$. We prove that CARM brings you closer to $K \cap U$ than AMAP. This result generalizes \cite[Theorem 2]{Behling:2020} and is stated formally in the following.
 
 \begin{theorem}[CARM versus AMAP]\label{thm:CARM x AMAP} Assume $K, U \subset \RR^{n}$ as in  \cref{lem:CARM well-def char} and let $z \in U$ be given. Also recall the notation $z_{\mathrm{\AMAP}}\coloneqq P_{U}\tilde{P}_{K}(z)$ and $\tilde{C}(z)\coloneqq \circum \left\{z, \tilde{R}_{K}(z), R_{U} \tilde{R}_{K}(z)\right\}$.
-	Then, for any $s \in K \cap U$ we have\\
-	(i) $\|\tilde{C}(z)-s\| \leq\left\|z_{\AMAP}-s\right\|$\\
-	(ii) $\dist(\tilde{C}(z), K \cap U) \leq \dist\left(z_{\mathrm{\AMAP}}, K \cap U\right)$
+	Then, for any $s \in K \cap U$ we have
+	\begin{listi}
+		\item $\|\tilde{C}(z)-s\| \leq\left\|z_{\AMAP}-s\right\|$;
+		\item $\dist(\tilde{C}(z), K \cap U) \leq \dist\left(z_{\mathrm{\AMAP}}, K \cap U\right)$.
+	\end{listi}
 \end{theorem}
 \begin{proof}
 	Assume $z \in U$ and let $s \in K \cap U$ be arbitrary but fixed. If $z \in K$ the result follows trivially, because then $P_{U} \tilde{P}_{K}(z)=z$, $\frac{1}{2}\left(\Id+R_{U} \tilde{R}_{K}\right)(z)=z$ and $\tilde{C}(z)=z$ due to  \cref{lem:CARM fix}. So, let $z \in U \backslash K$. From  \cref{lem:CARM well-def char}, we have that $\tilde{C}(z)$ is the projection of $z$ onto the intersection of $U$ and the hyperplane with normal $z-\tilde{P}_{K}(z)$ passing through $\tilde{P}_{K}(z)$. Therefore, the triangles $\triangle{[z, \tilde{P}_{K}(z), \tilde{C}(z)]}$ and $\triangle{[z, P_{U}\tilde{P}_{K}(z), \tilde{P}_{K}(z)]}$ have right angles $\angle{[z, \tilde{P}_{K}(z), \tilde{C}(z)]}$ and $\angle{[z,P_{U}\tilde{P}_{K}(z), \tilde{P}_{K}(z)]}$ (the latter since $U$ is a subspace), respectively. Hence,
@@ -2725,7 +2730,7 @@ To begin our convergence analysis, a corollary of the following proposition will
 	using the definition of $P_{K \cap U}$ in the first and third inequalities and \cref{thm:CARM x AMAP}(i) in the second inequality. \cref{eq:dist CARM x KcapU} follows immediately from \cref{eq:dist KcapU AMAP CARM}, after rewriting the appropriate terms in terms of distance, in view of the definition of $\tilde{P}_{K \cap U}$.
 	\end{proof}
 With the corollary below, we can establish an upper bound for the asymptotic constants of Q-linear convergence for both CARM and AMAP.
-\begin{corollary}\label{prop:EB Q conv}
+\begin{corollary}[Upper bound for asymptotic constants of CARM and AMAP under EB]\label{prop:EB Q conv}
 	Let $\left(z^{k}\right)_{k \in \NN}$ and $\left(x^{k}\right)_{k \in \NN}$ be the sequences generated by AMAP and CARM starting at any $z^{0} \in U$ and any $x^{0} \in \RR^{n}$, respectively. If $K, U$ satisfy Assumption EB then the sequences $\left(\dist\left(z^{k}, K \cap U\right)\right)_{k \in \NN}$ and $\left(\dist\left(x^{k}, K \cap U\right)\right)_{k \in \NN}$ converge Q-linearly to $0$, and the asymptotic constants are bounded above by $\sqrt{1-\omega^{2}(1-\gamma)^{2}}$, with $\omega$ as in Assumption EB.
 \end{corollary}
 \begin{proof}
@@ -2746,7 +2751,7 @@ With the corollary below, we can establish an upper bound for the asymptotic con
 We remark that the result for AMAP still holds when $U$ is any closed and convex set, but for  CARM we need $U$ to be an affine subspace, as it might diverge otherwise.
 
 We'll now show that, under Assumption EB, CARM achieves a linear rate with an asymptotic constant better than the one given in \cref{prop:EB Q conv}.
-\begin{proposition}\label{prop:CARM linear rate}
+\begin{proposition}[Improved upper bound for asymptotic constant of CARM under EB]\label{prop:CARM linear rate}
 	Let $\left(x^{k}\right)_{k \in \NN}$ be the sequence generated by CARM starting at any $x^{0} \in \RR^{n}$. If $K, U$ satisfy Assumption EB then the sequence $\left(\dist\left(x^{k}, K \cap U\right)\right)_{k \in \NN}$ converges to 0 with the asymptotic constant bounded above by $\sqrt{\frac{1-\omega^{2}(1-\gamma)^2}{1+\omega^{2}(1-\gamma)^2}},$ where $\omega$ is as in Assumption EB.
 \end{proposition}
 \begin{proof}
@@ -2820,7 +2825,7 @@ We'll now show that, under Assumption EB, CARM achieves a linear rate with an as
 
 With this result in hand, we prove that the AMAP and CARM sequences converge R-linearly under Assumption EB and give bounds for their asymptotic constants.
 
-\begin{theorem}\label{thm:CARM EB conv}
+\begin{theorem}[Convergence of CARM and AMAP under error bound]\label{thm:CARM EB conv}
 	Consider a closed and convex set $K \subset \RR^{n}$ and an affine subspace $U \subset \RR^{m}$. Assume that $K, U$ satisfy Assumption EB. Let $\left(z^{k}\right)_{k \in \NN},\left(x^{k}\right)_{k \in \NN}$ be the sequences generated by $AMAP$ and $CARM$, respectively, starting from arbitrary points $z^{0} \in \RR^{n}, x^{0} \in U$. Then both sequences $\left(z^{k}\right)_{k \in \NN}$ and $\left(x^{k}\right)_{k \in \NN}$
 	converge R-linearly to points in $K \cap U$, and the asymptotic constants are bounded above by $\sqrt{1-\omega^{2}(1-\gamma)^{2}}$ for $AMAP$, and by $\sqrt{\frac{1-\omega^{2}(1-\gamma)^{2}}{1+\omega^{2}(1-\gamma)^{2}}}$ for $CARM$, with $\omega$ as in Assumption $EB$.
 \end{theorem}
@@ -2841,7 +2846,7 @@ In order to use CARM, first we need to establish how to compute outer-approximat
 
 The following proposition, based on \cite{Fukushima:1983},  provides a special outer-approximate projector by means of subgradients of $g$, i.e., of elements of the subdifferential $\partial g(x)$ of $g$ at $x$. This gives an explicit formula for computing an outer-approximate projection with low computational expense, provided that the computation of a subgradient of $g$ is not too expensive.
 
-\begin{proposition}\label{prop:approx proj formula}
+\begin{proposition}[Subgradient formula for outer-approximate projections]\label{prop:approx proj formula}
 	Suppose that $g: \RR^{n} \rightarrow \RR$ is a convex function and that there exists some $\hat{x} \in \RR^{n}$ with $g(\hat{x})<0$ (Slater condition). Let $v: \RR^{n} \rightarrow \RR^{n}$ denote a mapping with $v(x) \in \partial g(x)$ for any $x \in \RR^{n} .$ Moreover, let the mapping $\tilde{p}: \RR^{n} \rightarrow \RR^{n}$ be defined
 	pointwise, with $\tilde{p}(x)$ being the unique solution of the problem.
 	
@@ -2928,12 +2933,112 @@ After calculating $\mu$ (the largest positive root of the polynomial above), the
 
 Using this projection, we can calculate the CRM and MAP iterations. In the following experiment, we will see how CARM fares against CRM, AMAP and MAP in a more general version of this example.
 
-\subsection{CARM for the CFP given by the norm of the epigraph of a quadratic function and an affine subspace}
+\subsection{CARM for the CFP given by the epigraph of a quadratic function and an affine subspace}
+
+The problem under consideration for our numerical experiments is the CFP of finding a point in the intersection of the epigraph of a quadratic function and an affine subspace given by one of the axis on a $n$-dimensional real coordinate space.
+
+Formally, let $K_{\alpha}=\epi(f_{\alpha})$, where $f_{\alpha}:\RR^{n} \rightarrow \RR$ is given by $f_{\alpha}(x)=\scal{\alpha x}{x}, \alpha \in \RR_{+}$, and let $U_{A,b}: \{x \in \RR^n \mid Ax=b\}$, where $A \in \RR^{n+1}$ is the matrix $A=[\underbrace{0, \ldots, 0}_{n \text{ times}},1]$ and $b \in \RR_{+}$. Clearly, $K_{\alpha}$ is a closed convex set and $U_{A, b}$ is an affine subspace. Then the problem is question can be written as the CFP
+\[
+\text{Find } x^{*} \in S:=K_{\alpha} \cap U_{A,b}.
+\]
+
+We split our tests in two categories, which differ in one important aspect.
+
+For both categories, we randomly generate 100 instances of subspaces $U_{A, b}$, where $n$ is fixed as 200, and 100 instances of $K_{\alpha}$, in which $\alpha$ is sampled from an uniform distribution between $0$ and $10$. For the first category, we fix $b=0$, which implies the absence of an error bound. For the second category, $b$ is sampled from the absolute values of a Normal distribution with mean $0$ and standard deviation $5$. Graphically, this means that the affine subspace $U_{A,b}$ is the $n+1$ axis shifted upwards, which implies the existence an error bound as defined in \cref{eb}. In both cases, this is sufficient to assure that $S$ is nonempty. In view of \cref{thm:AMAP conv,thm:CARM conv,thm:CARM EB conv}, we are assured that CARM and AMAP will converge with or without an error bound.
+
+The following aspects are true for both EB and non-EB tests. Each instance is run for 10 initial random points, summing up to 1000 individual tests in both categories. Each initial point $z^{0} \in \RR^{n+1}$ sampled from the standard normal distribution is assured to have norm between 5 and 15 and is accepted as long as $z^{0} \notin S$. Then, $z^{0}$ is projected it onto $U_{A, b}$ to begin each method.
+
+Let $\left(z^{k}\right)$ be any of the four sequences that we monitor: $\left(z_{CARM}^{k}\right)$, $\left(z_{AMAP}^{k}\right)$, $\left(z_{CRM}^{k}\right)$ and $\left(z_{MAP}^{k}\right)$, that is, CARM, AMAP, CRM and MAP sequences, respectively. We chose the gap distance with tolerance $\varepsilon:=10^{-6}$ as our stopping criteria, given by
+\[
+\left\|P_{U_{A, b}}\left(z^{k}\right)-P_{K_{\alpha}}\left(z^{k}\right)\right\|<\varepsilon,
+\]
+which we consider a reasonable measure of infeasibility. Note this calculation does not add any extra cost, since the projections computed to measure the gap distance can be utilized on the next iteration.
+
+First, we will see in \cref{fig:perprof no EB 1} the performance profile of the four algorithms without an error bound.
+	
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.8]{fig1}
+	\caption{Experiments with epigraph of a quadratic function and an affine subspace, without error bound - CARM, AMAP, CRM and MAP}
+	\label{fig:perprof no EB 1}
+\end{figure}
+
+In the absence of an error bound, CARM perform exceptionally well, with a performance comparable to CRM's, which outperforms all the other algorithms. AMAP and MAP perform very similarly, with AMAP performing only slightly worse, both requiring at least twice the number of iterations required by CRM to in every problem and also being considerably outperformed by CARM.
+
+Removing CRM from the comparison, in \cref{fig:perprof no EB 2} we can clearly see that CARM was considerably better than MAP and AMAP in all problems.
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.8]{fig2}
+	\caption{Experiments with epigraph of a quadratic function and an affine subspace, without error bound - CARM, AMAP and MAP}
+	\label{fig:perprof no EB 2}
+\end{figure}
+
+To sum these results, we present descriptive statistics.
+\begin{table}[h!]
+\centering
+\begin{tabular}{ccccc}
+	\hline & mean & $\min$ & median & $\max$ \\
+	\cline { 2 - 5 } CARM & 19.093 & 18 & 19.0 & 20 \\
+	AMAP & 158.957 & 67 & 111.0 & 1171 \\
+	CRM & 13.932 & 13 & 14.0 & 18 \\
+	MAP & 157.083 & 64 & 109.0 & 1174 \\
+	\hline
+\end{tabular}
+	\caption{Statistics of the experiments without error bound (in number of iterations)}
+	\label{table:perprof no EB}
+\end{table}
+
+In \cref{fig:perprof EB 1} we will see how the presence of an error bound affects the performance of the algorithms.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.8]{fig1EB}
+	\caption{Experiments with epigraph of a quadratic function and an affine subspace, with error bound - CARM, AMAP, CRM and MAP}
+	\label{fig:perprof EB 1}
+\end{figure}
+
+In this error bound setting, CRM remains the best performing method, in particular, outperforming MAP. This results is consistent with \cite{Behling:2020}, as $K$ is the epigraph of a (proper) convex function and $f$ satisfies the assumptions A1, A2, A3 and A4 shown in Section 4 of that paper to assure that CRM converges linearly, while MAP converges sublinearly.
+
+While MAP outperforms CARM in both cases, this comparison requires a closer look. Once again, we exclude CRM to take a clearer look into how CARM compares to MAP and AMAP.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.8]{fig2EB}
+	\caption{Experiments with epigraph of a quadratic function and an affine subspace, with error bound - CARM, AMAP and MAP}
+	\label{fig:perprof EB 2}
+\end{figure}
+
+While generally MAP outperforms CARM, CARM converged in at least as few iterations as MAP in 93 out of 1000 problems. We now remove MAP from the comparison to better visualize how CARM fares when compared with AMAP.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.8]{fig3EB}
+	\caption{Experiments with epigraph of a quadratic function and an affine subspace, without error bound - CARM and AMAP}
+	\label{fig:perprof EB 3}
+\end{figure}
+
+The figure above makes it clear that CARM also outperforms AMAP handily with an error bound. We conclude this examination by presenting descriptive statistics for this error bound setting.
+
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{ccccc}
+		\hline & mean & $\min$ & median & $\max$ \\
+		\cline { 2 - 5 } CARM & 8.4 & 5 & 8.0 & 13 \\
+		AMAP & 9.492 & 7 & 9.0 & 36 \\
+		CRM & 4.15 & 4 & 4.0 & 7 \\
+		MAP & 6.265 & 4 & 5.0 & 32 \\
+		\hline
+	\end{tabular}
+	\caption{Statistics of the experiments with error bound (in number of iterations)}
+	\label{table:perprof EB}
+\end{table}
 
 \newpage
 \section{Final remarks}\label{sec:remarks}
 
-We have extended results concerning the circumcentered-reflection method (CRM) by employing outer-approximate projections within a method we called CARM. In our numerical experiments, we see that CARM performs competitively with CRM. In the future, we hope to provide more interesting numerical experiments, such as when exact projections are unavailable, and more specific applications. In particular, we hope that CARM would perform well when compared with Combettes' Extrapolated Method of Parallel Subgradient Projections (EMOPSP) \cite{Combettes:1996} in an image recovery application. Though it would also require more complex calculations and perhaps stronger hypotheses, we also believe that outer-approximate projections could be used for projection methods outside of a product space formulation, where the availability of exact projections onto the affine subspace helps very much with proving the convergence.
+We have extended results concerning the circumcentered-reflection method (CRM) by employing outer-approximate projections within a method we called CARM. In our numerical experiments, we see that CARM performs competitively with CRM. In the future, we hope to provide more interesting numerical experiments, such as when exact projections are unavailable, and more specific applications. In particular, we hope that CARM would perform well when compared with Combettes' Extrapolated Method of Parallel Subgradient Projections (EMOPSP) \cite{Combettes:1996} in an image recovery application.
+
+We would also like to investigate the use overrelaxations onto outer-approximate projections as means of accelerating CARM and AMAP. Preliminary exploratory tests have been favorable, in that sense. Though it would require more complex calculations and perhaps stronger hypotheses, we also believe that outer-approximate projections could be used for projection methods outside of a product space formulation, where the availability of exact projections onto the affine subspace helps very much with proving the convergence.
 
 \newpage
 \section{References}
