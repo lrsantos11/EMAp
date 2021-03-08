@@ -22,7 +22,7 @@
 \usepackage[capitalize,nameinlink]{cleveref}
 \usepackage{autonum}
 \usepackage{cite}
-%\usepackage{xcolor}
+% \usepackage{xcolor}
 \crefname{equation}{}{}
 %%--- LISTS ---%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \usepackage[shortlabels]{enumitem}
@@ -44,7 +44,7 @@
 \usepackage{tkz-euclide,tkz-fct}
 
 \usepackage{graphicx}
-\graphicspath{{./figures}}
+\graphicspath{{figures/}}
 \usepackage{subfig}
 
 \oddsidemargin=0pt
@@ -55,7 +55,7 @@
 
 \headsep=1cm
 \theoremstyle{plain}
-\newtheorem{theorem}{Theorem}[subsection]
+\newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{fact}[theorem]{Fact}
 \newtheorem{proposition}[theorem]{Proposition}
@@ -123,7 +123,7 @@
 \linenomathpatchAMS{alignat}
 \linenomathpatchAMS{flalign}
 
-% \linenumbers
+\linenumbers
 
 \title{Dissertação - Novo}
 \author{guilhermehm.araujo }
@@ -3000,12 +3000,12 @@ We have extended results concerning the circumcentered-reflection method (CRM) b
 We would also like to investigate the use overrelaxations onto outer-approximate projections as means of accelerating CARM and AMAP. Preliminary exploratory tests have been favorable, in that sense. Though it would require more complex calculations and perhaps stronger hypotheses, we also believe that outer-approximate projections could be used for projection methods outside of a product space formulation, where the availability of exact projections onto the affine subspace helps very much with proving the convergence.
 
 \newpage
-\section{References}
-\bibliographystyle{spmpsci}
+% \section{References}
+\bibliographystyle{siamplain}
 
 \bibliography{refs}
 
-\newpage
+% \newpage
 %\appendix
 %\section{Appendix}
 
