@@ -181,23 +181,11 @@
 {\normalsize \the\year}}
 \end{center}
 
-\thispagestyle{empty}
+%\thispagestyle{empty}
 
-\newpage
-\noindent{\textbf{\large Agradecimentos}}
-\vspace{1pt}
-
-agradecimentos...
-
-\thispagestyle{empty}
-
-\newpage
-\begin{center}
-\textbf{\normalsize Resumo}
-\end{center}
-\vspace{1pt}
-
-resumo...
+%\newpage
+%\noindent{\textbf{\large Acknowledgments}}
+%\vspace{1pt}
 
 \thispagestyle{empty}
 
@@ -208,8 +196,16 @@ resumo...
 \vspace{1pt}
 
 Recently, circumcenter schemes were  applied to solving general convex feasibility problems. In order to overcome costly computations of projections and reflections onto convex sets, we present a variant of the circumcentered-reflection method which employs outer-approximate projections, inspired by Fukushima.
-With a very practical appeal, this  notion relies on separating hyperplanes and is considered in our hybrid method for finding a point in the intersection of finitely many convex sets.  We derive convergence in general, linear convergence under an error bound condition, and present successful numerical experiments.  
+With a very practical appeal, this  notion relies on separating hyperplanes and is considered in our hybrid method for finding a point in the intersection of finitely many convex sets.  We derive convergence in general, linear convergence under an error bound condition, and present successful numerical experiments.
 
+\newpage
+\thispagestyle{empty}
+
+\listoffigures
+
+\listoftables
+
+\newpage
 
 \thispagestyle{empty}
 
@@ -239,21 +235,29 @@ This paper is organized as follows. In \cref{sec:prelim}, we recall concepts suc
 
 \newpage
 \section{Preliminary concepts}\label{sec:prelim}
-The aim of this section is to familiarize the reader with the concepts of convexity, projections, fixed-point operators and circumcenters, as well as ancillary theory. First, we fix notation and recollect some basic facts.      
+The aim of this section is to familiarize the reader with the concepts of convexity, projections, fixed-point operators and circumcenters, as well as ancillary theory.     
 
+This dissertation is intended to be self-contained, except for the use of some well-known results in calculus and analysis. By facts, we denote propositions, theorems, lemmas and corollaries that have been first presented and proven in previously published works; a small subset of their proofs, mostly of auxiliary technical results, will be omitted, in which case the original proof will be referred to.
+
+It follows that all statements denoted as propositions, theorems, lemmas and corollaries are new to this work. For ease of reading and understanding, however, definitions will be called as such regardless of their authorship, though context is sufficient for determining whether they are new to this work or not.
+
+While this work's definitions, facts and propositions will be presented with respect to $\RR^n$, a great deal can be generalized to a Hilbert space $\mathcal{H}$ with extended-reals-valued functions (see \cite{BC2011, Rockafellar:1996}, for reference). In this more general setting, it is often required that functions be lower continuous and proper. The function $f:\mathcal{X} \rightarrow [-\infty,+\infty]$, where $\mathcal{X}$ is nonempty, is lower continuous if, for every net $\left(x_{a}\right)_{a \in A}$ in $\mathcal{X}$, $x_{a} \rightarrow x \Rightarrow f(x) \leq \liminf \left(x_{a}\right)$; it is proper if there exists at least one $x \in \mathcal{X}$ such that  $f(x)<+\infty$ and $f(x)>-\infty$ for all $x \in \mathcal{X}$.  For more on this, see \cite[Sections 7 and 30]{Rockafellar:1996} and \cite[Chapter 1 and 9]{BC2011}, among others.
+
+First, we fix notation and recollect some basic facts. 
+\subsection{Notation}
 Throughout the paper, $\scal{\cdot}{\cdot}$ stands for the Euclidean inner product and its induced  norm $\norm{\cdot}\coloneqq\sqrt{\scal{\cdot}{\cdot}}$. The nonnegative integer numbers will be denoted by $\NN$, the nonnegative real numbers by $\RR_{+}$ and the positive real numbers by $\RR_{++}$. The distance between a point $x\in\RR^{n}$ and a set $X\subset \RR^{n}$ is given by $\dist(x,X)\coloneqq \inf_{y\in X} \norm{x-y}$. We denote the set of fixed points of the operator $T$ by $\Fix T$, where $\Fix T := \{x \mid T(x)=x\}$. By $\rightarrow$ we represent a single-valued relationship, while $\rightrightarrows$ represents a set-valued relationship. $(x^k)_{k \in \NN}$ denotes the sequence $\{x^0, x^1, \ldots\}$. By $B(x;r)$ we denote an open ball with center $x$ and radius $r$. By $\triangle{[A, B, C]}$ we denote a triangle with vertices $A$, $B$ and $C$, and by $\angle{[A, B, C]}$ we denote the angle formed by the sides $AB$ and $BC$. When we take a limit $x \rightarrow 0+$, we mean that $x$ approaches 0 from the positive side, while $x \rightarrow 0-$ means that $x$ approaches 0 from the negative side. By $f(t)=o(t)$ we denote a function $f:\RR_{+} \rightarrow \RR$ with the property that $f(t)/t \rightarrow 0$ when $t \rightarrow 0+$. By $\operatorname{cl} X$ we denote the closure of the set $X$ and by $\operatorname{bdry} X$ we denote the boundary of $X$.
 
-This dissertation is intended to be self-contained, except for the use of some well-known results in calculus and analysis. A few proofs, mostly of auxiliary technical results, will be omitted and replaced with a reference to the original proof. By facts, we denote propositions, theorems, lemmas and corollaries that have been presented and proven in previously published works; these may have been rewritten to fit the notation and setting of this work. Their proofs are presented here, reworked and adapted as required. It follows that all statements denoted as propositions, theorems, lemmas and corollaries are new to this work. For ease of reading and understanding, however, definitions will be called as such regardless of their authorship, though context is sufficient for determining whether they are new to this work or not.
-
-While this work's definitions, facts and propositions will be presented with respect to $\RR^n$, a great deal can be generalized to a Hilbert space $\mathcal{H}$ with extended-reals-valued functions (see \cite{BC2011}, for reference). In this more general setting, for many of the facts it is required that functions be lower continuous and proper. The function $f:\mathcal{X} \rightarrow [-\infty,+\infty]$, where $\mathcal{X}$ is nonempty, is lower continuous if, for every net $\left(x_{a}\right)_{a \in A}$ in $\mathcal{X}$, $x_{a} \rightarrow x \Rightarrow f(x) \leq \liminf \left(x_{a}\right)$; it is proper if there exists at least one $x \in \mathcal{X}$ such that  $f(x)<+\infty$ and $f(x)>-\infty$ for all $x \in \mathcal{X}$.  For more on this, see \cite[Sections 7 and 30]{Rockafellar:1996} and \cite[Chapter 1 and 9]{BC2011}, among others.
-
 \subsection{Convex sets}
-First, we remind the fundamental notion of convex sets.
+We begin by reminding the fundamental notion of convex sets.
 \begin{definition}[Convex sets]\label{def:convex}
 	A subset $K$ of $\RR^n$ is a \emph{convex set} if for all $\alpha \in [0,1]$, for all $x,y \in K$ we have that $\alpha x + (1-\alpha)y \in K$. In particular, $\RR^n$ and $\varnothing$ are convex.
 	\end{definition}
 
-Many properties about convex sets can be derived straight from its definition, such that the finite sum of convex sets is convex. While we will not state all properties of convex sets, we will state a few in particular which will be used in further proofs and arguments. The first one is that the intersection of convex sets is also a convex set.
+Many properties about convex sets can be derived straight from its definition, e.g. that the finite sum of convex sets is convex. While we will not state all properties of convex sets, we will state a few in particular which will be used in further proofs and arguments.
+
+Though these facts are very well-established and are likely to be found in any convex optimization textbook, notation, hypotheses and order of presentation (consequently, previously proven facts) may vary slightly depending on the source. For the sake of internal consistency, we will follow mostly along the lines of \cite{Izmailov:2014} for facts on convex sets and functions.
+
+The first fact we will present is that the intersection of convex sets is also a convex set.
 
 \begin{fact}[Intersection of convex sets is convex]\label{fact:cap convex}
 Let $K_i \subset \RR^n$, $i \in I$ (where $I$ is a possibly infinite set), be convex sets. Then the intersection $K=\cap_{i \in I}K_i$ is also a convex set.
@@ -275,8 +279,7 @@ One characterization of convex sets is that a set is convex if, and only if, it 
 	If $\alpha_{j+1}=1$, then $\alpha_{i}=0$ for all $i=1,\ldots,j$. In this case, $x=x^{j+1} \in K$.
 	Let $\alpha_{j+1} \in [0,1)$. Since $1-\alpha_{j+1}>0$, we can write
 	\begin{align}
-		x &= \sum_{i=1}^{j+1} \alpha_{i}x^{i} \\
-		  &= (1-\alpha_{j+1})\sum_{i=1}^{j} \frac{\alpha_{i}}{1-\alpha_{j+1}}x^{i} + \alpha_{j+1}x^{j+1} \\
+		x = \sum_{i=1}^{j+1} \alpha_{i}x^{i} &= (1-\alpha_{j+1})\sum_{i=1}^{j} \frac{\alpha_{i}}{1-\alpha_{j+1}}x^{i} + \alpha_{j+1}x^{j+1} \\
 		  &= (1-\alpha_{j+1})y + \alpha_{j+1}x^{j+1}, \label{eq:convex conv comb}
 	\end{align}
 	where
@@ -301,30 +304,33 @@ such that $x=\sum_{i=1}^{n+1} \alpha_{i} x^{i}, \sum_{i=1}^{n+1} \alpha_{i}=1$.
 	\[
 	x=\sum_{i=1}^{p} \beta_{i} x^{i}, x^{i} \in X, \beta_{i} \in \RR_{+}, i=1, \ldots, p, \sum_{i=1}^{p} \beta_{i}=1. \label{eq:caratheodory 1}
 	\]
-	We will show that if $p > n+1$, then $x$ can be written as a convex combination of $p-1$ points of $X$. This proves that we can eliminate a point each time until we get to $n+1$ points, as in the statement of the theorem.
-	If in \cref{eq:caratheodory 1} we have $\beta_{i}=0$ for some $i \in \{1,\ldots,p\}$, $x$ already is a convex combination of $p-1$ points of $X$ (we can eliminate from \cref{eq:caratheodory 1} the corresponding point $x^i$.) Suppose then that $\beta_{i}>0$ for all $i=1,\ldots,p$. Since $p>n+1$, we have that whichever $p-1>n$ elements of $\RR^n$ are linearly dependent. Thus, $\{x^i-x^p, i =1,\ldots,p-1\}$ are linearly dependent, that is, there exist $\gamma_{i} \in \RR, i=1,\ldots,p-1$ (not all equal to 0) such that
+	We will show that if $p > n+1$, then $x$ can be written as a convex combination of $p-1$ points of $X$.
+	
+	If in \cref{eq:caratheodory 1} we have $\beta_{i}=0$ for some $i \in \{1,\ldots,p\}$, $x$ already is a convex combination of $p-1$ points of $X$ (we can eliminate from \cref{eq:caratheodory 1} the corresponding point $x^i$.) Suppose then that $\beta_{i}>0$ for all $i=1,\ldots,p$. Since $p>n+1$, we have that whichever $p-1>n$ elements of $\RR^n$ are linearly dependent. Thus, $\{x^i-x^p, i =1,\ldots,p-1\}$ are linearly dependent, that is, there exist $\gamma_{i} \in \RR, i=1,\ldots,p-1$ (at least one not equal to 0) such that
 	\[
 	0=\sum_{i=1}^{p-1} \gamma_{i}\left(x^{i}-x^{p}\right) \label{eq:caratheodory 2}.
 	\]
-	We can admit that $\gamma_{j}>0$ for some $j \in\{1, \ldots, p-1\}$ (if $\gamma_{i} \leq 0$ for all $i=1, \ldots, p-1$, we can multiply \cref{eq:caratheodory 2} by $-1$ to change signs). We define $\gamma_{p}>=-\sum_{i=1}^{p-1} \gamma_{i}$. Following this definition,
+	We can assume that $\gamma_{j}>0$ for some $j \in\{1, \ldots, p-1\}$ (if $\gamma_{i} \leq 0$ for all $i=1, \ldots, p-1$, we can multiply \cref{eq:caratheodory 2} by $-1$ to change signs). We define $\gamma_{p}>=-\sum_{i=1}^{p-1} \gamma_{i}$, from which it follows that
 	\[
 	\sum_{i=1}^{p} \gamma_{i}=\sum_{i=1}^{p-1} \gamma_{i}+\gamma_{p}=0, \label{eq:caratheodory 3}
 	\]
-	and furthermore,
+	and, furthermore,
 	\begin{align}
 		\sum_{i=1}^{p} \gamma_{i} x^{i} &=\sum_{i=1}^{p-1} \gamma_{i} x^{i}+\gamma_{p} x^{p} \\
 		&=\sum_{i=1}^{p-1} \gamma_{i} x^{i}-\left(\sum_{i=1}^{p-1} \gamma_{i}\right) x^{p} \\
 		&=\sum_{i=1}^{p-1} \gamma_{i}\left(x^{i}-x^{p}\right)=0, \label{eq:caratheodory 4}
 	\end{align}
-	where the last inequality follows from \cref{eq:caratheodory 2}. Let $j \in\{1, \ldots, p\}$ be any index satisfying
+	where the last inequality follows from \cref{eq:caratheodory 2}.
+	
+	Let $j \in\{1, \ldots, p\}$ be any index satisfying
 	\[
 	\frac{\gamma_{j}}{\beta_{j}}=\max _{i=1, \ldots, p} \frac{\gamma_{i}}{\beta_{i}}.
 	\]
-	We observe that $\gamma_{j}>0$, since there exists $i \in\{1, \ldots, p\}$ such that $\gamma$ (remind that $\beta_{i}>0$ for all $i \in\{1, \ldots, p\})$. Define
+	We observe that $\gamma_{j}>0$, since there exists $i \in\{1, \ldots, p\}$ such that $\gamma_{i}>0$ ($\beta_{i}>0$ for all $i \in\{1, \ldots, p\})$. Define
 	\[
 	q_{i}:=\beta_{i}-\frac{\beta_{j}}{\gamma_{j}} \gamma_{i}, i=1, \ldots, p.
 	\]
-	By definition, $q_{j}=0$. For indices such that $\gamma_{i} \leq 0$, we have that $q_{i} \geq \beta_{i}>0$. For indices such that $\gamma_{i}>0$, by the definition of the index $j$, we have that
+	Note that this definition implies that $q_{j}=0$. For an index $i$ such that $\gamma_{i} \leq 0$, we have that $q_{i} \geq \beta_{i}>0$. For an index $i$ such that $\gamma_{i}>0$, by the definition of the index $j$, we have that
 	\[
 	\frac{\beta_{i}}{\gamma_{i}} \geq \frac{\beta_{j}}{\gamma_{j}}>0, i=1, \ldots, p,
 	\]
@@ -332,11 +338,14 @@ such that $x=\sum_{i=1}^{n+1} \alpha_{i} x^{i}, \sum_{i=1}^{n+1} \alpha_{i}=1$.
 	\[
 	\sum_{i=1, i \neq j}^{p} q_{i}=\sum_{i=1}^{p} q_{i}=\sum_{i=1}^{p} \beta_{i}-\frac{\beta_{j}}{\gamma_{j}} \sum_{i=1}^{p} \gamma_{i}=\sum_{i=1}^{p} \beta_{i}=1,
 	\]
-	where we used \cref{eq:caratheodory 3} and \cref{eq:caratheodory 1}. Furthermore,
+	where we used \cref{eq:caratheodory 3} and \cref{eq:caratheodory 1}.
+	We also have that
 	\[
 	x=\sum^{p} \beta_{i} x^{i}=\sum_{i=1}^{p} q_{i} x^{i}+\frac{\beta_{j}}{\gamma_{j}} \sum_{i=1}^{p} \gamma_{i} x^{i}=\sum_{i=1}^{p} q_{i} x^{i}=\sum_{i=1, i \neq j}^{p} q_{i} x^{i},
 	\]
-	in which we used \cref{eq:caratheodory 4}. We have shown that if $p> n+1$, $x$ can be represented as a convex combination of $p-1$ points of $X$. Repeating this argument $p-(n+1)$ times, we achieve the desired result.
+	in which we used \cref{eq:caratheodory 4}. 
+	
+	Repeating this argument $p-(n+1)$ times yields the desired result.
 \end{proof}
 
 Now, we introduce the concept of convex hull (or convex closure) of a set, which is the smallest convex set that contains that set. In the subsequent fact, we characterize the convex hull of a given set as the set of all convex combinations of that set's points.
@@ -415,7 +424,7 @@ We start this subsection by reminding the definition of projection and reflectio
 \end{definition}
 
 Generally speaking, $P_{X}$ is a set-valued operator.
-However, for convex sets, we have that $P_{X}$ is a nonempty, single-valued mapping that associates each point $x \in \RR^n$ with its unique nearest point in $X$, as shown by the following fact, known as the projection theorem.
+However, for convex sets, as if of our interest, we have that $P_{X}$ is a nonempty, single-valued mapping that associates each point $x \in \RR^n$ with its unique nearest point in $X$, as shown by the following fact, known as the projection theorem.
 
 \begin{fact}[Projection theorem]\label{fact:proj thm}
 	Let $K \subseteq \RR^{n}$ be nonempty, closed and convex. Then $K$ is a Chebyshev set (that is, every point $x \in K$ has an unique projection $p$) and
@@ -534,7 +543,7 @@ The hyperplane $H(a,c)=\{x \in \RR^n \mid \scal{a}{x}=c\}$, which separates $x \
 	\[
 	\scal{a^{k}}{x^{k}}=c^{k}, \scal{a^{k}}{y}>c^{k} \text{ for all } y \in K. \label{eq:sup hyperplane 1}
 	\]
-	We can admit (taking a subsequence, if necessary) that $\left (a^{k} /\left\|a^{k}\right\|\right) \rightarrow a \neq 0$ as $k \rightarrow \infty$. We get that
+	Taking a subsequence, if necessary, we can state that $\left (a^{k} /\left\|a^{k}\right\|\right) \rightarrow a \neq 0$ as $k \rightarrow \infty$. From this, it follows
 	\[
 	\lim _{k \rightarrow \infty} c_{k}/\left\|a^{k}\right\|=\lim _{k \rightarrow \infty}\scal{a^k}{x^k}/\left\|a^{k}\right\|=\langle a, x\rangle
 	\]
@@ -934,10 +943,10 @@ which implies that $P_{X}$ is firmly nonexpansive. The fact that $R_{X}$ is none
 \end{proof}
 Remind that nonexpansivity implies Lipschitz-continuity. Hence, projections and reflections are continuous.
 
-\subsection{Fixed-point non-expansive algorithm convergence}\label{subsec:fix conv}
+\subsection{Fixed-point nonexpansive algorithm convergence}\label{subsec:fix conv}
 With the following facts, we show how $\alpha$-averagedness is sufficient for assuring convergence of fixed-point algorithms in closed and convex subsets. These results are relevant not only for their direct application, but also to help put into perspective, later on, how much less straightforward it is to establish convergence in the absence of stronger notions of nonexpansivity.
 
-First, we present a fact that states the convergence of $\alpha$-averaged operators with a nonempty set of fixed points.
+First, we present a fact that  the convergence of $\alpha$-averaged operators with a nonempty set of fixed points.
 \begin{fact}[Convergence of $\alpha$-averaged iterations]\label{fact:conv avg iter} Let $K$ be a nonempty, closed and convex subset of $\RR^n$ and let $T: K \rightarrow K$ be an $\alpha$-averaged operator with $\Fix T \neq \emptyset$. Given any $x^{0} \in K$, set
 \[
 x^{k+1}=T\left(x^{k}\right), \quad \text { for } k=0,1,2 \dots.
@@ -1408,7 +1417,7 @@ Given the previously stated importance of working with the maximum of convex fun
 	\end{listi}
 \end{proof}
 \subsection{Best approximation mappings}\label{subsec:BAM}
-The concept of \emph{best approximation mappings} was first introduced by Behling, Santos and Cruz in \cite{Behling:2019dj}, and its inclusion in this work is to support the theory presented in \cref{subsubsec:block-wise CRM}, which was introduced in the same paper. While we will only refer to this paper for the following facts, we note that the concept has been further explored in \cite{Bauschke:2020}.
+The concept of \emph{best approximation mappings} was first introduced by Behling, Santos and Cruz in \cite{Behling:2019dj}, and its inclusion in this work is to support the theory presented in \cref{subsubsec:block-wise CRM}, which was introduced in the same paper. Thus, these facts are presented here, for the sake of self-containment, as they were in the original paper. While we will only refer to this paper for the following facts, we note that the concept has been further explored in \cite{Bauschke:2020}.
 
 We begin by presenting the definition of this Friedrichs angle. Other than its relevance to best approximation mappings, it was shown in \cite{BCNPW14} that the cosine of this angle is the rate of linear converge for the Douglas-Rachford method (DRM) \cref{subsec:DRM} and the lower bound for the linear convergence rate of the Circumcentered-Reflection method (CRM) \cref{subsec:CRM} in \cite{Behling:2018} in an affine setting.
 \begin{definition}[Friedrichs angle]\label{def:Friedrich}
@@ -1570,8 +1579,11 @@ The next fact is the most important of this subsection, as it states that the co
 	\begin{equation}
 		r_{V}^{2}+\left(1-r_{V}^{2}\right) \frac{1+c_{F}^{2}}{2}<r_{V}^{2}+\left(1-r_{V}^{2}\right)=1. \label{eq:BAM comp ii7}
 	\end{equation}
-	Since $G_{W}$ is a $W$-BAM, we have $P_{W}\left(G_{W}\left(G_{V}(z)\right)\right)=P_{W}\left(G_{V}(z)\right)$ and $\left\|G_{W}\left(G_{V}(z)\right)-P_{W}\left(G_{V}(z)\right)\right\| \leq r_{W} \| G_{V}(z)-$
-	$P_{W}\left(G_{V}(z)\right) \|,$ with $r_{W} \in[0,1)$. So, we can write $\left\|G(z)-P_{W}(G(z))\right\| \leq\left\|G_{V}(z)-P_{W}(G(z))\right\|$, which combined with \cref{eq:BAM comp i10,eq:BAM comp i12}
+	Since $G_{W}$ is a $W$-BAM, we have \[
+	P_{W}\left(G_{W}\left(G_{V}(z)\right)\right)=P_{W}\left(G_{V}(z)\right)\] and
+	\[ \left\|G_{W}\left(G_{V}(z)\right)-P_{W}\left(G_{V}(z)\right)\right\| \leq r_{W} \| G_{V}(z)-P_{W}\left(G_{V}(z)\right) \|, \quad r_{W} \in[0,1).
+	\]
+	So, we can write $\left\|G(z)-P_{W}(G(z))\right\| \leq\left\|G_{V}(z)-P_{W}(G(z))\right\|$, which combined with \cref{eq:BAM comp i10,eq:BAM comp i12}
 	gives us
 	\begin{equation}
 		\|G(z)-\hat{z}\| \leq\left\|G_{V}(z)-\hat{z}\right\| \label{eq:BAM comp ii8}.
@@ -1726,7 +1738,7 @@ We formally define the convex feasibility problem (CFP):
 \end{equation}
 where $\left\{X_{i}\right\}_{i=1}^{m}$ are closed convex sets.
 
-In this section, we will present three families of projection methods that are employed to solve this problem, two of them being older, well-known methods (MAP and DRM) and the third being a more novel method (CRM), the latter of which will be the focus of our subsequent work.
+In this section, we will present three families of projection methods that are employed to solve this problem: MAP, DRM and CRM. The first two of were first established in the mid 20th century, with the latter being a more novel method which will be the focus of our subsequent work.
 
 While the CFP is defined for $m$-sets, many of the most commonly used projection methods for solving this problem were developed for solving two-set problems. While some of them can be generalized and/or expanded for $m$ sets, this is not the case for some. However, using the following reformulation, a two-set algorithm can be used for solving an $m$-set problem.
 
@@ -1860,7 +1872,7 @@ Another $m$-set MAP variant, which employs the product-space formulation, is the
 	where $z^{k}=\left(x^{k}, x^{k}, \ldots, x^{k}\right) \in U$. \cref{fact:MCP conv} therefore asserts that $\left(z^{k}\right)_{k \in \NN}$ converges to some $z^{\star}=\left(x^{\star}, x^{\star}, \ldots, x^{\star}\right) \in K \cap U$ and the claimed result thus follows in view of \cref{eq:Pierra}.	
 \end{proof}
 
-Despite dating back to 1950, MAP remains a contemporary topic of research. In the past 20, many works such as \cite{Badea:2012cg,Bauschke:2003,Bauschke:2009, Bauschke:2013, Bauschke:2013jb, Bauschke:2016, Behling:2020a, Bui:2020, Cegielski:2008bd, Diaconis:2010,Drusvyatskiy:2015,Drusvyatskiy:2016ft,Drusvyatskiy:2018,Escalante:2011,HernandezRamos:2011gf,Hesse:2014,Hundal:2004,Kopecka:2004,Kopecka:2010,Kopecka:2011,Kopecka:2012,Kruger:2015wq,Lewis:2009,Tam:2012vp} (a far from exhaustive selection) have delved into more intricate aspects and variations of MAP; most notably, we refer to the work of Bauschke.
+Despite dating back to 1950, MAP remains a contemporary topic of research. In the past 20, many works such as \cite{Badea:2012cg,Bauschke:2003,Bauschke:2009, Bauschke:2013, Bauschke:2013jb, Bauschke:2016, Behling:2020a, Bui:2020, Cegielski:2008bd, Diaconis:2010,Drusvyatskiy:2015,Drusvyatskiy:2016ft,Drusvyatskiy:2018,Escalante:2011,HernandezRamos:2011gf,Hesse:2014,Hundal:2004,Kopecka:2004,Kopecka:2010,Kopecka:2011,Kopecka:2012,Kruger:2015wq,Lewis:2009,Tam:2012vp} (a far from exhaustive selection) have delved into more intricate aspects and variations of MAP.
 
 \subsection{Douglas-Rachford Method - DRM}\label{subsec:DRM}
 Introduced in 1956 by Douglas and Rachford \cite{Douglas:1956kk}, the \emph{Douglas-Rachford method} is another classic method which remains relevant to this day, much like MAP.
@@ -1956,7 +1968,7 @@ z^{k+1}:=C\left(z^{k}\right)=\text { circumcenter }\left\{z^{k}, R_{K}\left(z^{k
 \]
 where the circumcenter operator's properties are given by \cref{def:circum oper}.
 
-CRM was originally developed as tool for solving the \emph{best approximation problem}, consisting of projecting onto the intersection of affine subspaces, as will be seen next.
+CRM was originally developed as tool for solving the \emph{best approximation problem}, consisting of projecting onto the intersection of affine subspaces. It was from this following foundation that CRM was later shown to solve convex feasibility problems as well.
 
 \subsubsection{CRM for the best approximation problem in affine subspaces}
 Let $\mathcal{B}:=\left\{U_{i}\right\}_{i \in \mathrm{I}}$ be a family of finitely many affine subspaces in $\RR^{n}$ with $I:=\{1,2, \ldots, q\}$ and $q$ fixed. Assume that the intersection of the family, denoted by $U_{\mathcal{B}}:=\bigcap_{i \in \mathrm{I}} U_{i}$, is nonempty. The \emph{best approximation problem} we are interested in is given by
@@ -1974,7 +1986,7 @@ We begin by characterizing and defining CRM for the intersection of affine subsp
 	\end{align}
 	Then:
 	\begin{listi}
-		\item $A$ is linear and $\frac{1}{2}$ -averaged, i.e., firmly non-expansive;
+		\item $A$ is linear and $\frac{1}{2}$ -averaged, i.e., firmly nonexpansive;
 		\item $\Fix A:=\left\{x \in \RR^{n} \mid A(x)=x\right\}=U_{\mathcal{B}}$;
 		\item for all $x \in \RR^{n}, A(x) \in U_{z}$;
 		\item there exists $r_{A} \in[0,1)$ such that for all $x \in \RR^{n}$ it holds that $\left\|A(x)-P_{U_{\mathcal{B}}}(x)\right\| \leq r_{A} \| x-$ $P_{U_{\mathcal{B}}}(x)\|$;
@@ -2107,7 +2119,7 @@ Since the definition of best approximation mapping is essentially a relaxation o
 
 The block-wise CRM has been shown in \cite[Lemma 3, Lemma 4, Theorem 4]{Behling:2019dj} to converge in one step for the intersection of hyperplanes. Next, we will show that is also converges in one step for the intersection of a hyperplane and an affine subspace, which paved the way for the use of CRM as a tool for the convex feasibility problem.
 
-\subsubsection{CRM for the convex feasibility problem}
+\subsubsection{CRM for the convex feasibility problem}\label{subsubsec:CRM for CFP}
 CRM was shown to solve CFP-red \cref{eq:KcapU}, that is, 
 \[
 \text { Find } z^{*} \in K \cap U
@@ -2133,74 +2145,11 @@ With this result as a starting point, CRM was proven in \cite{Behling:2020} to c
 
 In \cite{Behling:2020}, CRM was shown to outperform both MAP and DRM. The following image and theorem, first in the same paper, help illustrate the comparison.
 
-\begin{figure}[h]
-\centering
-\begin{tikzpicture}[scale=1.3]
-	\tkzInit[xmin=-1,xmax=9.2,ymax=5,ymin=-4.5] \tkzClip%[space=.7]
-	% \tkzAxeXY
-	% \tkzGrid
-	\tkzDefPoint(0,0){O}
-	\tkzDefPoint(5,0){B}
-	\tkzDefPoint(-1,4){C}
-	\tkzDefPoint(-1,-2){D}
-	\tkzDrawCircle[fill=gray!20](C,D)
-	\tkzInterLC(O,B)(C,D) \tkzGetPoints{s}{s2}
-	
-	\tkzDefPoint(8,0){z}
-	\tkzDefPoint(4.482869291721543, 1.5631692036793141){PKz}
-	% \tkzDefPoint(7,0){z}
-	% \tkzDefPoint(4.366563145999495,1.3167184270002523){PKz}
-	% \tkzDefPoint(6,0){z}
-	% \tkzDefPoint(4.209458852746756, 1.023166369858997){PKz}
-	\tkzDefPointWith[orthogonal](PKz,z) \tkzGetPoint{Hz}
-	\tkzInterLL(s,z)(PKz,Hz) \tkzGetPoint{Cz}
-	
-	\tkzDefPointBy[reflection=over PKz--Hz](z) \tkzGetPoint{RKz}
-	\tkzDefPointBy[reflection=over s--z](RKz) \tkzGetPoint{RURKz}
-	\tkzDefPointBy[projection=onto s--z](PKz) \tkzGetPoint{PUPKz}
-	\tkzDefMidPoint(z,RURKz) \tkzGetPoint{zDRM}
-	\tkzDefPointBy[projection=onto z--RURKz](Cz) \tkzGetPoint{Med1}
-	\tkzInterLL(s,z)(RKz,RURKz) \tkzGetPoint{Med2}
-	
-	
-	% \tkzDrawTriangle[pythagore](B,A) \tkzGetPoint{C}
-	% \tkzDefLine[bisector](B,C,A) \tkzGetPoint{c}
-	% \tkzInterLL(C,c)(A,B) \tkzGetPoint{D}
-	% \tkzDrawCircle(D,A)
-	% \tkzDefPointBy[projection=onto B--C](D) \tkzGetPoint{G}
-	% \tkzInterLC(C,D)(D,A) \tkzGetPoints{E}{F}
-	% \tkzDrawPoints(A,C,F) \tkzLabelPoints(A,C,F)
-	\tkzMarkRightAngle[fill=gray!20,size=.15](z,PKz,Cz)
-	\tkzMarkRightAngle[fill=gray!20,size=.15](PKz,PUPKz,z)
-	\tkzMarkRightAngle[fill=gray!20,size=.15](Cz,zDRM,z)
-	\tkzMarkRightAngle[fill=gray!20,size=.15](s,Med2,RURKz)
-	
-	
-	\tkzDrawLine[add=.30 and 1](O,B)
-	\tkzDrawLine[add=.30 and 0, line width = 2.5](O,s)
-	
-	% \tkzDrawLine[add=.25 and 1, blue, thick](O,B)
-	
-	\tkzDrawLine[add=2 and .25,blue, densely dashed](PKz,Hz)
-	\tkzDrawLine[add=4 and 4, blue, densely dashed](Cz,Med1)
-	\tkzDrawSegments[loosely dashed](PKz,z PKz,RKz RKz,RURKz z,RURKz PKz,PUPKz)
-	\tkzDrawPoints[size=3](s,z,PKz,RKz,RURKz,PUPKz,zDRM)
-	\tkzDrawPoint[color=red](Cz)
-	\tkzLabelPoints[below right](z)
-	\tkzLabelPoints[above left](s)
-	\tkzLabelPoint[above right](PKz){$P_K(z)$}
-	\tkzLabelPoint[above left](RKz){$R_K(z)$}
-	\tkzLabelPoint[below right,color=red](Cz){$C(z)$}
-	\tkzLabelPoint[below right](PUPKz){$P_UP_K(z)=z_{\text{MAP}}$}
-	\tkzLabelPoint[below left](RURKz){$R_UR_K(z)$}
-	\tkzLabelPoint[below right](zDRM){$z_{\text{DRM}}$}
-	\tkzDrawCircle[loosely dashed](Cz,z)
-	\tkzText[above,color=blue](5.5,4.2){$H_z$}
-	\tkzText[above](8.6,0){$U$}
-	\tkzText[above](4,3){$K$}
-	\tkzText[above ](2,0){$K\cap U$}	
-\end{tikzpicture}
-\caption{Illustration of CRM, MAP and DRM for the intersection between an affine U and a convex K.}
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.8]{ConvexAffine}
+	\caption{Illustration of CRM, MAP and DRM for the intersection between an affine U and a convex K.}
+	\label{fig:CRM MAP DRM comp}
 \end{figure}
 
 \begin{fact}[Comparing CRM, MAP and DRM]
@@ -2648,7 +2597,16 @@ In this section, we compare CARM and AMAP for finding a point in the intersectio
 
 \subsection{Myopic comparison}\label{subsec:myopic comp}
 
-We look at CARM and AMAP acting on an arbitrary point $z$ in the affine set $U$. We prove that CARM brings you closer to $K \cap U$ than AMAP. This result generalizes \cite[Theorem 2]{Behling:2020} and is stated formally in the following.
+We look at CARM and AMAP acting on an arbitrary point $z$ in the affine set $U$. As previously done for CRM and MAP in \cref{subsubsec:CRM for CFP}, we will present a similar figure to illustrate how CARM and AMAP compare in a geometrical sense. In this figure, we also feature the point generated by CRM, in order to establish a reference to that method as well.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.8]{ConvexAffine-CARM}
+	\caption{Illustration of CARM and AMAP for the intersection between an affine U and a convex K.}
+	\label{fig:CARM AMAP comp}
+\end{figure}
+
+We prove that CARM brings you closer to $K \cap U$ than AMAP. This result generalizes \cite[Theorem 2]{Behling:2020} (excluding DRM, due to the lack of an equivalent outer-approximate projection-based variant)and is stated formally in the following theorem.
 
 \begin{theorem}[CARM versus AMAP]\label{thm:CARM x AMAP} Assume $K, U \subset \RR^{n}$ as in  \cref{lem:CARM well-def char} and let $z \in U$ be given. Also recall the notation $z_{\mathrm{\AMAP}}\coloneqq P_{U}\tilde{P}_{K}(z)$ and $\tilde{C}(z)\coloneqq \circum \left\{z, \tilde{R}_{K}(z), R_{U} \tilde{R}_{K}(z)\right\}$.
 	Then, for any $s \in K \cap U$ we have
@@ -2958,7 +2916,7 @@ First, we will see in \cref{fig:perprof no EB 1} the performance profile of the 
 	
 \begin{figure}[h!]
 	\centering
-	\includegraphics[scale=0.8]{fig1}
+	\includegraphics[scale=0.7]{fig1}
 	\caption{Experiments with epigraph of a quadratic function and an affine subspace, without error bound - CARM, AMAP, CRM and MAP}
 	\label{fig:perprof no EB 1}
 \end{figure}
@@ -2968,10 +2926,11 @@ In the absence of an error bound, CARM perform exceptionally well, with a perfor
 Removing CRM from the comparison, in \cref{fig:perprof no EB 2} we can clearly see that CARM was considerably better than MAP and AMAP in all problems.
 \begin{figure}[h!]
 	\centering
-	\includegraphics[scale=0.8]{fig2}
+	\includegraphics[scale=0.7]{fig2}
 	\caption{Experiments with epigraph of a quadratic function and an affine subspace, without error bound - CARM, AMAP and MAP}
 	\label{fig:perprof no EB 2}
 \end{figure}
+\newpage
 
 To sum these results, we present descriptive statistics.
 \begin{table}[h!]
@@ -2988,22 +2947,22 @@ To sum these results, we present descriptive statistics.
 	\label{table:perprof no EB}
 \end{table}
 
-In \cref{fig:perprof EB 1} we will see how the presence of an error bound affects the performance of the algorithms.
+In the experiments with error bound, CRM remains the best performing method, in particular, outperforming MAP. This results is consistent with \cite{Behling:2020}, as $K$ is the epigraph of a (proper) convex function and $f$ satisfies the assumptions A1, A2, A3 and A4 shown in Section 4 of that paper to assure that CRM converges linearly, while MAP converges sublinearly. In \cref{fig:perprof EB 1} we can see how the presence of an error bound affects the performance of the algorithms.
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[scale=0.8]{fig1EB}
+	\includegraphics[scale=0.7]{fig1EB}
 	\caption{Experiments with epigraph of a quadratic function and an affine subspace, with error bound - CARM, AMAP, CRM and MAP}
 	\label{fig:perprof EB 1}
 \end{figure}
 
-In this error bound setting, CRM remains the best performing method, in particular, outperforming MAP. This results is consistent with \cite{Behling:2020}, as $K$ is the epigraph of a (proper) convex function and $f$ satisfies the assumptions A1, A2, A3 and A4 shown in Section 4 of that paper to assure that CRM converges linearly, while MAP converges sublinearly.
+\newpage
 
 While MAP outperforms CARM in both cases, this comparison requires a closer look. Once again, we exclude CRM to take a clearer look into how CARM compares to MAP and AMAP.
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[scale=0.8]{fig2EB}
+	\includegraphics[scale=0.7]{fig2EB}
 	\caption{Experiments with epigraph of a quadratic function and an affine subspace, with error bound - CARM, AMAP and MAP}
 	\label{fig:perprof EB 2}
 \end{figure}
@@ -3012,7 +2971,7 @@ While generally MAP outperforms CARM, CARM converged in at least as few iteratio
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[scale=0.8]{fig3EB}
+	\includegraphics[scale=0.7]{fig3EB}
 	\caption{Experiments with epigraph of a quadratic function and an affine subspace, without error bound - CARM and AMAP}
 	\label{fig:perprof EB 3}
 \end{figure}
