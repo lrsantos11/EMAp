@@ -123,7 +123,9 @@
 \linenomathpatchAMS{alignat}
 \linenomathpatchAMS{flalign}
 
-\linenumbers
+%\linenumbers
+
+\usepackage{pdfpages}
 
 \title{Dissertação - Novo}
 \author{guilhermehm.araujo }
@@ -181,11 +183,13 @@
 {\normalsize \the\year}}
 \end{center}
 
-%\thispagestyle{empty}
+\thispagestyle{empty}
 
-%\newpage
-%\noindent{\textbf{\large Acknowledgments}}
-%\vspace{1pt}
+
+\newpage
+
+\thispagestyle{empty}
+\includepdf[pages=-,offset=0 0]{Aprov. Banca - Guilherme Macieira.pdf}
 
 \thispagestyle{empty}
 
@@ -197,6 +201,8 @@
 
 Recently, circumcenter schemes were  applied to solving general convex feasibility problems. In order to overcome costly computations of projections and reflections onto convex sets, we present a variant of the circumcentered-reflection method which employs outer-approximate projections, inspired by Fukushima.
 With a very practical appeal, this  notion relies on separating hyperplanes and is considered in our hybrid method for finding a point in the intersection of finitely many convex sets.  We derive convergence in general, linear convergence under an error bound condition, and present successful numerical experiments.
+
+Keywords: circumcenters, approximate projections, convex feasibility problem, alternating projections, Douglas-Rachford method
 
 \newpage
 \thispagestyle{empty}
@@ -229,7 +235,7 @@ Projection-based methods are usually utilized for solving CFP. Widely known are 
 
 In its debut in \cite{Behling:2018a,Behling:2018}, CRM was shown to solve the best approximation problem for finitely many affine subspaces with linear convergence. Following these first results, \cite{Behling:2019dj}, a block-wise variant of CRM was introduced, which also converges linearly for affine subspaces (in one step if the subspaces are hyperplanes) and can also be seen as a generalization of MAP. CRM was later shown in \cite{Behling:2020} to converge to a solution of CFP-red and it was proven in \cite{Arefidamghani:2020} that linear convergence is obtained in the presence of an error bound condition.
 
-More recently, some contributions to CRM have been presented by scholars other than the original authors, some of which we outline here. In \cite{Bauschke:2019uh,Bauschke:2020a}, the authors generalize CRM for isometries and provide conditions for weak and linear convergence of the derived Circumcentered Isometry Method (CIM); in \cite{Dizon:2019vq} CRM is shown to converge locally in some nonconvex settings (outperforming DRM) to and compare favorably to Newton-Rapshon method as a root solver and in \cite{Dizon:2020a}, the CRM is also employed for solving wavelet feasibility problems.
+More recently, some contributions to CRM have been presented by scholars other than the original authors, some of which we outline here. In \cite{Bauschke:2019uh,Bauschke:2020a}, the authors generalize CRM for isometries and provide conditions for weak and linear convergence of the derived Circumcentered Isometry Method (CIM); in \cite{Dizon:2019vq} CRM is shown to converge locally in some nonconvex settings (outperforming DRM) and to compare favorably to Newton-Raphson method as a root solver and in \cite{Dizon:2020a}, the CRM is also employed for solving wavelet feasibility problems.
 
 Nevertheless, these algorithms rely on the computation of exact orthogonal projections. One has to bear in mind though that, context depending, this task alone might be as hard as the original problem itself. In this regard, we present in this work a version of CRM employing \emph{outer-approximate projections}. 
 
@@ -245,7 +251,7 @@ This dissertation is intended to be self-contained, except for the use of some w
 
 It follows that all statements denoted as propositions, theorems, lemmas and corollaries are new to this work. For ease of reading and understanding, however, definitions will be called as such regardless of their authorship, though context is sufficient for determining whether they are new to this work or not.
 
-While this work's definitions, facts and propositions will be presented with respect to $\RR^n$, a great deal can be generalized to a Hilbert space $\mathcal{H}$ with extended-reals-valued functions (see \cite{BC2011, Rockafellar:1996}, for reference). In this more general setting, it is often required that functions be lower continuous and proper. The function $f:\mathcal{X} \rightarrow [-\infty,+\infty]$, where $\mathcal{X}$ is nonempty, is lower continuous if, for every net $\left(x_{a}\right)_{a \in A}$ in $\mathcal{X}$, $x_{a} \rightarrow x \Rightarrow f(x) \leq \liminf \left(x_{a}\right)$; it is proper if there exists at least one $x \in \mathcal{X}$ such that  $f(x)<+\infty$ and $f(x)>-\infty$ for all $x \in \mathcal{X}$.  For more on this, see \cite[Sections 7 and 30]{Rockafellar:1996} and \cite[Chapter 1 and 9]{BC2011}, among others.
+While this work's definitions, facts and propositions will be presented with respect to $\RR^n$, a great deal can be generalized to a Hilbert space $\mathcal{H}$ with extended-reals-valued functions (see \cite{BC2011, Rockafellar:1996}, for reference). In this more general setting, it is often required that functions be lower semicontinuous throughout and proper. The function $f:\mathcal{X} \rightarrow [-\infty,+\infty]$, where $\mathcal{X}$ is nonempty, is lower semicontinuous if, for every net $\left(x_{a}\right)_{a \in A}$ in $\mathcal{X}$, $x_{a} \rightarrow x \Rightarrow f(x) \leq \liminf \left(x_{a}\right)$; it is proper if there exists at least one $x \in \mathcal{X}$ such that  $f(x)<+\infty$ and $f(x)>-\infty$ for all $x \in \mathcal{X}$.  For more on this, see \cite[Sections 7 and 30]{Rockafellar:1996} and \cite[Chapter 1 and 9]{BC2011}, among others.
 
 First, we fix notation and recollect some basic facts. 
 \subsection{Notation}
@@ -272,7 +278,7 @@ Let $K_i \subset \RR^n$, $i \in I$ (where $I$ is a possibly infinite set), be co
 
 One characterization of convex sets is that a set is convex if, and only if, it contains all convex combinations of its points. This statement, as well as the definition of convex combination, is presented below.
 \begin{fact}[Convex combination characterization of convex sets]\label{fact:convex conv comb}
-	A set $K \subset \RR^n$ is convex if, and only if, for any $p \in \NN$, $x^{i} \in K$ and $\alpha_{i} \in [0,1]$, $i=1,\ldots,p$, such that $\sum_{i=1}^{p}\alpha_{i}=1$, the \emph{convex combination} $\sum_{i=1}^{p} \alpha_{i}x^{i} \in K$.
+	A set $K \subset \RR^n$ is convex if, and only if, for any $p \in \{1,2,\ldots\}$, $x^{i} \in K$ and $\alpha_{i} \in [0,1]$, $i=1,\ldots,p$, such that $\sum_{i=1}^{p}\alpha_{i}=1$, the \emph{convex combination} $\sum_{i=1}^{p} \alpha_{i}x^{i} \in K$.
 \end{fact}
 \begin{proof}
 	If $K$ contains every convex combinations of its points, in particular it contains the convex combinations of any two points (that is, for $p=2$). Thus, $K$ is convex by \cref{def:convex}.
@@ -300,8 +306,7 @@ One characterization of convex sets is that a set is convex if, and only if, it 
 
 Also regarding convex combinations, a well-known fact known as Carathéodory's theorem states that any convex combination of points of a set in $\RR^{n}$ can be expressed as a convex combination of at most $n+1$ points of the set.
 \begin{fact}[Carathéodory theorem]\label{fact:caratheodory}
-Let $x \in \RR^{n}$ be a convex combination of points of the set $X \subset \RR^{n}$. Then there exist $x^{i} \in X$ e $\alpha_{i} \in R_{+}, i=1, \ldots, n+1$
-such that $x=\sum_{i=1}^{n+1} \alpha_{i} x^{i}, \sum_{i=1}^{n+1} \alpha_{i}=1$.
+Let $x \in \RR^{n}$ be a convex combination of points of the set $X \subset \RR^{n}$. Then there exist $x^{i} \in X$ and $\alpha_{i} \in R_{+}, i=1, \ldots, n+1$ such that $x=\sum_{i=1}^{n+1} \alpha_{i} x^{i}, \sum_{i=1}^{n+1} \alpha_{i}=1$.
 \end{fact}
 \begin{proof}
 	By assumption, there exists $p \in \NN$ such that
@@ -421,19 +426,19 @@ We start this subsection by reminding the definition of projection and reflectio
 	P_{X}(x):=\left\{p \in X:\|x-p\|=\dist(x,S)\right\},
 	\]
 	where $p \in P_{X}(x)$ is called a projection of $x$ onto $X$ or a best approximation of $x$ from $X$.\\
-	The reflection operator (or reflector) with respect to $X$ is the operator $R_{S}: \RR^n \Rightarrow \RR^n$ given by
+	The reflection operator (or reflector) with respect to $X$ is the operator $R_{S}: \RR^n \rightarrow \RR^n$ given by
 	\[
 	R_{X}:=2P_{X}-\operatorname{Id}
 	\]
 \end{definition}
 
 Generally speaking, $P_{X}$ is a set-valued operator.
-However, for convex sets, as if of our interest, we have that $P_{X}$ is a nonempty, single-valued mapping that associates each point $x \in \RR^n$ with its unique nearest point in $X$, as shown by the following fact, known as the projection theorem.
+However, for convex sets, as is of our interest, we have that $P_{X}$ is a nonempty, single-valued mapping that associates each point $x \in \RR^n$ with its unique nearest point in $X$, as shown by the following fact, known as the projection theorem.
 
 \begin{fact}[Projection theorem]\label{fact:proj thm}
 	Let $K \subseteq \RR^{n}$ be nonempty, closed and convex. Then $K$ is a Chebyshev set (that is, every point $x \in K$ has an unique projection $p$) and
 	\begin{equation}
-		p=P_{K}(x) \iff p \in C \text { and }\langle y-p, x-p\rangle \leq 0 \text { for all } y \in C
+		p=P_{K}(x) \iff p \in K \text { and }\langle y-p, x-p\rangle \leq 0 \text { for all } y \in K
 	\end{equation}
 \end{fact}
 \begin{proof}
@@ -534,7 +539,7 @@ The following two facts state the existence of hyperplanes that separate a point
 \end{proof}
 
 \begin{fact}[Supporting hyperplane existence]\label{fact:sup hyperplane}
-Let $K \subset \RR^{n}$ be a nonempty convex set. If $x \in \operatorname{bdry} K$, then there exist $a \in \RR^{n} \setminus \{0\}$ and $ \in \RR$ such that
+Let $K \subset \RR^{n}$ be a nonempty convex set. If $x \in \operatorname{bdry} K$, then there exist $a \in \RR^{n} \setminus \{0\}$ and $c \in \RR$ such that
 \[
 \scal{a}{x}=c, \scal{a}{y}\geq c \text{ for all } y \in K.
 \]
@@ -626,7 +631,7 @@ With the help of the previous facts, we can present the main fact of this subsec
 
 \subsection{Convex functions}
 
-We begin this subsection by reminding the definition of convex functions.
+We begin this subsection by recalling the definition of convex functions.
 \begin{definition}[Convex functions]\label{def:convex f}
 	Let $K \in \RR^n$ be a convex set. Then $f:K \rightarrow \RR$ is a \emph{convex function} if for all $\alpha \in (0,1)$, for all $x, y \in K$ we have that $f\left(\alpha x+(1-\alpha) y\right) \leq \alpha f\left(x\right)+(1-\alpha) f\left(y\right)$.
 \end{definition}
@@ -672,13 +677,13 @@ is a convex set.
 \end{proof}
 
 \begin{fact}[First-order characterization of differentiable convex functions]\label{fact:conv char dif 1 ord}
-	Assume $f:K\rightarrow \RR$ is differentiable, then $f$ is convex if and only if $K$ is convex and for any $x, y \in K$
+	Let $\Omega$ be an open set. Assume $f:\Omega\rightarrow \RR$ is differentiable, then $f$ is convex if and only if $\Omega$ is convex and for any $x, y \in \Omega$
 	$$
 	f(y) \geq f(x)+\scal{f'(x)}{x-y}. \label{eq:conv char dif 1 ord}
 	$$
 \end{fact}
 \begin{proof}
-Let $f$ be convex. For any $x, y \in K$ and $\alpha \in (0,1]$, defining $d:=y-x$, from \cref{def:convex f} we have
+Let $f$ be convex. For any $x, y \in \Omega$ and $\alpha \in (0,1]$, defining $d:=y-x$, from \cref{def:convex f} we have
 \[
 f(x + \alpha d)=f(\alpha y + (1-\alpha)x) \leq \alpha f(y) + (1-\alpha)f(x),
 \]
@@ -881,11 +886,11 @@ Note that (i) implies (ii) and (iv), (ii) implies (v), (iv) implies (vi) and (ii
 Another notion intimately related to nonexpansivity is that of \emph{$\alpha$-averagedness}. Following its definition, we present some notable results relating these two concepts.
 
 \begin{definition}[$\alpha$-averaged operator]\label{def:alpha-avg}
-Let $X \subseteq \RR^{n}$ be nonempty, let $T: X \rightarrow \RR^n$ be nonexpansive, and let $\alpha \in (0,1)$. Then $T$ is \emph{$\alpha$-averaged} if there exists a nonexpansive operator $R: S \rightarrow \RR^n$ such that $T=(1-\alpha) \Id+\alpha R$.
+Let $X \subseteq \RR^{n}$ be nonempty, let $T: X \rightarrow \RR^n$ be nonexpansive, and let $\alpha \in (0,1)$. Then $T$ is \emph{$\alpha$-averaged} if there exists a nonexpansive operator $R: X \rightarrow \RR^n$ such that $T=(1-\alpha) \Id+\alpha R$.
 \end{definition}
 
 \begin{fact}[Nonxepansivity and $\alpha$-averagedness relationships]\label{fact:alpha-avg nonexp facts}
-Let $S \subseteq \RR^n$ be nonempty and let $T: X \rightarrow \RR^n$. The following hold:
+Let $X \subseteq \RR^n$ be nonempty and let $T: X \rightarrow \RR^n$. The following hold:
 \begin{listi}
 \item If $T$ is $\alpha$-averaged for $\alpha \in(0,1)$, then
 \[
@@ -945,7 +950,7 @@ The addition of these inequalities gives
 \]
 which implies that $P_{X}$ is firmly nonexpansive. The fact that $R_{X}$ is nonexpansive now follows from \cref{fact:alpha-avg nonexp facts}.
 \end{proof}
-Remind that nonexpansivity implies Lipschitz-continuity. Hence, projections and reflections are continuous.
+Recall that nonexpansivity implies Lipschitz-continuity. Hence, projections and reflections are continuous.
 
 \subsection{Fixed-point nonexpansive algorithm convergence}\label{subsec:fix conv}
 With the following facts, we show how $\alpha$-averagedness is sufficient for assuring convergence of fixed-point algorithms in closed and convex subsets. These results are relevant not only for their direct application, but also to help put into perspective, later on, how much less straightforward it is to establish convergence in the absence of stronger notions of nonexpansivity.
@@ -994,7 +999,7 @@ The series in the previous equation therefore converges as $n \rightarrow \infty
 \begin{fact}[Césaro summation]\label{fact:cesaro sum}
 	Let $\left(x^{k}\right)_{k \in \NN} \subseteq \RR^n$ be a convergent sequence with limit $x^{*} \in \RR^n$. Then
 	$$
-	\frac{1}{k} \sum_{n=1}^{k} x^{n} \rightarrow x^* \text { as } k \rightarrow \infty
+	\frac{1}{k} \sum_{j=1}^{k} x^{j} \rightarrow x^* \text { as } k \rightarrow \infty
 	$$
 \end{fact}
 \begin{proof}
@@ -1020,20 +1025,20 @@ We can now establish the other convergence result of this subsection, which stat
 We will prove the result by proving its contrapositive: $\Fix T \neq \emptyset$ if and only if there exists an $x \in \RR^n$ such that $\left\|T^{k}(x)\right\| \neq \infty$.
 First, take any $x \in \RR^n$ and suppose that $\Fix T \neq \emptyset$. Then the sequence $T^{k}(x)$ is convergent by \cref{fact:conv avg iter}; in particular, it is bounded.
 
-For the reverse implication, suppose there exists an $x \in \RR^n$ such that $x^{k}=T^{k}(x)$ contains a bounded subsequence. The sequence $\left(x^{k}\right)$ then possesses a convergent subsequence $x_{k_{n}} \rightarrow x^{*}$. Since $T$ is $\alpha$-averaged, applying \cref{fact:alpha-avg lemma} with $x^{0}=x$ and $y^{0}=x^{*}$ yields
+For the reverse implication, suppose there exists an $x \in \RR^n$ such that $x^{k}=T^{k}(x)$ contains a bounded subsequence. The sequence $\left(x^{k}\right)$ then possesses a convergent subsequence $x_{k_{m}} \rightarrow x^{*}$. Since $T$ is $\alpha$-averaged, applying \cref{fact:alpha-avg lemma} with $x^{0}=x$ and $y^{0}=x^{*}$ yields
 \[
 (\Id-T)\left(x_{k}\right)-(\Id-T) T^{k}\left(x^{*}\right) \rightarrow 0,
 \]
 which implies
 \[
-(\Id-T) T^{k_{n}}\left(x^{*}\right) \rightarrow(\Id-T)\left(x^{*}\right).
+(\Id-T) T^{k_{m}}\left(x^{*}\right) \rightarrow(\Id-T)\left(x^{*}\right).
 \]
 Also, applying \cref{fact:alpha-avg lemma} with $x_{0}=x^{*}$ and $y_{0}=T\left(x^{*}\right)$ yields
 \begin{align}
 	\frac{1-\alpha}{\alpha} \sum_{j=1}^{k}\left\|(\mathrm{ld}-T) T^{j-1}\left(x^{*}\right)-(\Id-T) T^{j}\left(x^{*}\right)\right\|^{2} \\
 	\quad \leq\left\|(\Id-T)\left(x^{*}\right) \mathrm{I}^{2}-\right\|(\Id-T) T^{\mathrm{k}}\left(x^{*}\right) \|^{2}.
 \end{align}
-Taking the limit along the subsequence $\left(k_{n}\right)$ gives
+Taking the limit along the subsequence $\left(k_{m}\right)$ gives
 \begin{align}
 \frac{1-\alpha}{\alpha} \sum_{j=1}^{\infty} \|(\Id-T) T^{j-1}(x^{*})-(\Id-T) T^{j}(x^{*})\|^{2} \\
 \leq \|(\Id-T)(x^{*})\|^{2}-\|(\Id-T)(x^{*})\|^{2}=0,
@@ -1049,14 +1054,14 @@ which implies
 
 Denoting $x^{0}:=x,$ we observe that
 \[
-x^{0}=\sum_{n=0}^{k-1}(\Id-T)\left(x^{n}\right)+x^{k},
+x^{0}=\sum_{m=0}^{k-1}(\Id-T)\left(x^{m}\right)+x^{k},
 \]
 leading to
 \[
-\frac{1}{k} x^{0}=\frac{1}{k} \sum_{n=0}^{k-1}(\Id-T)\left(x^{n}\right)+\frac{1}{k} x^{k}.
+\frac{1}{k} x^{0}=\frac{1}{k} \sum_{m=0}^{k-1}(\Id-T)\left(x^{m}\right)+\frac{1}{k} x^{k}.
 \]
 
-Taking the limit along the subsequence $x_{k_{n}}$ and using Cesàro summation (\cref{fact:cesaro sum}) gives
+Taking the limit along the subsequence $x_{k_{m}}$ and using Cesàro summation (\cref{fact:cesaro sum}) gives
 \[
 0 \cdot x^{0}=(\Id-T)\left(x^{*}\right) + 0 \cdot x^{*},
 \]
@@ -1112,7 +1117,7 @@ Since $\left(x^{k}\right)_{k \in \NN}$ is bounded and has an unique cluster poin
 
 This subsection deals with the class of non-differentiable convex functions, which are often present in optimization problems. In order to cope with the loss of differentiability, one could work with \emph{directional derivatives}, which always exist for convex functions, or with a generalization of the derivative, which is called the \emph{subdifferential}.
 
-As par for this work, we will only deal with functions in $\RR^n$, following Section 3.4 of \cite{Izmailov:2014}. We recommend Chapters 16 and 17 of \cite{BC2011} and Section 23 of \cite{Rockafellar:1996} for a more general framework on this subject.
+In this work, we will only deal with functions in $\RR^n$, following Section 3.4 of \cite{Izmailov:2014}. We recommend Chapters 16 and 17 of \cite{BC2011} and Section 23 of \cite{Rockafellar:1996} for a more general framework on this subject.
 
 We begin by presenting the definition of a directional derivative.
 \begin{definition}[Directional derivative]\label{def:dir deriv}
@@ -1274,7 +1279,7 @@ Some important properties of the subdifferential of a convex function are presen
 	\]
 \end{proof}
 
-The following fact establishes an important relationship between subdifferentials and derivatives; when a convex function is differentiable on a given point, its only subdifferential at that point is the derivative itself. 
+The following fact establishes an important relationship between subdifferentials and derivatives; when a convex function is differentiable on a given point, its only subgradient at that point is the derivative itself. 
 \begin{fact}[Subdifferential of a differentiable convex function]
 	A convex function $f:\RR^n \rightarrow \RR$ is differentiable on $x \in \RR^n$ if, and only if, the set $\partial f(x)$ is single-valued, in which case $\partial f(x)=\{f'(x)\}$.
 \end{fact}
@@ -1427,8 +1432,9 @@ We begin by presenting the definition of this Friedrichs angle. Other than its r
 \begin{definition}[Friedrichs angle]\label{def:Friedrich}
 	The cosine of the Friedrichs angle between affine subspaces $V$ and $W$ with nonempty intersection is given by
 	$$
-	c_{F}:=\sup \left\{\langle v, w\rangle \mid v \in \hat{V} \cap(\hat{V} \cap \hat{W})^{\perp}, w \in \hat{W} \cap(\hat{V} \cap \hat{W})^{\perp},\|v\| \leq 1,\|w\| \leq 1\right\}.
+	c_{F}:=\sup \left\{\langle v, w\rangle \mid v \in \hat{V} \cap(\hat{V} \cap \hat{W})^{\perp}, w \in \hat{W} \cap(\hat{V} \cap \hat{W})^{\perp},\|v\| \leq 1,\|w\| \leq 1\right\},
 	$$
+	with $\hat{V}$ and $\hat{W}$ being subspaces given by $V-\hat{z}$ and $W-\hat{z}$, respectively, where $\hat{z} \in V \cap W$ is arbitrary but fixed, and $\perp$ denotes the orthogonal complement.
 \end{definition}
 
 Now, we present the definition of best approximation mapping.
@@ -1475,208 +1481,7 @@ The next fact is the most important of this subsection, as it states that the co
 	Let us consider two affine subspaces $V$ and $W$ of $\RR^{n}$ with nonempty intersection $V \cap W$. Then, the composition of a $V$-BAM and a $W$-BAM is a $(V \cap W)$-BAM.
 \end{fact}
 \begin{proof}
-	Let $G_{V}: \RR^{n} \rightarrow \RR^{n}$ and $G_{W}: \RR^{n} \rightarrow \RR^{n}$ be a $V$-BAM and $W$-BAM with constants $0 \leq r_{V}<1$ and $0 \leq r_{W}<1$, respectively.
-	
-	In order to prove \cref{def:BAM}(i) for the composition $G:=G_{W} \circ G_{V}$ with regards to $V \cap W$, we are going to combine Pythagoras equations with properties of projections. Note that we have to prove that $P_{V \cap W}(G(z))=P_{V \cap W}(z)$ for all $z \in \RR^{n}$.
-	Let us take an arbitrary, but fixed, $z \in \RR^{n}$ and set $\hat{z}:=P_{V \cap W}(z)$. The definition of $\hat{z}$ implies that $\hat{z} \in V \cap W$. In particular, $\hat{z} \in V$ and we have
-	\begin{equation}\label{eq:BAM comp i1}
-		\|z-\hat{z}\|^{2}=\left\|z-P_{V}(z)\right\|^{2}+\left\|P_{V}(z)-\hat{z}\right\|^{2}.	
-	\end{equation}
-	Since $P_{V \cap W}\left(P_{V}(z)\right) \in V$, we can write
-	\begin{equation}\label{eq:BAM comp i2}
-		\left\|z-P_{V \cap W}\left(P_{V}(z)\right)\right\|^{2}=\left\|z-P_{V}(z)\right\|^{2}+\left\|P_{V}(z)-P_{V \cap W}\left(P_{V}(z)\right)\right\|^{2}.
-	\end{equation}
-	Using the fact that $\|z-\hat{z}\| \leq\left\|z-P_{V \cap W}\left(P_{V}(z)\right)\right\|$ and subtracting the second from the first equation yields $\left\|P_{V}(z)-\hat{z}\right\| \leq$ $\left\|P_{V}(z)-P_{V \cap W}\left(P_{V}(z)\right)\right\|$. By uniqueness of projections onto closed convex sets, we conclude that
-	\begin{equation}\label{eq:BAM comp i3}
-		\hat{z}=P_{V \cap W}\left(P_{V}(z)\right).
-	\end{equation}
-	The fact that both $\hat{z}$ and $P_{V \cap W}\left(G_{V}(z)\right)$ lie in $V$ allows us to derive further Pythagoras relations
-	\begin{equation}\label{eq:BAM comp i4}
-		\left\|G_{V}(z)-\hat{z}\right\|^{2}=\left\|G_{V}(z)-P_{V}\left(G_{V}(z)\right)\right\|^{2}+\left\|P_{V}\left(G_{V}(z)\right)-\hat{z}\right\|^{2}
-	\end{equation}
-	and
-	\begin{equation}\label{eq:BAM comp i5}
-		\left\|G_{V}(z)-P_{V \cap W}\left(G_{V}(z)\right)\right\|^{2}=\left\|G_{V}(z)-P_{V}\left(G_{V}(z)\right)\right\|^{2}+\left\|P_{V}\left(G_{V}(z)\right)-P_{V \cap W}\left(G_{V}(z)\right)\right\|^{2}.
-	\end{equation}
-	Since $G_{V}$ is a $V$-BAM, it holds that $P_{V}\left(G_{V}(z)\right)=P_{V}(z)$ and the previous equations reduce to
-	\begin{equation}\label{eq:BAM comp i6}
-		\left\|G_{V}(z)-\hat{z}\right\|^{2}=\left\|G_{V}(z)-P_{V}(z)\right\|^{2}+\left\|P_{V}(z)-\hat{z}\right\|^{2}
-	\end{equation}
-	and
-	\begin{equation}\label{eq:BAM comp i7}
-		\left\|G_{V}(z)-P_{V \cap W}\left(G_{V}(z)\right)\right\|^{2}=\left\|G_{V}(z)-P_{V}(z)\right\|^{2}+\left\|P_{V}(z)-P_{V \cap W}\left(G_{V}(z)\right)\right\|^{2}.	
-	\end{equation}
-	The fact that $\hat{z}=P_{V \cap W}\left(P_{V}(z)\right)$ implies that $\left\|P_{V}(z)-\hat{z}\right\| \leq\left\|P_{V}(z)-P_{V \cap W}\left(G_{V}(z)\right)\right\|$. This inequality, \cref{eq:BAM comp i6, eq:BAM comp i7} give us $\left\|G_{V}(z)-\hat{z}\right\| \leq\left\|G_{V}(z)-P_{V \cap W}\left(G_{V}(z)\right)\right\|$. Then, as $P_{V \cap W}\left(G_{V}(z)\right)$ is uniquely defined and $\hat{z} \in V \cap W$, we must have $P_{V \cap W}\left(G_{V}(z)\right)=\hat{z}$.
-	We continue with similar arguments, now regarding $W$. By Pythagoras we get
-	\begin{equation}\label{eq:BAM comp i8}
-		\left\|G_{V}(z)-P_{V \cap W}\left(G_{V}(z)\right)\right\|^{2}=\left\|G_{V}(z)-P_{W}\left(G_{V}(z)\right)\right\|^{2}+\left\|P_{W}\left(G_{V}(z)\right)-P_{V \cap W}\left(G_{V}(z)\right)\right\|^{2}
-	\end{equation}
-	and
-	\begin{align}
-		\left\|G_{V}(z)-P_{V \cap W}\left(G_{W}\left(G_{V}(z)\right)\right)\right\|^{2} =&\left\|G_{V}(z)-P_{W}\left(G_{V}(z)\right)\right\|^{2} \\
-		&+\left\|P_{W}\left(G_{V}(z)\right)-P_{V \cap W}\left(G_{W}\left(G_{V}(z)\right)\right)\right\|^{2}. \label{eq:BAM comp i9}
-	\end{align}
-	From the facts that $P_{V \cap W}\left(G_{V}(z)\right)=\hat{z}$, $P_{W}\left(G_{W}\left(G_{V}(z)\right)\right)=P_{W}\left(G_{V}(z)\right)$ (since $G_{W}$ is a $W$-BAM) and $G(z)=G_{W}\left(G_{V}(z)\right)$ we can rewrite the equations above as
-	\begin{equation}\label{eq:BAM comp i10}
-		\left\|G_{V}(z)-\hat{z}\right\|^{2}=\left\|G_{V}(z)-P_{W}(G(z))\right\|^{2}+\left\|P_{W}(G(z))-\hat{z}\right\|^{2}
-	\end{equation}
-	and
-	\begin{align}
-		\left\|G_{V}(z)-P_{V \cap W}(G(z))\right\|^{2}=&\left\|G_{V}(z)-P_{W}(G(z))\right\|^{2} \\
-		&+\left\|P_{W}(G(z))-P_{V \cap W}(G(z))\right\|^{2}. \label{eq:BAM comp i11}
-	\end{align}
-	From the definition of projection, it follows that $\left\|G_{V}(z)-\hat{z}\right\| \leq\left\|G_{V}(z)-P_{V \cap W}\left(G_{V}(z)\right)\right\|$; this, combined with \cref{eq:BAM comp i10,eq:BAM comp i11}, leads to $\left\|P_{W}(G(z))-\hat{z}\right\| \leq\left\|P_{W}(G(z))-P_{V \cap W}(G(z))\right\|$.
-	We can derive two additional Pythagoras relations
-	\begin{equation}\label{eq:BAM comp i12}
-		\|G(z)-\hat{z}\|^{2}=\left\|G(z)-P_{W}(G(z))\right\|^{2}+\left\|P_{W}(G(z))-\hat{z}\right\|^{2}
-	\end{equation}
-	and
-	\begin{equation}\label{eq:BAM comp i13}
-		\left\|G(z)-P_{V \cap W}(G(z))\right\|^{2}=\left\|G(z)-P_{W}(G(z))\right\|^{2}+\left\|P_{W}(G(z))-P_{V \cap W}(G(z))\right\|^{2}.
-	\end{equation}
-	The fact that $\left\|P_{W}(G(z))-\hat{z}\right\| \leq\left\|P_{W}(G(z))-P_{V \cap W}(G(z))\right\|$, together with the previous two equations, yields $\|G(z)-\hat{z}\| \leq\left\|G(z)-P_{V \cap W}(G(z))\right\| .$ Hence, $P_{V \cap W}(G(z))=\hat{z}=P_{V \cap W}(z)$ which fulfills condition (i) of \cref{def:BAM} for $G$ with regards to $V \cap W$.
-	
-	Let us now address item (ii). We have to prove that there exists a nonnegative constant $0 \leq r_{V} \cap W<1$ so that, for all $z \in \RR^{n}$,
-	\begin{equation}\label{eq:BAM comp ii1}
-		\left\|G(z)-P_{V \cap W}(z)\right\| \leq r_{V \cap W}\left\|z-P_{V \cap W}(z)\right\|.
-	\end{equation}
-	Again, let $z \in \RR^{n}$ be arbitrary, fixed and $\hat{z}=P_{V \cap W}(z)$. If $z=\hat{z}$, \cref{eq:BAM comp ii1} is fulfilled for any nonnegative constant as $G(z)=P_{V \cap W}(z)$. In fact, $G_{V}$ being a $V$-BAM, together with $z=\hat{z}$, gives us
-	\begin{equation}\label{eq:BAM comp ii2}
-		\left\|G_{V}(z)-\hat{z}\right\|=\left\|G_{V}(z)-P_{V}(z)\right\| \leq r_{V}\left\|z-P_{V}(z)\right\|=r_{V}\|z-\hat{z}\|=0.
-	\end{equation}
-	Thus, $G_{V}(z)=\hat{z}$. On the other hand, $G_{W}$ is a $W$-BAM, so
-	\begin{align}
-		\|G(z)-z\|&=\|G(z)-\hat{z}\|=\left\|G_{W}\left(G_{V}(z)\right)-\hat{z}\right\|=\left\|G_{W}(\hat{z})-\hat{z}\right\|=\left\|G_{W}(\hat{z})-P_{W}(\hat{z})\right\| \\
-		&\leq r_{W}\left\|\hat{z}-P_{W}(\hat{z})\right\|=0. \label{eq:BAM comp ii3}
-	\end{align}
-	This means that, if $z=\hat{z}, G(z)=z$ and the left-hand side of \cref{eq:BAM comp ii1} is equal to zero and this inequality holds for any nonnegative constant $r_{V \cap W}$.
-	
-	Therefore, from now on, assume $z \neq \hat{z}$. We will construct $r_{V n W}$ upon the constants $r_{V} \in[0,1), r_{W} \in[0,1),$ and $c_{F} \in[0,1)$, the latter the cosine of the Friedrichs angle $\theta_{F} \in\left(0, \frac{\pi}{2}\right]$ between $V$ and $W$.
-	
-	It will be key to look at the angle $\alpha$ between vectors $z-\hat{z}$ and $P_{V}(z)-\hat{z}$. Note first that $\alpha \in\left[0, \frac{\pi}{2}\right]$, since from \cref{eq:BAM comp i1}, 
-	$\angle[z, P_{V}(z),\hat{z}]=90^{\circ}$. Also, of course,
-	\begin{equation}\label{eq:BAM comp ii4}
-		\cos \alpha=\frac{\left\|P_{V}(z)-\hat{z}\right\|}{\|z-\hat{z}\|}
-	\end{equation}
-	
-	Moreover, by using \cref{eq:BAM comp i6}, the $V$-BAM hypothesis $\left\|G_{V}(z)-P_{V}(z)\right\| \leq r_{V}\left\|z-P_{V}(z)\right\|$, \cref{eq:BAM comp i1} and that $\cos \alpha \leq 1$, we conclude that
-	\begin{align}
-		\left\|G_{V}(z)-\hat{z}\right\|^{2} &=\left\|G_{V}(z)-P_{V}(z)\right\|^{2}+\left\|P_{V}(z)-\hat{z}\right\|^{2} \\
-		& \leq r_{V}^{2}\left\|z-P_{V}(z)\right\|^{2}+\left\|P_{V}(z)-\hat{z}\right\|^{2} \\
-		&=r_{V}^{2}\left(\|z-\hat{z}\|^{2}-\left\|P_{V}(z)-\hat{z}\right\|^{2}\right)+\left\|P_{V}(z)-\hat{z}\right\|^{2} \\
-		&=r_{V}^{2}\|z-\hat{z}\|^{2}+\left(1-r_{V}^{2}\right)\left\|P_{V}(z)-\hat{z}\right\|^{2} \\
-		&=r_{V}^{2}\|z-\hat{z}\|^{2}+\left(1-r_{V}^{2}\right) \cos ^{2} \alpha\|z-\hat{z}\|^{2} \label{eq:BAM comp ii5} \\
-		& \leq\|z-\hat{z}\|^{2} \label{eq:BAM comp ii6}
-	\end{align}
-	Now, we split our analysis in two cases.
-	
-	\emph{Case 1}: $\alpha \in \left[\frac{\theta_{F}}{2}, \frac{\pi}{2}\right]$.
-	
-	
-	In this case, $\cos \alpha \leq \cos \frac{\theta_{F}}{2}$. This, combined with \cref{eq:BAM comp ii5} and the fact that $\cos \frac{\theta_{F}}{2}=\sqrt{\frac{1+c_{F}^{2}}{2}}$ provides
-	\begin{align}
-		\left\|G_{V}(z)-\hat{z}\right\|^{2} & \leq r_{V}^{2}\|z-\hat{z}\|^{2}+\left(1-r_{V}^{2}\right) \cos ^{2} \alpha\|z-\hat{z}\|^{2} \\
-		& \leq r_{V}^{2}\|z-\hat{z}\|^{2}+\left(1-r_{V}^{2}\right) \cos ^{2} \frac{\theta_{F}}{2}\|z-\hat{z}\|^{2} \\
-		&=\left(r_{V}^{2}+\left(1-r_{V}^{2}\right) \frac{1+c_{F}^{2}}{2}\right)\|z-\hat{z}\|^{2}. \label{eq:BAM comp ii6}
-	\end{align}
-	Since $r_{V}^{2}<1$ and $\frac{1+c_{F}^{2}}{2}<1,$ we have $\left(1-r_{V}^{2}\right) \frac{1+c_{F}^{2}}{2}<\left(1-r_{V}^{2}\right)$. Then,
-	\begin{equation}
-		r_{V}^{2}+\left(1-r_{V}^{2}\right) \frac{1+c_{F}^{2}}{2}<r_{V}^{2}+\left(1-r_{V}^{2}\right)=1. \label{eq:BAM comp ii7}
-	\end{equation}
-	Since $G_{W}$ is a $W$-BAM, we have \[
-	P_{W}\left(G_{W}\left(G_{V}(z)\right)\right)=P_{W}\left(G_{V}(z)\right)\] and
-	\[ \left\|G_{W}\left(G_{V}(z)\right)-P_{W}\left(G_{V}(z)\right)\right\| \leq r_{W} \| G_{V}(z)-P_{W}\left(G_{V}(z)\right) \|, \quad r_{W} \in[0,1).
-	\]
-	So, we can write $\left\|G(z)-P_{W}(G(z))\right\| \leq\left\|G_{V}(z)-P_{W}(G(z))\right\|$, which combined with \cref{eq:BAM comp i10,eq:BAM comp i12}
-	gives us
-	\begin{equation}
-		\|G(z)-\hat{z}\| \leq\left\|G_{V}(z)-\hat{z}\right\| \label{eq:BAM comp ii8}.
-	\end{equation}
-	Hence, this inequality and \cref{eq:BAM comp ii6} imply that
-	\begin{equation}
-	\|G(z)-\hat{z}\| \leq r_{1}\|z-\hat{z}\|, \label{eq:BAM comp ii9}
-	\end{equation}
-	with $r_{1} \in[0,1),$ given by
-	\begin{equation}
-	r_{1}:=\sqrt{r_{V}^{2}+\left(1-r_{V}^{2}\right) \frac{1+c_{F}^{2}}{2}}. \label{eq:BAM comp ii10}
-	\end{equation}
-
-	\emph{Case 2}: $\alpha \in\left[0, \frac{\theta_{F}}{2}\right)$
-	
-	In this case we initially consider the triangle $\triangle[G_{V}(z), \hat{z},P_{W}\left(G_{V}(z)\right)]$. Since $G_{V}$ is a $V$-BAM, $P_{V}\left(G_{V}(z)\right)=$ $P_{V}(z)$. We will be particularly interested in the angle $\phi$ between $G_{V}(z)-\hat{z}$ and $P_{V}(z)-\hat{z}$, when these vectors are nonzero. The vector $P_{V}(z)-\hat{z}$ is automatically nonzero, because of $\alpha<\frac{\pi}{2}$ and \cref{eq:BAM comp ii4}. If the vector $G_{V}(z)-\hat{z}$ is zero, we get the desired result as shown below.
-	
-	Suppose $G_{V}(z)=\hat{z},$ then $G(z)=G_{W}\left(G_{V}(z)\right)=G_{W}(\hat{z})$ and it is easy to verify that $G_{W}(\hat{z})=\hat{z}$. Indeed,
-	\begin{equation}\label{eq:BAM comp ii11}
-			\left\|G_{W}(\hat{z})-\hat{z}\right\|=\left\|G_{W}(\hat{z})-P_{W}(\hat{z})\right\| \leq r_{W}\left\|\hat{z}-P_{W}(\hat{z})\right\|=\|\hat{z}-\hat{z}\|=0.
-	\end{equation}
-	So, $G(z)=\hat{z}$ and the left-hand side of \cref{eq:BAM comp ii1} is equal to zero and this inequality is fulfilled for any nonnegative constant $r_{V \cap W}$.
-	
-	Assume for the rest of the proof that $G_{V}(z) \neq \hat{z}$. Thus,
-	\begin{equation}\label{eq:BAM comp ii12}
-		\cos \phi=\frac{\left\|P_{V}(z)-\hat{z}\right\|}{\left\|G_{V}(z)-\hat{z}\right\|} \geq \frac{\left\|P_{V}(z)-\hat{z}\right\|}{\|z-\hat{z}\|}=\cos \alpha,
-	\end{equation}
-	where the inequality is due to \cref{eq:BAM comp ii6}. Therefore, $0 \leq \phi \leq \alpha$ and, consequently, $\phi \in\left[0, \frac{\theta_{F}}{2}\right)$.
-	
-	We consider now the triangle $\triangle[P_{V}(z), \hat{z}, P_{W}\left(G_{V}(z)\right)]$. If the vertexes $\hat{z}$ and $P_{W}\left(G_{V}(z)\right)$ coincide, we get the following bound:
-	\begin{align}
-		\|G(z)-\hat{z}\| &=\left\|G_{W}\left(G_{V}(z)\right)-\hat{z}\right\| \\
-		&=\left\|G_{W}\left(G_{V}(z)\right)-P_{W}\left(G_{V}(z)\right)\right\| \\
-		& \leq r_{W}\left\|G_{V}(z)-P_{W}\left(G_{V}(z)\right)\right\| \\
-		& \leq r_{W}\left\|G_{V}(z)-\hat{z}\right\| \\
-		& \leq r_{W}\|z-\hat{z}\| \label{eq:BAM comp ii13}
-	\end{align}
-	where we used, respectively, the definition of $G$, the current assumption $P_{W}\left(G_{V}(z)\right)=\hat{z}$, the hypothesis that $G_{W}$ is a $W$-BAM, the fact that $\hat{z} \in W$ and \cref{eq:BAM comp ii6}.
-	
-	For the rest of the proof, assume also that $P_{W}\left(G_{V}(z)\right) \neq \hat{z}$ and define $\beta$, the angle between the nonzero vectors $P_{V}(z)-\hat{z}$ and $P_{W}\left(G_{V}(z)\right)-\hat{z}$. It is easy to see that the former belongs to $\hat{V}$ and the latter belongs to $\hat{W},$ where $\hat{V}$ and $\hat{W}$ are the subspaces given by $V-\hat{z}$ and $W-\hat{z},$ respectively. Also, recall that $P_{V \cap W}\left(P_{V}(z)\right)=\hat{z}$ and therefore $P_{V}(z)-\hat{z} \in(\hat{V} \cap \hat{W})^{\perp}$.
-	
-	We rewrite \cref{eq:BAM comp i10} using the $W$-BAM property $P_{W}(G(z))=P_{W}\left(G_{W}\left(G_{V}(z)\right)\right)=P_{W}\left(G_{V}(z)\right)$ as
-	\begin{equation}\label{eq:BAM comp ii13}
-		\left\|G_{V}(z)-\hat{z}\right\|^{2}=\left\|G_{V}(z)-P_{W}\left(G_{V}(z)\right)\right\|^{2}+\left\|P_{W}\left(G_{V}(z)\right)-\hat{z}\right\|^{2}
-	\end{equation}
-	and Pythagoras can be employed as
-	\begin{align}
-		\left\|G_{V}(z)-P_{V \cap W}\left(P_{W}\left(G_{V}(z)\right)\right)\right\|^{2} =&\left\|G_{V}(z)-P_{W}\left(G_{V}(z)\right)\right\|^{2} \\
-		&+\left\|P_{W}\left(G_{V}(z)\right)-P_{V \cap W}\left(P_{W}\left(G_{V}(z)\right)\right)\right\|^{2}. \label{eq:BAM comp ii14}
-	\end{align}
-	On the one hand, $\left\|P_{W}\left(G_{V}(z)\right)-P_{V \cap W}\left(P_{W}\left(G_{V}(z)\right)\right)\right\| \leq\left\|P_{W}\left(G_{V}(z)\right)-\hat{z}\right\| .$ On the other hand, $\left\|G_{V}(z)-\hat{z}\right\| \leq$
-	$\left\|G_{V}(z)-P_{V \cap W}\left(P_{W}\left(G_{V}(z)\right)\right)\right\|$ because we have already seen that $P_{V \cap W}\left(G_{V}(z)\right)=\hat{z}$. Hence, $P_{V \cap W}\left(P_{W}\left(G_{V}(z)\right)\right)=\hat{z}$
-	and $P_{W}\left(G_{V}(z)\right)-\hat{z} \in(\hat{V} \cap \hat{W})^{\perp}$.
-	
-	We can then use the definition of the cosine of the Friedrichs angle \cref{def:Friedrich} $\theta_{F}$ between $V$ and $W$ and get
-	\begin{equation}\label{eq:BAM comp ii15}
-		\cos\beta = \left\langle\frac{P_{W}\left(G_{V}(z)\right)-\hat{z}}{\left\|P_{W}\left(G_{V}(z)\right)-\hat{z}\right\|}, \frac{P_{V}(z)-\hat{z}}{\left\|P_{V}(z)-\hat{z}\right\|}\right\rangle \leq c_{F}=\cos \theta_{F}
-	\end{equation}
-	which provides $\beta \in\left[\theta_{F}, \pi\right]$.
-	
-	By now we have the nonzero vectors $G_{V}(z)-\hat{z}, P_{V}(z)-\hat{z}$ and $P_{W}\left(G_{V}(z)\right)-\hat{z} .$ The vectors $G_{V}(z)-\hat{z}$ and $P_{V}(z)-\hat{z}$ form angle $\phi \in\left[0, \frac{\theta_{F}}{2}\right),$ vectors $P_{V}(z)-\hat{z}$ and $P_{W}\left(G_{V}(z)\right)-\hat{z}$ form angle $\beta \in\left[\theta_{F}, \pi\right] .$ Let $\gamma$ be the angle between vectors $G_{V}(z)-\hat{z}$ and $P_{W}\left(G_{V}(z)\right)-\hat{z} .$ Obviously, by Pythagoras, $\gamma \in\left[0, \frac{\pi}{2}\right]$ and
-	\begin{equation}\label{eq:BAM comp ii16}
-	\cos\gamma=\frac{\left\|P_{W}\left(G_{V}(z)\right)-\hat{z}\right\|}{\left\|G_{V}(z)-\hat{z}\right\|}
-	\end{equation}
-
-	More than that, from \cref{fact:BAM angle fact}, we conclude that $\gamma \in\left[\frac{\beta}{2}, \frac{\pi}{2}\right]$. In particular, we get $\gamma \geq \frac{\beta}{2} \geq \frac{\theta_{F}}{2}$ and hence
-	\begin{equation}\label{eq:BAM comp ii17}
-		\cos \gamma \leq \cos \frac{\theta_{F}}{2}=\sqrt{\frac{1+c_{F}^{2}}{2}}
-	\end{equation}
-	
-	Then, enforcing similar arguments as in Case $1$, we obtain
-	\begin{align}
-		\|G(z)-\hat{z}\|^{2} &=\left\|G_{W}\left(G_{V}(z)\right)-\hat{z}\right\|^{2} \\
-		&=\left\|G_{W}\left(G_{V}(z)\right)-P_{W}\left(G_{V}(z)\right)\right\|^{2}+\left\|P_{W}\left(G_{V}(z)\right)-\hat{z}\right\|^{2} \\
-		& \leq r_{W}^{2}\left\|G_{V}(z)-P_{W}\left(G_{V}(z)\right)\right\|^{2}+\left\|P_{W}\left(G_{V}(z)\right)-\hat{z}\right\|^{2} \\
-		&=r_{W}^{2}\left(\left\|G_{V}(z)-P_{W}\left(G_{V}(z)\right)\right\|^{2}+\left\|P_{W}\left(G_{V}(z)\right)-\hat{z}\right\|^{2}\right) \\
-		& \quad +\left(1-r_{W}^{2}\right)\left\|P_{W}\left(G_{V}(z)\right)-\hat{z}\right\|^{2} \\
-		&=r_{W}^{2}\left\|G_{V}(z)-\hat{z}\right\|^{2}+\left(1-r_{W}^{2}\right)\left\|P_{W}\left(G_{V}(z)\right)-\hat{z}\right\|^{2} \\
-		&=r_{W}^{2}\left\|G_{V}(z)-\hat{z}\right\|^{2}+\left(1-r_{W}^{2}\right) \cos ^{2} \gamma\left\|G_{V}(z)-\hat{z}\right\|^{2} \\
-		& \leq\left(r_{W}^{2}+\left(1-r_{W}^{2}\right) \frac{1+c_{F}^{2}}{2}\right)\left\|G_{V}(z)-\hat{z}\right\|^{2} \\
-		& \leq\left(r_{W}^{2}+\left(1-r_{W}^{2}\right) \frac{1+c_{F}^{2}}{2}\right)\|z-\hat{z}\|^{2} \label{eq:BAM comp ii18}
-	\end{align}
-	The first line corresponds to the definition of $G$, the second is by Pythagoras and the third holds because $G_{W}$ is a $W$-BAM. The fourth line is a rearrangement of terms, followed by Pythagoras in the fifth. Then, \label{eq:BAM comp ii16,eq:BAM comp ii17} are employed respectively. At last, we used \cref{eq:BAM comp ii6}.
-	
-	Analogously to the proof that $r_{1}=\sqrt{r_{V}^{2}+\left(1-r_{V}^{2}\right) \frac{1+c_{F}^{2}}{2}}$ is strictly smaller than $1,$ we can see that
-	\begin{equation}
-		r_{2}:=\sqrt{r_{W}^{2}+\left(1-r_{W}^{2}\right) \frac{1+c_{F}^{2}}{2}}<1
-	\end{equation}
-	Finally, we can gather Cases 1 and 2. From \cref{eq:BAM comp ii10}, \cref{eq:BAM comp ii13} and \cref{eq:BAM comp ii18}, we have $\|G(z)-\hat{z}\| \leq r_{V \cap W}\|z-\hat{z}\|$ for all $z \in \RR^{n},$ with $r_{V \cap W} \in[0,1)$ given by $r_{V \cap W}:=\max \left\{r_{1}, r_{W}, r_{2}\right\}=\max \left\{r_{1}, r_{2}\right\}$.
+See the proof for \cite[Lemma 1]{Behling:2019dj}.
 \end{proof}
 
 The following fact generalizes the previous one for a finite composition of best approximation mappings.
@@ -1744,7 +1549,7 @@ where $\left\{X_{i}\right\}_{i=1}^{m}$ are closed convex sets.
 
 In this section, we will present three families of projection methods that are employed to solve this problem: MAP, DRM and CRM. The first two of were first established in the mid 20th century, with the latter being a more novel method which will be the focus of our subsequent work.
 
-While the CFP is defined for $m$-sets, many of the most commonly used projection methods for solving this problem were developed for solving two-set problems. While some of them can be generalized and/or expanded for $m$ sets, this is not the case for some. However, using the following reformulation, a two-set algorithm can be used for solving an $m$-set problem.
+While the CFP is defined for $m$-sets, many of the most commonly used projection methods for solving this problem were developed for solving two-set problems. While some of them can be generalized and/or expanded for $m$ sets, this is not the case for others. However, using the following reformulation, a two-set algorithm can be used for solving an $m$-set problem.
 
 \subsection{Pierra's product space reformulation}\label{subsec:Pierra}
 The classical way to apply two-set projection-based algorithms to problems for three or more sets is to use Pierra's product space reformulation \cite{Pierra:1984hl}, which reduces CFP \cref{eq:CFP} to the following two-set feasibility problem, which we call CFP-red:
@@ -1940,7 +1745,7 @@ Notably, when $m=2$, the Cyclic DRM operator does not match the usual two-set DR
 \[
 T_{[K_1, K_2]}=T_{K_2, K_1} T_{K_1, K_2} \neq T_{K_1, K_2}.
 \]
-An alternative version known as the \emph{Cyclically Anchored Douglas-Rachford}, however, reduces to the usual DRM operator when working with two sets. Presented by Bauschke, Noll and Pham in \cite{Bauschke:2015df}, its operator for $m$ sets is given by
+An alternative version known as the \emph{Cyclically Anchored Douglas-Rachford}, however, reduces to the usual DRM operator when working with two sets. Presented by Bauschke, Noll and Phan in \cite{Bauschke:2015df}, its operator for $m$ sets is given by
 \[
 T_{K_{1},\left[K_{2}, \ldots, K_{m}\right]}:=T_{K_{1}, K_{m}} T_{K_{1}, K_{m-1}} \cdots T_{K_{1}, K_{2}},
 \]
@@ -1966,7 +1771,7 @@ The next subsection deals with the main algorithm of our interest, which also ha
 
 The \emph{Circumcentered Reflection Method} is a circumcentered version of the Douglas-Rachford method, first introduced in \cite{Behling:2018a,Behling:2018} and further enhanced in \cite{Arefidamghani:2020,Bauschke:2018ut,Bauschke:2018wa, Bauschke:2019uh,Bauschke:2020a,Behling:2019dj,Behling:2020,Dizon:2019vq,Dizon:2020a,Ouyang:2018gu,Lindstrom:2020a}.
 
-Starting from a point in $U$, the CRM operator is the circumcenter \cref{def:circum} of the triangle formed by the starting point, its reflection through the convex set $K$ and the composite reflection through $K$ and then through $U$. Formally, the CRM scheme reads as
+Starting from a point in an affine subspace $U$, the CRM operator is the circumcenter \cref{def:circum} of the triangle formed by the starting point, its reflection through the convex set $K$ and the composite reflection through $K$ and then through $U$. Formally, the CRM scheme reads as
 \[
 z^{k+1}:=C\left(z^{k}\right)=\text { circumcenter }\left\{z^{k}, R_{K}\left(z^{k}\right), R_{U} R_{K}\left(z^{k}\right)\right\}, \text { with } z^{k} \in U \label{eq:CRM},
 \]
@@ -1979,32 +1784,32 @@ Let $\mathcal{B}:=\left\{U_{i}\right\}_{i \in \mathrm{I}}$ be a family of finite
 $$
 \text{Find }z^* \in U_{\mathcal{B}}: \|z-z^*\| = \min _{s \in U_{\mathcal{B}}}\|z-s\|.
 $$
-It is well known that this problem has a unique solution $z^*$ and that $z^*=P_{U_{\mathcal{B}}}(z)$ if, and only if, $z-z^* \in U_{\mathcal{B}}^{\perp},$ i.e., $\langle z-z^*, s\rangle=0$ for all $s \in U_{\mathcal{B}}$.
+It is well known that this problem has a unique solution $z^*$ and that $z^* \in P_{U_{\mathcal{B}}}(z)$ if, and only if, $z-z^* \in U_{\mathcal{B}}^{\perp},$ i.e., $\langle z-z^*, s\rangle=0$ for all $s \in U_{\mathcal{B}}$.
 
-We begin by characterizing and defining CRM for the intersection of affine subspaces, proof of which benefits from the following auxiliary linear operator. Due to its length and reliance on other facts not presented in this work, we refer to the original paper for the proof.
+We begin by characterizing and defining the CRM for the intersection of affine subspaces, proof of which benefits from the following auxiliary linear operator. Due to its length and reliance on other facts not presented in this work, we refer to the original paper for the proof.
 \begin{fact}\label{fact:CRM aux op}
-	Consider a collection of affine subspaces $\mathcal{B}=\left(U_{1}, U_{2}, \ldots, U_{q}\right)$ with nonempty intersection $U_{\mathcal{B}}:=\bigcap_{i=1}^{q} U_{i}$. Denote $U_{z}:= \operatorname{aff}\left\{x, R_{U_{1}}(x), R_{U_{2}} R_{U_{1}}(x), \ldots, R_{U_{m}} \cdots R_{U_{2}} R_{U_{1}}(x)\right\}$. Let $A: \RR^{n} \rightarrow \RR^{n}$, with
+	Consider a collection of affine subspaces $\mathcal{B}=\left(U_{1}, U_{2}, \ldots, U_{q}\right)$ with nonempty intersection $U_{\mathcal{B}}:=\bigcap_{i=1}^{q} U_{i}$. Denote $U_{z}:= \operatorname{aff}\left\{z, R_{U_{1}}(z), R_{U_{2}} R_{U_{1}}(z), \ldots, R_{U_{m}} \cdots R_{U_{2}} R_{U_{1}}(z)\right\}$. Let $A: \RR^{n} \rightarrow \RR^{n}$, with
 	\begin{align}
-		A(x):=\frac{1}{m} \sum_{i=1}^{m} A_{i}(x), \text { where } 
+		A(z):=\frac{1}{m} \sum_{i=1}^{m} A_{i}(z), \text { where } 
 		A_{1}:=\frac{1}{2}\left(\Id+P_{U_{1}}\right) \text { and }  A_{i}:=\frac{1}{2}\left(\Id+P_{U_{i}} R_{U_{i-1}} \ldots R_{U_{1}}\right)
 	\end{align}
 	Then:
 	\begin{listi}
 		\item $A$ is linear and $\frac{1}{2}$ -averaged, i.e., firmly nonexpansive;
-		\item $\Fix A:=\left\{x \in \RR^{n} \mid A(x)=x\right\}=U_{\mathcal{B}}$;
-		\item for all $x \in \RR^{n}, A(x) \in U_{z}$;
-		\item there exists $r_{A} \in[0,1)$ such that for all $x \in \RR^{n}$ it holds that $\left\|A(x)-P_{U_{\mathcal{B}}}(x)\right\| \leq r_{A} \| x-$ $P_{U_{\mathcal{B}}}(x)\|$;
-		\item let $x \in \RR^{n}$ be given. Then, $P_{U_{\mathcal{B}}}\left(A^{k}(x)\right)=P_{U_{\mathcal{B}}}(x)$ for all $k \in \NN$;
-		\item let $x \in \RR^{n}$ be given. The sequence $\left\{A^{k}(x)\right\}_{k \in \NN}$ converges to $P_{U_{\mathcal{B}}}(x)$ with linear rate $r_{A}$.
+		\item $\Fix A:=\left\{z \in \RR^{n} \mid A(z)=z\right\}=U_{\mathcal{B}}$;
+		\item for all $z \in \RR^{n}, A(z) \in U_{z}$;
+		\item there exists $r_{A} \in[0,1)$ such that for all $z \in \RR^{n}$ it holds that $\left\|A(z)-P_{U_{\mathcal{B}}}(z)\right\| \leq r_{A} \| z-P_{U_{\mathcal{B}}}(z)\|$;
+		\item let $z \in \RR^{n}$ be given. Then, $P_{U_{\mathcal{B}}}\left(A^{k}(z)\right)=P_{U_{\mathcal{B}}}(z)$ for all $k \in \NN$;
+		\item let $z \in \RR^{n}$ be given. The sequence $\left\{A^{k}(z)\right\}_{k \in \NN}$ converges to $P_{U_{\mathcal{B}}}(z)$ with linear rate $r_{A}$.
 	\end{listi}
 \end{fact}
 \begin{proof}
 	See the proof for Lemma 2.1 in \cite{Behling:2018a}.
 \end{proof}
 
-With the help of this $\alpha$-averaged operator, we can state good definition and characterization of CRM for intersecting affine subspaces.
+With the help of this $\alpha$-averaged operator, we can well define and characterize the CRM for intersecting affine subspaces.
 
-\begin{fact}[Good definition and characterization of CRM for intersecting affine subspaces]\label{fact:CRM well def char} Consider a collection of affine subspaces $\mathcal{B}=\left(U_{1}, U_{2}, \ldots, U_{q}\right)$ with nonempty intersection $U_{\mathcal{B}}:=\bigcap_{i=1}^{q} U_{i}$. Denote $U_{z}:=\operatorname{aff}\left\{z, R_{U_{1}}(z), R_{U_{2}} R_{U_{1}}(z), \ldots, R_{U_{q}} \cdots R_{U_{2}} R_{U_{1}}(z)\right\}$. For any $z \in \RR^{n}, C_{\mathcal{B}}(z)$ exists, is unique and fulfills:
+\begin{fact}[Well definition and characterization of CRM for intersecting affine subspaces]\label{fact:CRM well def char} Consider a collection of affine subspaces $\mathcal{B}=\left(U_{1}, U_{2}, \ldots, U_{q}\right)$ with nonempty intersection $U_{\mathcal{B}}:=\bigcap_{i=1}^{q} U_{i}$. Denote $U_{z}:=\operatorname{aff}\left\{z, R_{U_{1}}(z), R_{U_{2}} R_{U_{1}}(z), \ldots, R_{U_{q}} \cdots R_{U_{2}} R_{U_{1}}(z)\right\}$. For any $z \in \RR^{n}, C_{\mathcal{B}}(z)$ exists, is unique and fulfills:
 	\begin{listi}
 		\item for any $s \in U_{\mathcal{B}}$, $C_{\mathcal{B}}(z)=P_{U_{z}}(s)$;
 		\item $P_{U_{\mathcal{B}}}\left(C_{\mathcal{B}}(z)\right)=P_{U_{\mathcal{B}}}(z)$.
@@ -2198,9 +2003,7 @@ The notion of an \emph{outer-approximate projection} was introduced by Fukushima
 
 The point $\tilde{P}_{X}(x)$ will be called \emph{outer-approximate projection} of $x \in B$ onto $X$. \cref{def:approx proj} guarantees, in view of property (ii), the existence of a hyperplane $H_{X}(x)$ separating $x$ from $X$ such that $\tilde{P}_{X}(x)$ is the orthogonal projection of $x$ onto $H_{X}(x)$. In light of this, we can interpret property (i) as meaning that the distance of the hyperplane $H_{X}(x)$ to $X$ is at least a fixed percentage of the distance from $x$ to $X$. This percentage is given by $\gamma$; if $\gamma=0$, the outer-approximate projection is precisely the exact orthogonal projection. If, for instance, $\gamma = 0.3$, then $\tilde{P}_{X}(x)$ advances at least $70 \%$ towards $X$ by means of the distance of $x$ to $X$. We emphasize that a percentage of improvement on the distance, \emph{per se}, is not sufficient for having an outer-approximate projection; the existence of the separating hyperplane is crucial, too.
 
-In short, it can be said that the outer-approximate projection preserves the sense of approaching the target set from the "outside", that is, by means of a hyperplane separating the original point being projected and the set it is being projected towards, as well as establishing a minimum gain in distance relative to the original point, keeping the idea that a projection should bring a point somewhat closer to the target set, whenever the point does not belong to the set. Unfortunately, this approach sacrifices the nonexpansivity of the projection and it does not require the approximate projection to lie on the target set.
-
-A major advantage of this definition, as will be seen in \cref{sec:numerical}, is the existence of an algorithm which uses subgradients \cref{subsec:nonconv} to obtain outer-approximate projections.
+In short, it can be said that the outer-approximate projection preserves the sense of approaching the target set from the "outside" (like a relaxed projection, as we will discuss later), that is, by means of a hyperplane separating the original point being projected and the set it is being projected towards, as well as establishing a minimum gain in distance relative to the original point, keeping the idea that a projection should bring a point somewhat closer to the target set, whenever the point does not belong to the set. Unfortunately, this approach sacrifices the nonexpansivity of the projection and it does not require the approximate projection to lie on the target set.
 
 Now, we will present alternative definitions of "approximate" (in a general sense) projections and comment briefly on how they differ from the one we chose to employ.
 
@@ -2211,10 +2014,10 @@ The following two definitions were taken from \cite{Drusvyatskiy:2018}. This pap
 The first approximation was named by the authors as an \emph{inexact} projection, in the sense that it establishes a bound for computing errors in the calculation of the projection whilst not imposing further conditions.
 
 \begin{definition}[Drusvyatskyi and Lewis' inexact projection]
-	Let $B \subseteq \RR^{n}$ be a nonempty set and $X \subseteq \RR^{n}$ a closed set. For some $\varepsilon \geq 0$, $\tilde{P}_{X}(x)$ is a DL-inexact projection from $x \in B$ onto $X$ if $\|\tilde{P}_{X}(x)-P_{X}(x)\| \leq \varepsilon \dist(x,K)$.
+	Let $B \subseteq \RR^{n}$ be a nonempty set and $X \subseteq \RR^{n}$ a closed set. For some $\varepsilon \geq 0$, $\tilde{P}_{X}(x)$ is a DL-inexact projection from $x \in B$ onto $X$ if $\|\tilde{P}_{X}(x)-P_{X}(x)\| \leq \varepsilon \dist(x,X)$.
 \end{definition}
 
-This definition allows for employing of a slightly miscalculated projection. It assumes the exact projection is known, but that it's exact computation might be inefficient or erroneous to a certain extent. Thus, it is not suitable for replacing projections when they are unknown or unavailable.
+This definition allows for employing of a slightly miscalculated projection. It assumes the exact projection is known, but that its exact computation might be inefficient or erroneous to a certain extent. Thus, it is not suitable for replacing projections when they are unknown or unavailable.
 
 The second definition, presented below, was called an \emph{approximate} projection. While similar in intent to the inexact projection, this approximation is now required to be on the target set.
 
@@ -2278,9 +2081,9 @@ Relaxed projections can also be seen as a special case of an outer-approximate p
 \begin{proof}
 	First, let's prove that $\hat{P}_{X}(x;\lambda)$ satisfies \cref{def:approx proj}(i). Using the triangular inequality and the fact that $P_{X}(x) \in X$, we have that
 	\begin{align}
-			\dist^2(\hat{P}_{X}(x;\lambda),X) &\leq \|\hat{P}_{X}(x;\lambda)-P_{X}(x)\|^2 + \dist(P_{X}(x),X) \\
-			&= \|(1-\lambda)x-\lambda P_{X}(x)-x\|^2 \\
-			&= (1-\lambda)^2\|x-P_{X}(x) \|,
+			\dist(\hat{P}_{X}(x;\lambda),X) &\leq \|\hat{P}_{X}(x;\lambda)-P_{X}(x)\| + \dist(P_{X}(x),X) \\
+			&= \|(1-\lambda)x+\lambda P_{X}(x)-P_{X}(x)\| \\
+			&= (1-\lambda)\|x-P_{X}(x)\|,
 	\end{align}
 	which implies that
 	\[
@@ -2292,7 +2095,8 @@ Relaxed projections can also be seen as a special case of an outer-approximate p
 	\begin{align}
 		\scal{x-\hat{P}(x;\lambda)}{y-\hat{P}(x;\lambda)}
 		&=\scal{\lambda x - \lambda P_{X}(x)}{y - (1-\lambda)x -\lambda P_{X}(x)} \\
-		&=\lambda\scal{x-P_{X}(x)}{y-P_{X}(x)}+\lambda\scal{x-P_{X}(x)}{-(1-\lambda)-(1-\lambda)P_{X}(x)} \\
+		&=\lambda\scal{x-P_{X}(x)}{y-P_{X}(x)} \\
+		&\quad+\lambda\scal{x-P_{X}(x)}{-(1-\lambda)x+(1-\lambda)P_{X}(x)} \\
 		&=\lambda\underbrace{\scal{x-P_{X}(x)}{y-P_{X}(x)}}_{\leq 0}+\underbrace{\lambda(\lambda-1)}_{<0}\|x-P_{X}(x)\|^2 \leq 0,		
 	\end{align}
 	thus proving (ii) is satisfied.
@@ -2331,9 +2135,7 @@ Our first results concern the well-definedness of the outer-approximate circumce
 	\begin{proof}
     %On the proof for Lemma 3 in \cite[Section 2]{Behling:2020}, simply replace $C_{z}$ with $\tilde{C}_{z}$ and the hyperplane $H_{z}$ with $\tilde{H}_{z}$. The proof follows similarly, since we can derive from the outer-approximate projection a hyperplane separating $z$ from $K$, albeit further from $K$ than the hyperplane derived from the exact projection.
 
-	Let $z \in U$.
-	If $z \in K$, the result is trivial. Suppose then that $z \in U \setminus K$. It follows that $P_{\tilde{H}_{z}}(z)=\tilde{P}_{K}(z)$ and, consequently, $R_{\tilde{H}_{z}}(z)=\tilde{R}_{K}(z)$.
-	Note that $\tilde{H}_{z} \cap U \neq \emptyset$.
+	Let $z \in U$. If $z \in K$, the result is trivial. Suppose then that $z \in U \setminus K$. From the definition of $\tilde{H}_{z}$, we can clearly see that  $P_{\tilde{H}_{z}}(z)=\tilde{P}_{K}(z)$ and, consequently, $R_{\tilde{H}_{z}}(z)=\tilde{R}_{K}(z)$. Note that $\tilde{H}_{z} \cap U \neq \emptyset$.
 	
 	Let $y \in K \cap U$.
 	$y \in K$ and \cref{def:approx proj}(ii) imply $\scal{z-\tilde{P}_{K}(z)}{y-\tilde{P}_{K}(z)} \leq 0$.
@@ -2389,10 +2191,7 @@ We now derive the firm quasinonexpansiveness property (\cref{def:nonexp}(iv)) of
 	%On the proof of Lemma 5 \cite[Section 2]{Behling:2020}, replace exact projections and reflections onto/through $K$ with outer-approximate ones and replace the corresponding hyperplanes with $\tilde{H}_{z}\coloneqq \left\{h \in \RR^{n} \mid \scal{h-\tilde{P}_{K}(z)}{z-\tilde{P}_{K}(z)}=0\right\}$ and \\ $\tilde{H}_{z}^{+}\coloneqq \left\{h \in \RR^{n} \mid \scal{h-\tilde{P}_{K}(z)}{z-\tilde{P}_{K}(z)}\leq\right.0\}$.
 	
 	
-	Let $z \in U$. Define $\tilde{H}_{z} \coloneqq \left\{h \in \RR^{n} \mid \scal{h-\tilde{P}_{K}(z)}{z-\tilde{P}_{K}(z)}=0\right\}$ %\text{ and} \\ \tilde{H}_{z}^{+} &\coloneqq \left\{h \in \RR^{n} \mid \scal{h-\tilde{P}_{K}(z)}{z-\tilde{P}_{K}(z)}\leq\right.0\}.
-	and let $\tilde{H}_{z}^{+}$ be the halfspace generated by $\tilde{H}_{z}$ such that $z \notin \inte\tilde{H}^{+}_{z}$.
-	
-	Clearly, $K \subseteq \tilde{H}_{z}^{+}$, thus $K \cap U \subseteq \tilde{H}_{z}^{+} \cap U$. If $z \in \tilde{H}_{z}$, then $z \in K \cap U$ and, by  \cref{lem:CARM fix}, $\tilde{C}(z)=z$, from which the result easily follows.
+	Let $z \in U$. Define $\tilde{H}_{z} \coloneqq \left\{h \in \RR^{n} \mid \scal{h-\tilde{P}_{K}(z)}{z-\tilde{P}_{K}(z)}=0\right\}$ and $\tilde{H}_{z}^{+} \coloneqq \left\{h \in \RR^{n} \mid \scal{h-\tilde{P}_{K}(z)}{z-\tilde{P}_{K}(z)}\leq\right.0\}$. Clearly, $K \subseteq \tilde{H}_{z}^{+}$, thus $K \cap U \subseteq \tilde{H}_{z}^{+} \cap U$. If $z \in \tilde{H}_{z}$, then $z \in K \cap U$ and, by  \cref{lem:CARM fix}(ii), $\tilde{C}(z)=z$, from which the result easily follows.
 	
 	Let $z \notin \tilde{H}_{z}$. Since $\tilde{R}_{K}(z)=R_{\tilde{H}_{z}}(z)$,  $\tilde{C}(z)=\circum\left\{z, R_{\tilde{H}_{z}}(z), R_{U}R_{\tilde{H}_{z}}(z)\right\}$. From  \cref{fact:CRM 1 step conv hp aff}, we have that $\tilde{C}(z)=P_{\tilde{H}_{z}\cap U}(z) \in U$. Note that $z \not\in \tilde{H}_{z}$ implies that $z \not\in K$. It also easily follows that $z \notin \tilde{H}_{z}^{+}$, which combined with the fact that $\tilde{H}_{z}$ is the boundary of $\tilde{H}_{z}^{+}$ yield that $P_{\tilde{H}_{z} \cap U}(z)=P_{\tilde{H}_{z}^{+} \cap U}(z)$.
 	
@@ -2407,10 +2206,10 @@ We now derive the firm quasinonexpansiveness property (\cref{def:nonexp}(iv)) of
 	
 	Finally, plug $P_{K \cap U}(z)$ in for $s$ in \cref{eq: CARM fqne} so as to get
 	\begin{align}
-		\dist^{2}(C(z), K \cap U) & \leq\|\tilde{C}(z)-P_{K \cap U}(z)\|^{2} \leq\|z-P_{K \cap U}(z)\|^{2}-\|z-\tilde{C}(z)\|^{2} \\
+		\dist^{2}(\tilde{C}(z), K \cap U) & \leq\|\tilde{C}(z)-P_{K \cap U}(z)\|^{2} \leq\|z-P_{K \cap U}(z)\|^{2}-\|z-\tilde{C}(z)\|^{2} \\
 		&=\dist^{2}(z, K \cap U)-\|z-\tilde{C}(z)\|^{2}.
 	\end{align}
-	Then, $\tilde{C}$ is firmly nonexpansive.
+	Then, $\tilde{C}$ is firmly quasinonexpansive.
 \end{proof}
 
 We can now establish the central theorem of this work, stating convergence of CARM. Although the proof follows some lines of \cite[Theorem 1]{Behling:2020}, one has to be careful when dealing with the fixed points of the outer-approximate reflection operator $\tilde{R}_{K}$. In this regard, \cref{lem:CARM fix} plays a special role.
@@ -2419,8 +2218,7 @@ We can now establish the central theorem of this work, stating convergence of CA
 	Assume $K, U \subset R^{n}$ as in Lemma 2 and let $z \in U$ be given. Then, the CARM sequence $\left(\tilde{C}^{k}(z)\right)_{k \in \NN}$ is well-defined, contained in $U$ and converges to a point in $K \cap U$.
 \end{theorem}
 \begin{proof}
-	 \cref{lem:CARM well-def char} gives us that $\left(\tilde{C}^{k}(z)\right)_{k \in \NN}$ is well-defined and belongs to U.
-	From  \cref{lem:CARM quasinonexp}, we have, for any $z \in U, s \in K \cap U$ and $\ell \in \NN$
+	 \cref{lem:CARM well-def char} gives us that $\left(\tilde{C}^{k}(z)\right)_{k \in \NN}$ is well-defined and belongs to $U$. From  \cref{lem:CARM quasinonexp}, we have, for any $z \in U, s \in K \cap U$ and $\ell \in \NN$
 	\begin{align}
 		\left\|z^{\ell+1}-s\right\|^{2} &=\left\|\tilde{C}^{\ell+1}(z)-s\right\|^{2} \\
 		&=\left\|\tilde{C}\left(\tilde{C}^{\ell}(z)\right)-s\right\|^{2} \\
@@ -2436,20 +2234,57 @@ We can now establish the central theorem of this work, stating convergence of CA
 	\begin{equation}
 		\sum_{\ell=0}^{m}\left\|z^{\ell}-z^{\ell+1}\right\|^{2} \leq \sum_{\ell=0}^{m}\left(\left\|z^{\ell}-s\right\|^{2}-\left\|z^{\ell+1}-s\right\|^{2}\right)=\left\|z^{0}-s\right\|^{2}-\left\|z^{m+1}-s\right\|^{2} \leq\left\|z^{0}-s\right\|^{2}.
 	\end{equation}
-	Taking limits as $m \rightarrow+\infty$, we get the summability of the associated series and so, $z^{k}-z^{k+1}$ converges to 0 as $k \rightarrow+\infty$.
-	
+	Taking limits as $m \rightarrow+\infty$, we get the summability of the associated series and so, 	
+	\begin{equation}\label{eq:CARM conv eq 1}
+		\|z^{k}-z^{k+1}\| \rightarrow 0 \text{ as } k \rightarrow+\infty.
+	\end{equation}
 	Moreover, by \cref{eq: CARM fqne} in  \cref{lem:CARM quasinonexp}, the sequence $\left(z^{k}\right)_{k \in \NN}$ is bounded. That is,
 	\begin{equation}
 		\left\|z^{k}-s\right\| = \left\|\tilde{C}^{k}(z)-s\right\| \leq\left\|\tilde{C}^{k-1}(z)-s\right\| \leq \cdots \leq\|z-s\|.
 	\end{equation}
 	This also shows that the sequence is Fejér monotone with respect to $K \cap U$.
 	
-	Let $\hat{z}$ be any cluster point of the sequence $\left(z^{k}\right)_{k \in \NN}$ and denote $\left(z^{i_{k}}\right)_{k \in \NN}$ an associated convergent subsequence to $\hat{z}$. Note further that the fact $z^{i_{k}}-z^{i_{k}+1} \rightarrow 0$ implies $z^{i_{k}+1} \rightarrow \hat{z}$. We claim that $\hat{z} \in K \cap U$. since $U$ is closed and $\left(z^{k}\right)_{k \in \NN}$ is contained in $U$, we must have $\hat{z} \in U$. By the definition of $X$ we have that
-	\begin{equation}
-		\left\|z^{i_{k}}-z^{i_{k}+1}\right\|=\left\|z^{i_{k}}-\tilde{C}\left(z^{i_{k}}\right)\right\|=\left\|\tilde{C}\left(z^{i_{k}}\right)-\tilde{R}_{K}\left(z^{i_{k}}\right)\right\|=\left\|z^{i_{k}+1}-\tilde{R}_{K}\left(z^{i_{k}}\right)\right\|.
-	\end{equation}
-	So, $z^{i k+1}-\tilde{R}_{K}\left(z^{i k}\right)$ converges to $0$. It follows from the continuity of the reflection onto $K$ and taking limits as $k \rightarrow+\infty$ in the last equality that $\hat{z}=\tilde{R}_{K}(\hat{z})$, that is, $\hat{z} \in \Fix \tilde{R}_{K}$. From  \cref{lem:CARM fix}(i), $\hat{z} \in K$, proving the claim.
+	Let $\hat{z}$ be any cluster point of the sequence $\left(z^{k}\right)_{k \in \NN}$ and denote $\left(z^{i_{k}}\right)_{k \in \NN}$ an associated convergent subsequence to $\hat{z}$. Note further that the fact $z^{i_{k}}-z^{i_{k}+1} \rightarrow 0$ implies $z^{i_{k}+1} \rightarrow \hat{z}$. We claim that $\hat{z} \in K \cap U$. Since $U$ is closed and $\left(z^{k}\right)_{k \in \NN}$ is contained in $U$, we must have $\hat{z} \in U$. 
 	
+	From \cref{def:approx proj}(i), for any $z^{k}$ we have that
+	\begin{align}			
+		\dist(z^{k},K)&=\left\|P_{K}(z^{k})-z^{k}\right\|\\
+		&\leq\left\|\tilde{P}_{K}\left(z^{k}\right)-z^{k}\right\|+\dist\left(\tilde{P}_{K}\left(z^{k}\right),K\right)\\
+		&\leq\left\|\tilde{P}_{K}\left(z^{k}\right)-z^{k}\right\|+\gamma\dist(z^{k},K) \\
+		&\leq \frac{1}{1-\gamma}\left\|\tilde{P}_{K}\left(z^{k}\right)-z^{k}\right\|,
+	\end{align}
+	with $\gamma \in [0,1)$.
+	Therefore, $$
+	\left\|\tilde{P}_{K}\left(z^{k}\right)-z^{k}\right\| \geq (1-\gamma) \dist(z^{k},K)\geq 0.
+	$$
+	
+	Let $z^{i^{k}} \in U$ such that $z^{i^{k}} \rightarrow \hat{z}$.
+	Assume by contradiction that $\rho = \dist(\hat{z},K)>0$. Then, we have that 
+	$$
+	\left\|\tilde{P}_{K}\left(\hat{z}\right)-\hat{z}\right\| \geq (1-\gamma) \dist(\hat{z},K)=(1-\gamma)\rho >0.
+	$$
+	From the definitions of $\tilde{P}, \tilde{R}$ and $\tilde{C}$, for any $i^k$ we have
+	\begin{align}
+		\left\|\tilde{P}_{K}(z^{i^{k}})-z^{i^{k}}\right\|&=\left\|\frac{z^{i^{k}}+\tilde{R}(z^{i^{k}})}{2}-z^{i^{k}}\right\|=\frac{1}{2}\left\|\tilde{R}_{K}(z^{i^{k}})-z^{i^{k}}\right\|\\
+		&\leq\frac{1}{2}\left(\left\|\tilde{R}_{K}(z^{i^{k}})-\tilde{C}(z^{i^{k}})\right\|+\left\|\tilde{C}(z^{i^{k}})-z^{i^{k}}\right\| \right)\\
+		&=\left\|\tilde{C}(z^{i^{k}})-z^{i^{k}}\right\|.
+	\end{align}
+	 Hence, we have that
+	 \begin{equation}\label{eq:CARM conv eq 2}	 		 \|z^{i^{k+1}}-z^{i^{k}}\|=\|\tilde{C}(z^{i^{k}})-z^{i^{k}}\| \geq \left\|\tilde{P}_{K}\left(z^{i^{k}}\right)-z^{i^{k}}\right\| \geq (1-\gamma) \dist(z^{i^{k}},K). 
+	 \end{equation}
+	Also, note that
+	$$
+	\rho \leq \|\hat{z}-P_{K}(z^{i^k})\| \leq \|\hat{z}-z^{i^{k}}\|+\|z^{i^{k}}-P_{K}(z^{i^{k}})\| =\|\hat{z}-z^{i^{k}}\|+\dist(z^{i^{k}},K).
+	$$
+
+	Since $z^{i^{k}} \rightarrow \hat{z}$, for all $i^{k}$ sufficiently large we must have $\|z^{i^{k}}-\hat{z}\|\leq \frac{\rho}{2}$. Then, taking into account the previous inequality, we have that $\dist(z^{i^{k}},K)\geq \frac{\rho}{2}$ for all sufficiently large $i^{k}$, which combined with \cref{eq:CARM conv eq 2} yields
+	$$
+	\|z^{i^{k+1}}-z^{i^{k}}\|\geq (1-\gamma) \dist(z^{i^{k}},K) \geq (1-\gamma)\frac{\rho}{2}.
+	$$
+	However, this prevents $\|z^{i^{k+1}}-z^{i^{k}}\| \rightarrow 0$ as $i^{k} \rightarrow \infty$, contradicting \cref{eq:CARM conv eq 1}.
+	Thus, $\hat{z} \in K$.
+	
+	%So, $z^{i k+1}-\tilde{R}_{K}\left(z^{i k}\right)$ converges to $0$. Then, taking limits as $k \rightarrow+\infty$ in the last equality, we have that $\hat{z}=\tilde{R}_{K}(\hat{z})$; that is, $\hat{z} \in \Fix \tilde{R}_{K}$. From \cref{lem:CARM fix}(i), $\hat{z} \in K$, proving the claim.
 	Finally, we have that $\left(z^{k}\right)_{k \in \NN}$ is bounded, contained in $U$, Fejér monotone with respect to $K \cap U$  and all its cluster points are in $K \cap U$. Applying \cref{fact:Fejer conv thm} establishes the desired result.
 \end{proof}
 
@@ -2463,7 +2298,7 @@ where $K=K_{1} \times K_{2} \times \cdots \times K_{m}\subset \RR^{nm}$ is the C
 
 Considering $m$ arbitrary vectors $x^{(i)}$ in $\RR^{n},$ with $i=1, \ldots, m$, we can build an arbitrary point $z=\left(x^{(1)}, x^{(2)}, \ldots, x^{(m)}\right) \in \RR^{nm}$. The projection onto $U$ is given by
 \begin{equation}
-P_{U}(z)=\frac{1}{m}\left(\sum_{i=1}^{m} x^{(i)}, \sum_{i=1}^{m} x^{(i)}, \ldots, \sum_{i=1}^{m} x^{(i)}\right)
+P_{U}(z)=\frac{1}{m}\left(\sum_{i=1}^{m} x^{(i)}, \sum_{i=1}^{m} x^{(i)}, \ldots, \sum_{i=1}^{m} x^{(i)}\right).
 \end{equation}
 \label{Pierra P_{U}}
 
@@ -2519,7 +2354,7 @@ In this section, the problem under consideration is given by
 $$
 \text { Find } z^{*} \in K_1 \cap K_2
 $$
-with $K_1, K_2$ being closed convex sets and $K_1 \cap K_2 \not = \emptyset$. Of course, this problem is more general than CFP-red (\cref{eq:KcapU}), as a subspace $U$ of $\RR^{n}$ is closed and convex.
+with $K_1, K_2$ being closed convex sets and $K_1 \cap K_2 \not = \emptyset$. We will assume that exact projections are available for $K_2$, but not for $K_1$. Of course, this problem is more general than CFP-red \cref{eq:KcapU}, since a subspace $U$ of $\RR^{n}$ is closed and convex. 
 
 We are going to establish convergence of AMAP for finding a point in the intersection of the two closed convex sets $K_1$ and $K_2$. We understand that such a result can be derived from known frameworks for inexact alternating projections; nonetheless, we present it for the sake of completeness. Other approximation techniques concerning MAP can be found, for instance, in \cite{Luke:2012, Luke:2013}.
 
@@ -2528,13 +2363,25 @@ $$
 x^{k+1}=P_{K_{2}}\tilde{P}_{K_{1}}\left(x^{k}\right), \quad k=0,1,2, \ldots
 $$
 
-MAP is a special case of AMAP and we are able to carry out a convergence analysis for AMAP resembling MAP's. We start the analysis with a Fejér monotonicity statement.
+MAP is a special case of AMAP and we are able to carry out a convergence analysis for AMAP resembling MAP's. 
+
+We note that our intention is to provide an alternative for CARM in its intended setting (CFP-red where projections onto $K$ are unavailable), in which case $K$ will play the role of $K_1$ and $U$ will play the role of $K_2$. However, in the proofs that follow, we can see that the convex set for which projections are available does need not be an affine subspace for AMAP to converge.
+
+One could develop an even more general version of AMAP, in which outer-approximate projections are employed for both convex sets. However, this would require extra effort and ultimately would not be more useful for our intended application. Expanding AMAP for a setting in which neither one of the sets has projections available is left as a suggestion for further work.
+
+We will start our analysis with a Fejér monotonicity statement.
 
 \begin{proposition}[Fejér monotonicity of AMAP sequence]\label{prop:AMAP Fejer}
 	Suppose $K_{1},K_{2} \subseteq \RR^{n}$ are closed convex sets and $K_{1} \cap K_{2} \neq \emptyset$. Let $x^{0} \in K_{2}$ be any point in $K_{2}$. Then the sequences $\left(x^{k}\right)_{k \in \NN}$ and $\left(\tilde{P}_{K_{1}}\left(x^{k}\right)\right)_{k \in \NN}$ generated by the AMAP algorithm is Fejér monotone with respect to $K_{1} \cap K_{2}$.
 \end{proposition}
 \begin{proof}
-	Let $\bar{x}$ be any point in the intersection $K_{1} \cap K_{2}$, and let $k \in \NN$. From the definition of outer-approximate projection, it easily follows that
+	Let $\bar{x}$ be any point in the intersection $K_{1} \cap K_{2}$, and let $k \in \NN$. We have that
+	\begin{align}
+		\left\|x^{k}-\bar{x}\right\|^{2} &=\left\|x^{k}-\tilde{P}_{K_1}(x^k)+\tilde{P}_{K_1}(x^k)-\bar{x}\right\|^{2} \\
+		&=\left\|x^{k}-\tilde{P}_{K_1}(x^k)\right\|^{2}+\left\|\tilde{P}_{K_1}(x^k)-\bar{x}\right\|^{2}+2\scal{x^{k}-\tilde{P}_{K_1}(x^k)}{\tilde{P}_{K_1}(x^k)-\bar{x}} \\
+		& \geq\left\|x^{k}-\tilde{P}_{K_1}(x^k)\right\|^{2}+\left\|\tilde{P}_{K_1}(x^k)-\bar{x}\right\|^{2}
+	\end{align}
+	where $-\scal{x^{k}-\tilde{P}_{K_1}(x^k)}{\tilde{P}_{K_1}(x^k)-\bar{x}}=\scal{x^{k}-\tilde{P}_{K_1}(x^k)}{\bar{x}-\tilde{P}_{K_1}(x^k)} \leq 0$ from \cref{def:approx proj}(ii). Thus, we have that
 	\begin{equation}\label{eq:AMAP fejer 1}
 		\left\|\tilde{P}_{K_{1}}\left(x^{k}\right)-\bar{x}\right\|^{2} \leq \left\|x^{k}-\bar{x}\right\|^{2} - \left\|x^{k}-\tilde{P}_{K_{1}}\left(x^{k}\right)\right\|^{2} \leq \left\|x^{k}-\bar{x}\right\|^{2}.
 	\end{equation}
@@ -2543,7 +2390,7 @@ MAP is a special case of AMAP and we are able to carry out a convergence analysi
 		\left\|x^{k+1}-\bar{x}\right\|^{2} \leq \left\|\tilde{P}_{K_{1}}\left(x^{k}\right)-\bar{x}\right\|^{2} - \left\|\tilde{P}_{K_{1}}\left(x^{k}\right)-x^{k+1}\right\|^{2} \leq \left\|\tilde{P}_{K_{1}}\left(x^{k}\right)-\bar{x}\right\|^{2}.
 	\end{equation}
 	From \cref{eq:AMAP fejer 1,eq:AMAP fejer 2}, it follows that $\left\|x^{k+1}-\bar{x}\right\| \leq \left\|x^{k}-\bar{x}\right\|$
-	and $\left\|\tilde{P}_{K_{2}}\left(x^{k+1}\right)-\bar{x}\right\| \leq \left\|\tilde{P}_{K_{2}}\left(x^{k}\right)-\bar{x}\right\|$.
+	and $\left\|\tilde{P}_{K_{1}}\left(x^{k+1}\right)-\bar{x}\right\| \leq \left\|\tilde{P}_{K_{1}}\left(x^{k}\right)-\bar{x}\right\|$.
 
 	Since $k$ and $\bar{x}$ are arbitrary, the sequences $\left(x^{k}\right)_{k \in \NN}$ and $\left(\tilde{P}_{K_{1}}\left(x^{k}\right)\right)_{k \in \NN}$ are Fejér monotone with respect to $K_1 \cap K_2$.
 \end{proof}
@@ -2555,7 +2402,7 @@ The following proposition establishes the domain of the set of the cluster point
 	\begin{proof}
 	Since the sequence $\left(x^{k}\right)_{k \in \NN}$ is Fejér monotone with respect to $K_{1} \cap K_{2}$, it is bounded. Therefore, it must have at least one cluster point.
 	
-	Let $x^{*}$ be a cluster point for the sequence $\left(x^{k}\right)_{k \in \NN}$. Since $K_{2}$ is closed, and $x^{k} \in K_{1} \ \forall k \in \NN$, then $x^{*} \in K_{2}$.
+	Let $x^{*}$ be a cluster point for the sequence $\left(x^{k}\right)_{k \in \NN}$. Since $K_{2}$ is closed, and $x^{k} \in K_{2}$ for all $k \in \NN$, then $x^{*} \in K_{2}$.
 	
 	Rearranging \cref{eq:AMAP fejer 1,eq:AMAP fejer 2}, we have that
 	\begin{align}
@@ -2566,12 +2413,12 @@ The following proposition establishes the domain of the set of the cluster point
 	$$
 	\left\|x^{0}-\bar{x}\right\|,\left\|\tilde{P}_{K_{1}}\left(x^{0}\right)-\bar{x}\right\|,\left\|x^{1}-\bar{x}\right\|,\left\|\tilde{P}_{K_{1}}\left(x^{1}\right)-\bar{x}\right\|, \ldots
 	$$
-	is decreasing; thus, it converges. Therefore, taking the limit on the left side of \cref{eq:AMAP fejer 3,eq:AMAP fejer 4} yields that $\left\|\tilde{P}_{K_{1}}\left(x^{k}\right)-x^{k}\right\|$ and $\left\|x^{k+1}-\tilde{P}_{K_{1}}\left(x^{k}\right)\right\|$ converge to zero.
+	is decreasing; thus, it converges. Therefore, taking the limit on  \cref{eq:AMAP fejer 3,eq:AMAP fejer 4} yields that $\left\|\tilde{P}_{K_{1}}\left(x^{k}\right)-x^{k}\right\|$ and $\left\|x^{k+1}-\tilde{P}_{K_{1}}\left(x^{k}\right)\right\|$ converge to zero.
 	
-	Note that
+	From \cref{def:approx proj}(i), we have that
 	\begin{align}			
 		\dist(x^{k},K_{1})&=\left\|P_{K_{1}}(x^{k})-x^{k}\right\|\\
-		&=\left\|\tilde{P}_{K_{1}}\left(x^{k}\right)-x^{k}\right\|+\dist(\tilde{P}_{K_{1}}\left(x^{k}\right),K_{1})\\
+		&\leq\left\|\tilde{P}_{K_{1}}\left(x^{k}\right)-x^{k}\right\|+\dist\left(\tilde{P}_{K_{1}}\left(x^{k}\right),K_{1}\right)\\
 		&\leq\left\|\tilde{P}_{K_{1}}\left(x^{k}\right)-x^{k}\right\|+\gamma\dist(x^{k},K_{1}) \\
 		&\leq \frac{1}{1-\gamma}\left\|\tilde{P}_{K_{1}}\left(x^{k}\right)-x^{k}\right\|, 
 	\end{align}
@@ -2601,7 +2448,7 @@ In this section, we compare CARM and AMAP for finding a point in the intersectio
 
 \subsection{Myopic comparison}\label{subsec:myopic comp}
 
-We look at CARM and AMAP acting on an arbitrary point $z$ in the affine set $U$. As previously done for CRM and MAP in \cref{subsubsec:CRM for CFP}, we will present a similar figure to illustrate how CARM and AMAP compare in a geometrical sense. In this figure, we also feature the point generated by CRM, in order to establish a reference to that method as well.
+We look at CARM and AMAP acting on an arbitrary point $z$ in the affine set $U$. As previously done for CRM and MAP in \cref{subsubsec:CRM for CFP}, we will present a similar figure to illustrate how CARM and AMAP compare in a geometrical sense. In this figure, we also feature the point generated by CRM, in order to establish a reference to that method as well. We recall that $C$ is the CRM operator and $\tilde{C}$ is the CARM operator.
 
 \begin{figure}[h!]
 	\centering
@@ -2610,9 +2457,9 @@ We look at CARM and AMAP acting on an arbitrary point $z$ in the affine set $U$.
 	\label{fig:CARM AMAP comp}
 \end{figure}
 
-We prove that CARM brings you closer to $K \cap U$ than AMAP. This result generalizes \cite[Theorem 2]{Behling:2020} (excluding DRM, due to the lack of an equivalent outer-approximate projection-based variant)and is stated formally in the following theorem.
+We prove that CARM brings you closer to $K \cap U$ than AMAP. This result generalizes \cite[Theorem 2]{Behling:2020} and is stated formally in the following theorem. We note that DRM lacks an equivalent outer-approximation based variant; by replacing the projection onto $K$ with an outer-approximate one, we are no longer assured that the sequence will remain in $U$ and, consequently, that it will converge to $K \cap U$. Thus, we only consider CARM and AMAP in this comparison.
 
-\begin{theorem}[CARM versus AMAP]\label{thm:CARM x AMAP} Assume $K, U \subset \RR^{n}$ as in  \cref{lem:CARM well-def char} and let $z \in U$ be given. Also recall the notation $z_{\mathrm{\AMAP}}\coloneqq P_{U}\tilde{P}_{K}(z)$ and $\tilde{C}(z)\coloneqq \circum \left\{z, \tilde{R}_{K}(z), R_{U} \tilde{R}_{K}(z)\right\}$.
+\begin{theorem}[CARM versus AMAP]\label{thm:CARM x AMAP} Assume $K, U \subset \RR^{n}$ are as in  \cref{lem:CARM well-def char} and let $z \in U$ be given. Also recall the notation $z_{\mathrm{\AMAP}}\coloneqq P_{U}\tilde{P}_{K}(z)$ and $\tilde{C}(z)\coloneqq \circum \left\{z, \tilde{R}_{K}(z), R_{U} \tilde{R}_{K}(z)\right\}$.
 	Then, for any $s \in K \cap U$ we have
 	\begin{listi}
 		\item $\|\tilde{C}(z)-s\| \leq\left\|z_{\AMAP}-s\right\|$;
@@ -2665,7 +2512,7 @@ Now, inspired by the results in \cite{Arefidamghani:2020}, we show that CARM ach
 Let $K \subset \RR^{n}$ be a closed and convex set  and $U \subset \RR^{n}$ an affine subspace. Assume that $K \cap U \neq \emptyset$ and there exists $\omega \in(0,1)$ such that $\dist(x, K) \geq \omega \dist\left(x, K \cap U\right)$ for all $x \in U$ and $\dist(y, U) \geq \omega \dist\left(y, K \cap U\right)$ for all $y \in K$.
 \end{assumption}
 
-To begin our convergence analysis, a corollary of the following proposition will prove that, for both methods, the sequences $\left(\dist\left(z^{k}, K \cap U\right)\right)_{k \in \NN}$ and $\left(\dist\left(x^{k}, K \cap U\right)\right)_{k \in \NN}$ both converge linearly to $0$.
+To begin our convergence analysis, a corollary of the following proposition will prove that, for both methods, the sequences $\left(\dist\left(z^{k}, K \cap U\right)\right)_{k \in \NN}$ and $\left(\dist\left(x^{k}, K \cap U\right)\right)_{k \in \NN}$ both converge linearly to $0$. For the following passages, recall that $\gamma \in [0,1)$.
 
 \begin{proposition}\label{prop:EB dist}
 	Assume that $K, U$ satisfy EB. Consider $\tilde{T}, \tilde{C}: \RR^{n} \rightarrow \RR^{n}$ as in $\tilde{T}=P_{U} \circ \tilde{P}_{K},$ $\tilde{C}(\cdot)=\circum\left(\cdot, \tilde{R}_{K}(\cdot), R_{U}\left(\tilde{R}_{K}(\cdot)\right)\right)$. Then, for all $x \in U$,
@@ -2682,14 +2529,13 @@ To begin our convergence analysis, a corollary of the following proposition will
 		&\leq \|x-P_{K \cap U}(x)\|^{2}-(1-\gamma)^2\dist^{2}(x, K) \\ &\leq (1-\omega^{2}(1-\gamma)^{2}) \dist^{2}(x, K \cap U) \label{eq:dist AMAP x KcapU}
 	\end{align}
 	for all $x \in U$,  where we use the firm quasinonexpansivity of the projection onto $U$ (\cref{def:nonexp}(iv)) and the fact that $P_{K \cap U} \in U$ to obtain the first inequality; the
-	firm quasinonexpansivity of the outer-approximate projection onto $K$ (which can easily be derived from \cref{def:approx proj}(ii)), the fact that $P_{K \cap U} \in K$, and  $K = \Fix \tilde{P}_{K}$ from \cref{lem:CARM fix}(i) give us the third inequality; finally, we employ \cref{def:approx proj}(i) and Assumption EB to obtain the last two inequalities. From \cref{eq:dist AMAP x KcapU}, we get
+	firm quasinonexpansivity of the outer-approximate projection onto $K$ (which can easily be derived from \cref{def:approx proj}(ii)), the fact that $P_{K \cap U} \in K$, and  $K = \Fix \tilde{P}_{K}$ from \cref{lem:CARM fix}(i) give us the third inequality; finally, we employ \cref{def:approx proj}(i) and Assumption EB to obtain the last two inequalities. From \cref{eq:dist AMAP x KcapU} and the definition of $P_{K \cap U}$, we get
 	\begin{align}
 		\left\|\tilde{C}(x)-P_{K \cap U}(\tilde{C}(x))\right\|^{2} & \leq\left\|\tilde{C}(x)-P_{K \cap U}(\tilde{T}(x))\right\|^{2}  \\
 		& \leq\left\|\tilde{T}(x)-P_{K \cap U}(\tilde{T}(x))\right\|^{2} \leq\left\|\tilde{T}(x)-P_{K \cap U}(x)\right\|^{2}  \\
-		& \leq\left\|x-P_{K \cap U}(x)\right\|^{2}-\omega^{2}(1-\gamma)^{2} \dist^{2}(x, K \cap U)  \\
 		&=\left(1-\omega^{2}(1-\gamma)^{2}\right)\left\|x-P_{K \cap U}(x)\right\|^{2},\label{eq:dist CARM x KcapU}
 	\end{align}
-	using the definition of $P_{K \cap U}$ in the first and third inequalities and \cref{thm:CARM x AMAP}(i) in the second inequality. \cref{eq:dist CARM x KcapU} follows immediately from \cref{eq:dist KcapU AMAP CARM}, after rewriting the appropriate terms in terms of distance, in view of the definition of $\tilde{P}_{K \cap U}$.
+	using \cref{thm:CARM x AMAP}(i) in the second inequality.  \cref{eq:dist KcapU AMAP CARM}follows immediately from \cref{eq:dist AMAP x KcapU} and \cref{eq:dist CARM x KcapU}, after rewriting the appropriate terms in terms of distance, in view of the definition of $\tilde{P}_{K \cap U}$.
 	\end{proof}
 With the corollary below, we can establish an upper bound for the asymptotic constants of Q-linear convergence for both CARM and AMAP.
 \begin{corollary}[Upper bound for asymptotic constants of CARM and AMAP under EB]\label{prop:EB Q conv}
@@ -2700,14 +2546,15 @@ With the corollary below, we can establish an upper bound for the asymptotic con
 	\begin{align}
 		\left(1-\omega^{2}(1-\gamma)^{2}\right) \dist^{2}\left(z^{k}, K \cap U\right) \geq \dist^{2}\left(z^{k+1}, K \cap U\right),
 	\end{align}
-    from which we obtain
+    from which we obtain, assuming $z^k \notin K \cap U$,
 	\begin{align}\label{eq: AMAP upper bound}
-		\frac{\dist\left(z^{k+1}, K \cap U\right)}{\dist\left(z^{k}, K \cap U\right)} \leq \sqrt{1-\omega^{2}(1-\gamma)^{2}}
+		\frac{\dist\left(z^{k+1}, K \cap U\right)}{\dist\left(z^{k}, K \cap U\right)} \leq \sqrt{1-\omega^{2}(1-\gamma)^{2}}.
 	\end{align}
-	Considering the second inequality in \cref{eq:dist KcapU AMAP CARM} and \cref{lem:CARM well-def char}, following the same steps gives us
+	Considering the second inequality in \cref{eq:dist KcapU AMAP CARM}, following the same steps gives us
 	\begin{align}\label{eq: CARM upper bound 1}
-		\frac{\dist\left(x^{k+1}, K \cap U\right)}{\dist\left(x^{k}, K \cap U\right)} \leq \sqrt{1-\omega^{2}(1-\gamma)^{2}}
+		\frac{\dist\left(x^{k+1}, K \cap U\right)}{\dist\left(x^{k}, K \cap U\right)} \leq \sqrt{1-\omega^{2}(1-\gamma)^{2}},
 	\end{align}
+	in which we also assume that $x^k \notin K\cap U$.
 	The inequalities in \cref{eq: AMAP upper bound,eq: CARM upper bound 1} imply the result.
 \end{proof}
 We remark that the result for AMAP still holds when $U$ is any closed and convex set, but for  CARM we need $U$ to be an affine subspace, as it might diverge otherwise.
@@ -2722,7 +2569,8 @@ We'll now show that, under Assumption EB, CARM achieves a linear rate with an as
 		\dist^{2}(x, K) &=\left\|x-P_{K}(x)\right\|^{2}\leq \frac{1}{(1-\gamma)^2}\left\|x-\tilde{P}_{K}(x)\right\|^{2}  \\
 		& \leq\frac{1}{(1-\gamma)^2}\left(\left\|x-y^{*}\right\|^{2}-\left\|\tilde{P}_{K}(x)-y^{*}\right\|^{2}\right) \\
 		&=\frac{1}{(1-\gamma)^2}\left(\left\|x-y^{*}\right\|^{2}-\left\|\tilde{P}_{K}(x)-\tilde{P}_{K}\left(y^{*}\right)\right\|^{2}\right)  \\
-		& \leq\frac{1}{(1-\gamma)^2}\left(\left\|x-y^{*}\right\|^{2}-\left\|P_{U}\left(\tilde{P}_{K}(x)\right)-P_{U}\left(\tilde{P}_{K}\left(y^{*}\right)\right)\right\|^{2}-\left\|P_{U}\left(\tilde{P}_{K}(x)\right)-\tilde{P}_{K}(x)\right\|^{2}\right)  \\
+		& \leq\frac{1}{(1-\gamma)^2}\left(\left\|x-y^{*}\right\|^{2}-\left\|P_{U}\left(\tilde{P}_{K}(x)\right)-P_{U}\left(\tilde{P}_{K}\left(y^{*}\right)\right)\right\|^{2}\right.\\
+		&\quad\left.-\left\|P_{U}\left(\tilde{P}_{K}(x)\right)-\tilde{P}_{K}(x)\right\|^{2}\right)  \\
 		&=\frac{1}{(1-\gamma)^2}\left(\left\|x-y^{*}\right\|^{2}-\left\|P_{U}\left(\tilde{P}_{K}(x)\right)-y^{*}\right\|^{2}-\left\|P_{U}\left(\tilde{P}_{K}(x)\right)-\tilde{P}_{K}(x)\right\|^{2}\right)\label{eq: dist^2(xK)}
 	\end{align}
 	using the firm quasinonexpansiveness of the outer-approximate projection and the fact that $y^{*} \in K$ in second inequality, and the firm nonexpansiviness of the orthogonal projection onto $U$ in the last inequality.
@@ -2734,11 +2582,12 @@ We'll now show that, under Assumption EB, CARM achieves a linear rate with an as
 	Hence,
 	$\left\langle y^{*}-\tilde{C}(x), x-\tilde{C}(x)\right\rangle \leq 0$ and since $x, P_{U}\left(\tilde{P}_{K}(x)\right)$ and $\tilde{C}(x)$ are collinear by \cref{eq:myopic 2}, we get $\left\langle y^{*}-\tilde{C}(x), P_{U}\left(\tilde{P}_{K}(x)\right)-\tilde{C}(x)\right\rangle \leq 0$. Thus,
 	\begin{equation}\label{eq: dist AMAP CARM col}
-		\left\|P_{U}\left(\tilde{P}_{K}(x)\right)-y^{*}\right\|^{2} \geq\left\|\tilde{C}(x)-y^{*}\right\|^{2}+\left\|\tilde{C}(x)-P_{U}\left(\tilde{P}_{K}(x)\right)\right\|^{2}
+		\left\|P_{U}\left(\tilde{P}_{K}(x)\right)-y^{*}\right\|^{2} \geq\left\|\tilde{C}(x)-y^{*}\right\|^{2}+\left\|\tilde{C}(x)-P_{U}\left(\tilde{P}_{K}(x)\right)\right\|^{2}.
 	\end{equation}
 	Now, \cref{eq: dist AMAP CARM col,eq: dist^2(xK)} imply
 	\begin{align}
-		\dist^{2}(x, K) & \leq\frac{1}{(1-\gamma)^2}\left(\left\|x-y^{*}\right\|^{2}-\left\|\tilde{C}(x)-y^{*}\right\|^{2}-\left\|\tilde{C}(x)-P_{U}\left(\tilde{P}_{K}(x)\right)\right\|^{2}-\left\|P_{U}\left(\tilde{P}_{K}(x)\right)-\tilde{P}_{K}(x)\right\|^{2}\right) \\
+		\dist^{2}(x, K) & \leq\frac{1}{(1-\gamma)^2}\left(\left\|x-y^{*}\right\|^{2}-\left\|\tilde{C}(x)-y^{*}\right\|^{2}-\left\|\tilde{C}(x)-P_{U}\left(\tilde{P}_{K}(x)\right)\right\|^{2}\right. \\
+		&\left.-\left\|P_{U}\left(\tilde{P}_{K}(x)\right)-\tilde{P}_{K}(x)\right\|^{2}\right) \\
 		&=\frac{1}{(1-\gamma)^2}\left(\left\|x-y^{*}\right\|^{2}-\left\|\tilde{C}(x)-y^{*}\right\|^{2}-\left\|\tilde{C}(x)-\tilde{P}_{K}(x)\right\|^{2}\right) \\
 		& \leq\frac{1}{(1-\gamma)^2}\left(\left\|x-y^{*}\right\|^{2}-\left\|\tilde{C}(x)-y^{*}\right\|^{2}-\dist^{2}(\tilde{C}(x), K)\right) \\
 		& \leq\frac{1}{(1-\gamma)^2}\left(\left\|x-y^{*}\right\|^{2}-\dist^{2}(\tilde{C}(x), K \cap U)-\dist^{2}(\tilde{C}(x), K)\right)
@@ -2746,8 +2595,10 @@ We'll now show that, under Assumption EB, CARM achieves a linear rate with an as
 	using the definition of the distance in the last two inequalities. Now, taking $y^{*}=P_{K \cap U}(x)$ and using the error bound condition for $x$ and $C(x),$ we obtain
 	\begin{align}
 		\omega^{2}\dist^{2}(x, K \cap U) &\leq \frac{1}{(1-\gamma)^2}\dist^{2}(x, K) \\
-		&\leq \frac{1}{(1-\gamma)^2}\left(\dist^{2}(x, K \cap U)-\dist^{2}(\tilde{C}(x), K \cap U)-\omega^{2}(1-\gamma)^{2} \dist^{2}(\tilde{C}(x), K \cap U)\right)  \\
-		&=\frac{1}{(1-\gamma)^2}\dist^{2}(x, K \cap U)-\frac{1}{(1-\gamma)^2}\left(1+\omega^{2}(1-\gamma)^{2}\right) \dist^{2}(\tilde{C}(x), K \cap U)\,
+		&\leq \frac{1}{(1-\gamma)^2}\left(\dist^{2}(x, K \cap U)-\dist^{2}(\tilde{C}(x), K \cap U)\right.\\
+		&\quad\left.- \omega^{2}(1-\gamma)^{2} \dist^{2}(\tilde{C}(x), K \cap U)\right)  \\
+		&=\frac{1}{(1-\gamma)^2}\dist^{2}(x, K \cap U)\\
+		&\quad-\frac{1}{(1-\gamma)^2}\left(1+\omega^{2}(1-\gamma)^{2}\right) \dist^{2}(\tilde{C}(x), K \cap U)\,
 	\end{align}
 	which we rearrange to get
 	\begin{align}
@@ -2760,7 +2611,8 @@ We'll now show that, under Assumption EB, CARM achieves a linear rate with an as
 	which implies the result.
 \end{proof}
 
-\Cref{prop:EB dist,prop:CARM linear rate} do not outright ensure that the sequences $\left(x^{k}\right)_{k \in \NN}$ and $\left(z^{k}\right)_{k \in \NN}$ themselves converge linearly; a sequence $\left(y^{k}\right)_{k \in \NN} \subset \RR^{n}$ may converge to a point $y \in M \subset \RR^{n},$ in such a way that $\left(\dist\left(y^{k}, M\right)\right)_{k \in \NN}$ converges linearly to 0 but $\left(y^{k}\right)_{k \in \NN}$ itself converges sublinearly. However, the following fact establishes that this can not occur when $\left(y^{k}\right)_{k \in \NN}$ is Fejér monotone with respect to $M$ and assures that the sequences converge R-linearly.
+\Cref{prop:EB dist,prop:CARM linear rate} do not outright ensure that the sequences $\left(x^{k}\right)_{k \in \NN}$ and $\left(z^{k}\right)_{k \in \NN}$ themselves converge linearly; a sequence $\left(y^{k}\right)_{k \in \NN} \subset \RR^{n}$ may converge to a point $y \in M \subset \RR^{n},$ in such a way that $\left(\dist\left(y^{k}, M\right)\right)_{k \in \NN}$ converges linearly to 0 but $\left(y^{k}\right)_{k \in \NN}$ itself converges sublinearly. For example, consider $M=\left\{(s, 0) \in \mathbb{R}^{2}\right\}, y^{k}=\left(1 / k, 2^{-k}\right)$. This sequence converges to $0 \in M$, $\operatorname{dist}\left(y^{k}, M\right)=2^{-k}$ converges
+linearly to 0 with asymptotic constant equal to $1/2$, but the first component of $y^{k}$ converges to 0 sublinearly, and hence the same holds for the sequence $\left(y^{k}\right)_{k \in \mathbb{N}}$. However, the following fact establishes that this can not occur when $\left(y^{k}\right)_{k \in \NN}$ is Fejér monotone with respect to $M$ and assures that the sequences converge R-linearly.
 
 \begin{fact}\label{fact:lemma EB conv}
 	Consider $M \subset \RR^{n},\left(y^{k}\right)_{k \in \NN} \subset \RR^{n} .$ Assume that $\left(y^{k}\right)_{k \in \NN}$ is Fejér monotone with respect to $M,$ and that $\left(\operatorname{dist}\left(y^{k}, M\right)\right)_{k \in \NN}$ converges $R$ -linearly to $0 .$ Then $\left(y^{k}\right)_{k \in \NN}$ converges $R$ -linearly to some point $y^{*} \in M,$ with asymptotic constant bounded above by the asymptotic constant of $\left(\operatorname{dist}\left(y^{k}, M\right)\right)_{k \in \NN}$.
@@ -2837,7 +2689,7 @@ As a first basic application, we'll see how CARM performs when projecting from t
 \subsubsection{Toy example with explicit calculations}
 Consider $f:\RR_{+} \rightarrow \RR_{+}$ given by $f(x)=x^2$, with $\epi f = \{(x,y) \in \RR^{2}_{+} \mid x^2 \leq y\}$. Since $f(x)$ is convex, so is its epigraph. Finding points in $\epi f$ is equivalent to solving $g(x,y)=x^2-y \leq 0$.
 
-Let $a^0 \in \RR, a^0>0$ be arbitrary but fixed. Setting $K = g(x,y) \leq 0$, $U = \{(a,0) \in \RR^{2} \mid a>0\}$ and starting in $x^0=(a^0,0) \in U$, we have by \cref{thm:CARM conv,thm:AMAP conv} that sequences generated by AMAP and CARM, initialized in $x^0$, will converge to a point $z^* \in K \cap U$; trivially, $z^*=(0,0)$, is the only solution.
+Let $a^0 \in \RR, a^0>0$ be arbitrary but fixed. Setting $K = g(x,y) \leq 0$, $U = \{(a,0) \in \RR^{2} \mid a \in \RR \}$ and starting in $x^0=(a^0,0) \in U$ with $a^0>0$, we have by \cref{thm:CARM conv,thm:AMAP conv} that sequences generated by AMAP and CARM, initialized in $x^0$, will converge to a point $z^* \in K \cap U$; trivially, $z^*=(0,0)$, is the only solution.
 
 Note that $g$ is convex, differentiable and has a Slater point in $(0,1)$, since $g(0,1)<0$. Using calculus, we find that $\partial g(x,y)=\{(2x,-1)\}$, which is well-defined for all $(x,y) \in \RR^{2}$. Therefore, we can use \cref{prop:approx proj formula} to obtain an outer-approximate projection $\tilde{p}(x)$. We will describe the general step of the CARM iteration for this problem.
 
@@ -2861,9 +2713,11 @@ From \cref{lem:CARM well-def char}, since $\tilde{p}(x)$ is an outer-approximate
 \end{align}
 which gives us that $b = \frac{a}{2}$. Thus, $\tilde{C}(x)=\left(\frac{a}{2},0\right)$.
 
-Therefore, the sequence $(x^{k}_{CARM})_{k \in \NN}$ generated by CARM starting on $x^0=(a^0,0)$ is such that $x^{k}_{CARM}=\left(\frac{a^0}{2^k}\right)$, for all $k \in \NN$. For $k$ sufficiently large, this sequence clearly converges to $(0,0)$, which is the only solution.
+Therefore, the sequence $(x^{k}_{CARM})_{k \in \NN}$ generated by CARM starting on $x^0=(a^0,0)$ is such that $x^{k}_{CARM}=\left(\frac{a^0}{2^k}\right)$, for all $k \in \NN$. This sequence clearly converges to $(0,0)$, which is the only solution.
 
-Comparatively, the sequence generated by AMAP $(x^{k}_{AMAP})_{k \in \NN}$, if also starting on $x^0=(a^0,0)$, would have the $k$-th element be $x^{k}_{AMAP}=\left(\frac{2a^3+a}{4a^2+1},0\right)$. Thus, it can be easily seen that AMAP's sequence also converges to $(0,0)$, albeit slower than CARM's.
+
+
+Comparatively, the sequence generated by AMAP $(x^{k}_{AMAP})_{k \in \NN}$, if also starting on $x^0=(a^0,0)$, would have the $k$-th element be $x^{k}_{AMAP}=\left(\frac{2{a^{k}}^3+{a^{k}}}{4{a^{k}}^2+1},0\right)$, where $a_k=\frac{2{a^{k-1}}^3+{a^{k-1}}}{4{a^{k-1}}^2+1}$ for $k \geq 1$. Thus, it can be easily seen that AMAP's sequence also converges to $(0,0)$, albeit slower than CARM's.
 
 In this setting, exact projections are available and can be obtained by solving a minimization problem.
 
