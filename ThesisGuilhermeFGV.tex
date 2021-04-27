@@ -123,7 +123,7 @@
 \linenomathpatchAMS{alignat}
 \linenomathpatchAMS{flalign}
 
-%\linenumbers
+\linenumbers
 
 \usepackage{pdfpages}
 
@@ -428,7 +428,7 @@ We start this subsection by reminding the definition of projection and reflectio
 	where $p \in P_{X}(x)$ is called a projection of $x$ onto $X$ or a best approximation of $x$ from $X$.\\
 	The reflection operator (or reflector) with respect to $X$ is the operator $R_{S}: \RR^n \rightarrow \RR^n$ given by
 	\[
-	R_{X}:=2P_{X}-\operatorname{Id}
+	R_{X}:=2P_{X}-\operatorname{Id}.
 	\]
 \end{definition}
 
@@ -438,7 +438,7 @@ However, for convex sets, as is of our interest, we have that $P_{X}$ is a nonem
 \begin{fact}[Projection theorem]\label{fact:proj thm}
 	Let $K \subseteq \RR^{n}$ be nonempty, closed and convex. Then $K$ is a Chebyshev set (that is, every point $x \in K$ has an unique projection $p$) and
 	\begin{equation}
-		p=P_{K}(x) \iff p \in K \text { and }\langle y-p, x-p\rangle \leq 0 \text { for all } y \in K
+		p=P_{K}(x) \iff p \in K \text { and }\langle y-p, x-p\rangle \leq 0 \text { for all } y \in K.
 	\end{equation}
 \end{fact}
 \begin{proof}
@@ -2473,11 +2473,11 @@ We prove that CARM brings you closer to $K \cap U$ than AMAP. This result genera
 	Now, note that $P_{U}\tilde{P}_{K}(z)$, $z$ and $\tilde{C}(z)$ are collinear, since both $P_{U} \tilde{P}_{K}(z)$ and $\tilde{C}(z)$ lie in the semi-line starting at $z$ and passing through $P_{U}\tilde{R}_{K}(z)=\frac{1}{2}\left(\tilde{R}_{K}(z)+R_{U}\tilde{R}_{K}(z)\right)$. In fact, this semi-line contains the circumcenter $\tilde{C}(z)$ as it is a bisector of the isosceles triangle $\triangle{[z, \tilde{R}_{K}(z),R_{U}\tilde{R}_{K}(z)]}$. Since $P_{U}$ is a linear operator \cref{fact:aff proj} $z \in U$, we have that
 	\begin{align}
 		z_{\mathrm{\AMAP}} &=P_{U} \tilde{P}_{K}(z)=P_{U}\left(\frac{1}{2}\left(z+\tilde{R}_{K}(z)\right)\right)=\frac{1}{2} P_{U}\left(z+\tilde{R}_{K}(z)\right) \\
-		&=\frac{1}{2}\left(P_{U}(z)+P_{U} \tilde{R}_{K}(z)\right)=\frac{1}{2}\left(z+P_{U} \tilde{R}_{K}(z)\right)
+		&=\frac{1}{2}\left(P_{U}(z)+P_{U} \tilde{R}_{K}(z)\right)=\frac{1}{2}\left(z+P_{U} \tilde{R}_{K}(z)\right).
 	\end{align}
 	Thus, $z_{\AMAP}$ is a convex combination of $z$ and $P_{U}\tilde{R}_{K}(z)$ with parameter $\frac{1}{2}$. Therefore, we have more than just collinearity of $z, \tilde{C}(z)$ and $z_{\AMAP}$. Both $\tilde{C}(z)$ and $z_{\AMAP}$ lie on the semi-line starting at $z$ and passing through $P_{U}\tilde{R}_{K}(z)$. This means that $z$ cannot lie between $\tilde{C}(z)$ and $z_{\AMAP}$ and, in view of \cref{eq:myopic 1}, the only remaining possibility is that $z_{\AMAP}$ is a convex combination of $\tilde{C}(z)$ and $z$, that is, there exists a parameter $r \in[0,1]$ such that
 	\begin{equation}
-		z_{\AMAP}=r\tilde{C}(z)+(1-r)z
+		z_{\AMAP}=r\tilde{C}(z)+(1-r)z.
 	\end{equation}
 	and
 	\begin{equation}
@@ -2485,22 +2485,22 @@ We prove that CARM brings you closer to $K \cap U$ than AMAP. This result genera
 	\end{equation}
 	$r$ must be strictly larger than zero;  otherwise $z$ would be in $K \cap U$. Thus,
 	\begin{equation}\label{eq:myopic 2}
-		z_{\AMAP}-C(z)=\frac{1-r}{r}\left(z-z_{\AMAP}\right)
+		z_{\AMAP}-C(z)=\frac{1-r}{r}\left(z-z_{\AMAP}\right).
 	\end{equation}
 	This equation will be properly combined with the following inner product manipulations
 	\begin{align}
 		\scal{z-z_{\AMAP}}{\tilde{C}(z)-s}=&\scal{z-\tilde{P}_{K}(z)}{\tilde{C}(z)-s}+\scal{\tilde{P}_{K}(z)-z_{\AMAP}}{\tilde{C}(z)-s} \notag \\
 		=&\scal{z-\tilde{P}_{K}(z)}{\tilde{C}(z)-\tilde{P}_{K}(z)}+\underbrace{\scal{z-\tilde{P}_{K}(z)}{\tilde{P}_{K}(z)-s}}_{\geq 0} \notag \\
 		&+\underbrace{\scal{\tilde{P}_{K}(z)-z_{\AMAP}}{\tilde{C}(z)-s)}}_{=0}  \\
-		\geq 0\label{eq:myopic 3}
+		\geq 0. \label{eq:myopic 3}
 	\end{align}
 	The first under-brace equality follows as a consequence of the property outlined in \Cref{def:approx proj}(ii). The last under-brace remark holds since $\tilde{P}_{K}(z)-z_{\AMAP}$ is orthogonal to the subspace $U$ and both $\tilde{C}(z)$ and $s$ are in $U $. Now, inequality \cref{eq:myopic 3} together with equation \cref{eq:myopic 2} give us
 	\begin{equation}
-		\scal{z_{\AMAP}-C(z)}{s-C(z)}=\frac{1-r}{r}\scal{z-z_{\AMAP}}{s-C(z)} \leq 0
+		\scal{z_{\AMAP}-C(z)}{s-C(z)}=\frac{1-r}{r}\scal{z-z_{\AMAP}}{s-C(z)} \leq 0,
 	\end{equation}
 	which, due to the cosine rule, leads to $\|\tilde{C}(z)-s\| \leq\|z_{\AMAP}-s\|$ for any $s \in K \cap U$. Taking this into account and letting $\hat{z}, \tilde{z} \in K \cap U$ realize the distance of $\tilde{C}(z), z_{\AMAP}$ to $K \cap U$, respectively, we have
 	\begin{equation}
-		\dist(\tilde{C}(z), K \cap U)=\|\tilde{C}(z)-\hat{z}\| \leq\|\tilde{C}(z)-\tilde{z}\| \leq\|z_{\AMAP}-\tilde{z}\|=\dist(z _{\AMAP}, K \cap U)	
+		\dist(\tilde{C}(z), K \cap U)=\|\tilde{C}(z)-\hat{z}\| \leq\|\tilde{C}(z)-\tilde{z}\| \leq\|z_{\AMAP}-\tilde{z}\|=\dist(z _{\AMAP}, K \cap U),	
 	\end{equation}
 	proving the first inequalities in items (i) and (ii).
 \end{proof}
@@ -2571,7 +2571,7 @@ We'll now show that, under Assumption EB, CARM achieves a linear rate with an as
 		&=\frac{1}{(1-\gamma)^2}\left(\left\|x-y^{*}\right\|^{2}-\left\|\tilde{P}_{K}(x)-\tilde{P}_{K}\left(y^{*}\right)\right\|^{2}\right)  \\
 		& \leq\frac{1}{(1-\gamma)^2}\left(\left\|x-y^{*}\right\|^{2}-\left\|P_{U}\left(\tilde{P}_{K}(x)\right)-P_{U}\left(\tilde{P}_{K}\left(y^{*}\right)\right)\right\|^{2}\right.\\
 		&\quad\left.-\left\|P_{U}\left(\tilde{P}_{K}(x)\right)-\tilde{P}_{K}(x)\right\|^{2}\right)  \\
-		&=\frac{1}{(1-\gamma)^2}\left(\left\|x-y^{*}\right\|^{2}-\left\|P_{U}\left(\tilde{P}_{K}(x)\right)-y^{*}\right\|^{2}-\left\|P_{U}\left(\tilde{P}_{K}(x)\right)-\tilde{P}_{K}(x)\right\|^{2}\right)\label{eq: dist^2(xK)}
+		&=\frac{1}{(1-\gamma)^2}\left(\left\|x-y^{*}\right\|^{2}-\left\|P_{U}\left(\tilde{P}_{K}(x)\right)-y^{*}\right\|^{2}-\left\|P_{U}\left(\tilde{P}_{K}(x)\right)-\tilde{P}_{K}(x)\right\|^{2}\right), \label{eq: dist^2(xK)}
 	\end{align}
 	using the firm quasinonexpansiveness of the outer-approximate projection and the fact that $y^{*} \in K$ in second inequality, and the firm nonexpansiviness of the orthogonal projection onto $U$ in the last inequality.
 	
@@ -2598,7 +2598,7 @@ We'll now show that, under Assumption EB, CARM achieves a linear rate with an as
 		&\leq \frac{1}{(1-\gamma)^2}\left(\dist^{2}(x, K \cap U)-\dist^{2}(\tilde{C}(x), K \cap U)\right.\\
 		&\quad\left.- \omega^{2}(1-\gamma)^{2} \dist^{2}(\tilde{C}(x), K \cap U)\right)  \\
 		&=\frac{1}{(1-\gamma)^2}\dist^{2}(x, K \cap U)\\
-		&\quad-\frac{1}{(1-\gamma)^2}\left(1+\omega^{2}(1-\gamma)^{2}\right) \dist^{2}(\tilde{C}(x), K \cap U)\,
+		&\quad-\frac{1}{(1-\gamma)^2}\left(1+\omega^{2}(1-\gamma)^{2}\right) \dist^{2}(\tilde{C}(x), K \cap U),
 	\end{align}
 	which we rearrange to get
 	\begin{align}
@@ -2606,7 +2606,7 @@ We'll now show that, under Assumption EB, CARM achieves a linear rate with an as
 	\end{align}
 	Since $x^{k+1}=\tilde{C}\left(x^{k}\right)$, we have
 	\begin{equation}
-		\frac{\dist\left(x^{k+1}, K \cap U\right)}{\dist\left(x^{k}, K \cap U\right)} \leq 	\sqrt{\frac{1-\omega^{2}(1-\gamma)^{2}}{1+\omega^{2}(1-\gamma)^{2}}}
+		\frac{\dist\left(x^{k+1}, K \cap U\right)}{\dist\left(x^{k}, K \cap U\right)} \leq 	\sqrt{\frac{1-\omega^{2}(1-\gamma)^{2}}{1+\omega^{2}(1-\gamma)^{2}}},
 	\end{equation}
 	which implies the result.
 \end{proof}
@@ -2627,12 +2627,12 @@ linearly to 0 with asymptotic constant equal to $1/2$, but the first component o
 	\begin{align}
 		\left\|y^{k}-y^{*}\right\|
 		&\leq \left\|y^{k}-P_{M}\left(y^{k}\right)\right\|+\left\|P_{M}\left(y^{k}\right)-y^{*}\right\| \\
-		&=\operatorname{dist}\left(y^{k}, M\right)+\left\|y^{*}-P_{M}\left(y^{k}\right)\right\| \leq 2 \dist\left(y^{k}, M\right) \label{eq:EB conv lemma 2}
+		&=\operatorname{dist}\left(y^{k}, M\right)+\left\|y^{*}-P_{M}\left(y^{k}\right)\right\| \leq 2 \dist\left(y^{k}, M\right). \label{eq:EB conv lemma 2}
 	\end{align}
 	Taking $k$th-root and then $\limsup$ with $k \rightarrow \infty$ in \cref{eq:EB conv lemma 2} and using the R-linearity hypothesis,
 	\begin{align}
 		\limsup _{k \rightarrow \infty}\left\|y^{k}-y^{*}\right\|^{1 / k} & \leq \limsup _{k \rightarrow \infty} 2^{1/k} \dist\left(y^{k}, M\right)^{1/k} \\
-		&=\limsup _{k \rightarrow \infty} \dist\left(y^{k}, M\right)^{1/k}<1.
+		&=\limsup _{k \rightarrow \infty} \dist\left(y^{k}, M\right)^{1/k}<1,
 	\end{align}
 	establishing both that $\left(y^{k}\right)_{k \in \NN}$ converges R-linearly to $y^{*} \in M$ and the statement on the asymptotic constant.
 \end{proof}
@@ -2662,10 +2662,10 @@ The following proposition, based on \cite{Fukushima:1983},  provides a special o
 
 \begin{proposition}[Subgradient formula for outer-approximate projections]\label{prop:approx proj formula}
 	Suppose that $g: \RR^{n} \rightarrow \RR$ is a convex function and that there exists some $\hat{x} \in \RR^{n}$ with $g(\hat{x})<0$ (Slater condition). Let $v: \RR^{n} \rightarrow \RR^{n}$ denote a mapping with $v(x) \in \partial g(x)$ for any $x \in \RR^{n} .$ Moreover, let the mapping $\tilde{p}: \RR^{n} \rightarrow \RR^{n}$ be defined
-	pointwise, with $\tilde{p}(x)$ being the unique solution of the problem.
+	pointwise, with $\tilde{p}(x)$ being the unique solution of the problem
 	
 	\begin{equation}
-		\min _{p}\|p-x\| \quad \text { s.t. } \quad g(x)+v(x)^{\top}(p-x) \leq 0
+		\min _{p}\|p-x\| \quad \text { s.t. } \quad g(x)+v(x)^{\top}(p-x) \leq 0.
 	\end{equation}
 	
 	Then, the following assertions hold:
@@ -2709,7 +2709,7 @@ From \cref{lem:CARM well-def char}, since $\tilde{p}(x)$ is an outer-approximate
 	=&\scal{\left(\frac{4a^2b+b}{4a^2+1},0\right)-\left(\frac{2a^3+a}{4a^2+1},\frac{a^2}{4a^2+1}\right)}{\left(\frac{4a^3+a}{4a^2+1},0\right)-\left(\frac{2a^3+a}{4a^2+1},\frac{a^2}{4a^2+1}\right)} \\
 	=&\scal{\left(\frac{-2a^3+4a^2b-a+b}{4a^2+1},\frac{-a^2}{4a^2+1}\right)}{\left(\frac{2a^3}{4a^2+1},\frac{-a^2}{4a^2+1}\right)} \\
 	=&\frac{(-2a^3+4a^2b-a+b)(2a^3)+a^4}{(4a^2+1)^2} \\
-	=&\frac{-a^3(4a^2+1)(a-2b)}{(4a^2+1)^2}=0.
+	=&\frac{-a^3(4a^2+1)(a-2b)}{(4a^2+1)^2}=0,
 \end{align}
 which gives us that $b = \frac{a}{2}$. Thus, $\tilde{C}(x)=\left(\frac{a}{2},0\right)$.
 
@@ -2755,7 +2755,7 @@ The problem under consideration for our numerical experiments is the CFP of find
 
 Formally, let $K_{\alpha}=\epi(f_{\alpha})$, where $f_{\alpha}:\RR^{n} \rightarrow \RR$ is given by $f_{\alpha}(x)=\scal{\alpha x}{x}, \alpha \in \RR_{+}$, and let $U_{A,b}: \{x \in \RR^n \mid Ax=b\}$, where $A \in \RR^{n+1}$ is the matrix $A=[\underbrace{0, \ldots, 0}_{n \text{ times}},1]$ and $b \in \RR_{+}$. Clearly, $K_{\alpha}$ is a closed convex set and $U_{A, b}$ is an affine subspace. Then the problem is question can be written as the CFP
 \[
-\text{Find } x^{*} \in S:=K_{\alpha} \cap U_{A,b}.
+\text{Find } x^{*} \in S:=K_{\alpha} \cap U_{A,b}
 \]
 
 We split our tests in two categories, which differ in one important aspect.
